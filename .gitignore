@@ -1,0 +1,20 @@
+# Visual Studio project files and folders
+**/packages/
+**/obj/
+**/bin/
+**/output/
+**/Generated/
+**/.vs/
+*.lock.json
+*.nuget.targets
+*.user
+
+# Eclipse project files and folders
+.classpath
+.project
+.checkstyle
+**/target/
+**/.settings
+**/target/
+**/bin/
+rebel.xml
