@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Your.ProdAreaManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="auto"  Width="auto">
+    <Grid Margin="10,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView HorizontalAlignment="Stretch" x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableProdArea ,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedProdArea}">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Visible" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView x:Name="grdNames">
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding P_objName}"/>
+                    <GridViewColumn Header="Description"  DisplayMemberBinding="{Binding P_description}"/>
+                    <GridViewColumn Header="Communication ID"  DisplayMemberBinding="{Binding P_ComID}"/>
+                    <GridViewColumn Header="Type"  DisplayMemberBinding="{Binding P_Type}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" Width="auto">
+            <TextBlock x:Name="lblb_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
+            <TextBox x:Name="txtb_objName" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_objName}"></TextBox>
+            <TextBlock x:Name="lblb_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
+            <TextBox x:Name="txtb_objDes" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_description}"></TextBox>
+            <TextBlock x:Name="lblB_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Communication ID:"></TextBlock>
+            <TextBox x:Name="txtB_ComID" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_ComID}"></TextBox>
+            <TextBlock x:Name="lblB_Unit" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Type:"></TextBlock>
+            <TextBox x:Name="txtB_Unit" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_Type}"></TextBox>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="0" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Production Area"/>
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="1" x:Name="btnDelete" Content="Delete selected Item" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

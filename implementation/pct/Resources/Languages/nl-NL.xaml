@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+
+    <!--  ViewModels  -->
+    <system:String x:Key="ABC">ABC Pagina</system:String>
+    <system:String x:Key="ABCDescription">Jouw beschrijving van deze pagina</system:String>
+
+    <!--  User messages  -->
+    <system:String x:Key="OneRunningInstance">Er is maar 1 instantie van {0} toegestaan.</system:String>
+    <system:String x:Key="Message">Bericht</system:String>
+
+    <!--  Settings  -->
+    <system:String x:Key="Settings">Instellingen</system:String>
+    <system:String x:Key="Save">Bewaar</system:String>
+    <system:String x:Key="Apply">Pas toe</system:String>
+    <system:String x:Key="Undo">Herstel</system:String>
+    <system:String x:Key="Cancel">Annuleer</system:String>
+
+    <!--  Select Page  -->
+    <system:String x:Key="SelectPage">Selecteer een pagina</system:String>
+    <system:String x:Key="Select">Selecteer</system:String>
+
+    <!--  Languages  -->
+    <system:String x:Key="LanguageSettings">Taal</system:String>
+    <system:String x:Key="SelectLanguage">Selecteer een taal:</system:String>
+
+    <!--  User Roles  -->
+    <system:String x:Key="UserRoleSettings">Gebruikersrol</system:String>
+    <system:String x:Key="UserRoleRestart">Heropen de pagina(s) wanneer een andere gebruikersrol is geselecteerd.</system:String>
+    <system:String x:Key="SelectUserRole">Selecteer een rol:</system:String>
+    <system:String x:Key="Developer">Ontwikkelaar</system:String>
+    <system:String x:Key="Supervisor">Beheerder</system:String>
+    <system:String x:Key="Service">Onderhoud</system:String>
+    <system:String x:Key="Operator">Gebruiker</system:String>
+    <system:String x:Key="Guest">Gast</system:String>
+
+</ResourceDictionary>
