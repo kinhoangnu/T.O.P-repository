@@ -18,12 +18,13 @@ namespace Your
 {
     class ProcessManagerViewModel : ContentViewModel
     {
-        #region Fields
+        #region Fields and auto-implement properties
         private Process selectedProcess;
 
         private ObservableCollection<Process> _observableProcess;
         private ObservableCollection<Buffer> _observableBuffer;
         private ObservableCollection<ProdArea> _observableProdArea;
+        private Process _tobeEditedItem;
 
         public ProcessList PClist;
         public BufferList Blist;
@@ -31,6 +32,7 @@ namespace Your
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
+        public RelayCommand UpdateCommand { get; private set; }
         #endregion
 
         #region Constructor
@@ -38,19 +40,20 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
+            this.UpdateCommand = new RelayCommand((obj) => Update());
             PClist = new ProcessList();
             Blist = new BufferList();
             Plist = new ProdAreaList();
             ObservableBuffer = new ObservableCollection<Buffer>();
             ObservableProcess = new ObservableCollection<Process>();
             ObservableProdArea = new ObservableCollection<ProdArea>();
-            ObservableProdArea = Plist.ProdAreas;
-            ObservableBuffer = Blist.GetBufferList();
+            ObservableProdArea = ProdAreaList.GetProdAreaList();
+            ObservableBuffer = BufferList.GetBufferList();
             ObservableProcess = PClist.Processes;
             this.SelectedProcess = ObservableProcess.FirstOrDefault();
         }
         #endregion
-       
+
         #region Properties
         public ObservableCollection<Process> ObservableProcess
         {
@@ -60,81 +63,104 @@ namespace Your
 
         public ObservableCollection<Buffer> ObservableBuffer
         {
-            get { return _observableBuffer; }
-            set { ChangeProperty(ref _observableBuffer, value); }
+            get { return BufferList.Buffers; }
+            set { _observableBuffer = value; }
         }
 
         public ObservableCollection<ProdArea> ObservableProdArea
         {
-            get { return _observableProdArea; }
+            get { return ProdAreaList.ProdAreas; }
             set { ChangeProperty(ref _observableProdArea, value); }
+        }
+
+        /// <summary>
+        /// Item that is being filled on the input controls
+        /// </summary>
+        public Process TobeEditedItem
+        {
+            get { return _tobeEditedItem; }
+            set
+            {
+                ChangeProperty(ref _tobeEditedItem, value);
+            }
+        }
+
+        /// <summary>
+        /// Item that is being selected on the list
+        /// </summary>
+        public Process SelectedProcess
+        {
+            get { return selectedProcess; }
+            set
+            {
+                selectedProcess = value;
+                if (SelectedProcess != null)
+                {
+                    TobeEditedItem = new Process()
+                    {
+                        PC_objName = SelectedProcess.PC_objName,
+                        PC_description = SelectedProcess.PC_description,
+                        PC_ComID = SelectedProcess.PC_ComID,
+                        ProdRef = SelectedProcess.ProdRef,
+                        EditProdRef = SelectedProcess.ProdRef,
+                        EditInbufferRef = SelectedProcess.InbufferRef,
+                        EditOutbufferRef = SelectedProcess.OutbufferRef,
+                        IsReplenished = SelectedProcess.IsReplenished,
+                        ExclFromKPI = SelectedProcess.ExclFromKPI
+                    };
+                }
+            }
         }
         #endregion
 
         #region Methods
         
-        public Process SelectedProcess
+        /// <summary>
+        /// Update current selected item
+        /// </summary>
+        public void Update()
         {
-            get { return selectedProcess; }
-            set { ChangeProperty(ref selectedProcess, value); }
+            if (SelectedProcess != null && SelectedProcess != TobeEditedItem)
+            {
+                SelectedProcess.PC_objName = TobeEditedItem.PC_objName;
+                SelectedProcess.PC_description = TobeEditedItem.PC_description;
+                SelectedProcess.PC_ComID = TobeEditedItem.PC_ComID;
+                SelectedProcess.ProdRef.P_objName = TobeEditedItem.EditProdRef.editP_objName;
+                SelectedProcess.InbufferRef.B_objName = TobeEditedItem.EditInbufferRef.editB_objName;
+                SelectedProcess.OutbufferRef.B_objName = TobeEditedItem.EditOutbufferRef.editB_objName;
+                SelectedProcess.IsReplenished = TobeEditedItem.IsReplenished;
+                SelectedProcess.ExclFromKPI = TobeEditedItem.ExclFromKPI;
+            }
         }
 
+        /// <summary>
+        /// Add a new item with properties filled by the input controls
+        /// </summary>
         public void Add()
         {
+            TobeEditedItem.EditInbufferRef.B_objName = TobeEditedItem.EditInbufferRef.editB_objName;
             this.ObservableProcess.Add(new Process()
             {
-                PC_objName = this.SelectedProcess.PC_objName,
-                PC_description = this.SelectedProcess.PC_description,
-                PC_ComID = this.SelectedProcess.PC_ComID,
-                ProdRef = this.SelectedProcess.ProdRef,
-                InbufferRef = this.SelectedProcess.InbufferRef,
-                OutbufferRef = this.SelectedProcess.OutbufferRef,
-                IsReplenished = this.SelectedProcess.IsReplenished,
-                ExclFromKPI = this.SelectedProcess.ExclFromKPI
+                PC_objName = this.TobeEditedItem.PC_objName,
+                PC_description = this.TobeEditedItem.PC_description,
+                PC_ComID = this.TobeEditedItem.PC_ComID,
+                ProdRef = this.TobeEditedItem.EditProdRef,
+                InbufferRef = this.TobeEditedItem.EditInbufferRef,
+                OutbufferRef = this.TobeEditedItem.EditOutbufferRef,
+                IsReplenished = this.TobeEditedItem.IsReplenished,
+                ExclFromKPI = this.TobeEditedItem.ExclFromKPI
             });
             this.PClist.Processes = this.ObservableProcess;
         }
 
+        /// <summary>
+        /// Delete current selected item
+        /// </summary>
         public void Delete()
-        {
-            this.ObservableProcess.Remove(this.selectedProcess);
+        {            
+            this.ObservableProcess.Remove(this.SelectedProcess);
         }
-
-        private ICommand mUpdater;
-        public ICommand UpdateCommand
-        {
-            get
-            {
-                if (mUpdater == null)
-                    mUpdater = new Updater();
-                return mUpdater;
-            }
-            set
-            {
-                mUpdater = value;
-            }
-        }
-
-        private class Updater : ICommand
-        {
-            #region ICommand Members
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public event EventHandler CanExecuteChanged;
-
-            public void Execute(object parameter)
-            {
-
-            }
-
-            #endregion
-        }       
-
-        #endregion      
+        #endregion
 
     }
 }

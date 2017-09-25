@@ -11,16 +11,17 @@ namespace Your
     {
         private Guid uuid;
 
+        private string p_objName;
+        private string editp_objName;
+        private string p_comID;
+        private string p_type;
+        private string p_description;
+
         public Guid Uuid
         {
             get { return uuid; }
             set { uuid = value; }
         }
-        private string p_objName;
-        private string p_comID;
-        private string p_type;
-        private string p_description;
-
         public string P_description
         {
             get
@@ -32,7 +33,6 @@ namespace Your
                 ChangeProperty(ref p_description, value);
             }
         }
-
         public string P_objName
         {
             get
@@ -42,6 +42,17 @@ namespace Your
             set
             {
                 ChangeProperty(ref p_objName, value);
+            }
+        }
+        public string editP_objName
+        {
+            get
+            {
+                return editp_objName;
+            }
+            set
+            {
+                ChangeProperty(ref editp_objName, value);
             }
         }
         public string P_ComID

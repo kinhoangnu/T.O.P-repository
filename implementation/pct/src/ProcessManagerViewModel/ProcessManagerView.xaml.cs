@@ -16,16 +16,14 @@ using System.Windows.Shapes;
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for ABCView.xaml
+    /// Interaction logic for ProcessManagerView.xaml
     /// </summary>
     public partial class ProcessManagerView : UserControl
     {
-        ProcessList processes = new ProcessList();
-        BufferList bList = new BufferList();
         public ProcessManagerView()
         {
             InitializeComponent();
-        }
-
+        }        
+                
     }
 }

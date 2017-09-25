@@ -20,7 +20,7 @@ using com.vanderlande.wpf;
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for ABCView.xaml
+    /// Interaction logic for ProdAreaManagerView.xaml
     /// </summary>
     public partial class ProdAreaManagerView : UserControl
     {

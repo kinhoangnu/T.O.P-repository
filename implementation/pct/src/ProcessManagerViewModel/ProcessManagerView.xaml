@@ -13,7 +13,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListView x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableProcess}" SelectedItem="{Binding SelectedProcess}">
+        <ListView x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableProcess}" SelectedItem="{Binding SelectedProcess, Mode=TwoWay}">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
@@ -34,28 +34,29 @@
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0">
             <TextBlock x:Name="lblpc_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtpc_objName" Text="{Binding ElementName=lstNames, Path=SelectedItem.PC_objName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox x:Name="txtpc_objName" Text="{Binding TobeEditedItem.PC_objName}"></TextBox>
             <TextBlock x:Name="lblpc_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
-            <TextBox x:Name="txtpc_objDes" Text="{Binding ElementName=lstNames, Path=SelectedItem.PC_description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox x:Name="txtpc_objDes" Text="{Binding TobeEditedItem.PC_description}"></TextBox>
             <TextBlock x:Name="lblPC_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtPC_ComID" Text="{Binding ElementName=lstNames, Path=SelectedItem.PC_ComID, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox x:Name="txtPC_ComID" Text="{Binding TobeEditedItem.PC_ComID}"></TextBox>
             <TextBlock x:Name="lblP_ProdArea" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Production Area:"></TextBlock>
-            <ComboBox SelectedIndex="1" Text="{Binding ElementName=lstNames, Path=SelectedItem.ProdRef.P_objName, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
+            <ComboBox x:Name="cb_Prodref" SelectedIndex="1" Text="{Binding TobeEditedItem.EditProdRef.editP_objName}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
             <TextBlock x:Name="lblPC_InBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="InBuffer:"></TextBlock>
-            <ComboBox SelectedIndex="1" Text="{Binding ElementName=lstNames, Path=SelectedItem.InbufferRef.B_objName, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
+            <ComboBox x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditInbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
             <TextBlock x:Name="lblPC_OutBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Outbuffer:"></TextBlock>
-            <ComboBox SelectedIndex="1" Text="{Binding ElementName=lstNames, Path=SelectedItem.OutbufferRef.B_objName, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
+            <ComboBox x:Name="cb_Outbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditOutbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
             <StackPanel Orientation="Horizontal">
-                <CheckBox Content="Replenished." Margin="5" IsChecked="{Binding ElementName=lstNames, Path=SelectedItem.IsReplenished}" />
-                <CheckBox Content="Excluded form KPIs." Margin="5" IsChecked="{Binding ElementName=lstNames, Path=SelectedItem.ExclFromKPI}" />
+                <CheckBox Content="Replenished." Margin="5" IsChecked="{Binding TobeEditedItem.IsReplenished}" />
+                <CheckBox Content="Excluded form KPIs." Margin="5" IsChecked="{Binding TobeEditedItem.ExclFromKPI}" />
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="0" x:Name="btnUpdate" Command="{Binding UpdateCommand}" Content="Update selected Process"/>
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="0" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Process"/>
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="1" x:Name="btnDelete" Command="{Binding DeleteCommand}" Content="Delete selected Item"/>
+        <StackPanel Grid.Row="1" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnUpdate" Command="{Binding UpdateCommand}" Content="Update selected item"/>
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Process"/>
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnDelete" Content="Delete selected Item" Command="{Binding DeleteCommand}"/>
         </StackPanel>
-        
+
+
     </Grid>
 </UserControl>

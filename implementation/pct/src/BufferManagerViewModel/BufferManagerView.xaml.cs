@@ -20,7 +20,7 @@ using com.vanderlande.wpf;
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for ABCView.xaml
+    /// Interaction logic for BufferManagerView.xaml
     /// </summary>
     public partial class BufferManagerView : UserControl
     {

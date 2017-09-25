@@ -5,12 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using com.vanderlande.wpf;
 
 namespace Your
 {
-    public class BufferList
+    public class BufferList : ContentViewModel
     {
-        public ObservableCollection<Buffer> Buffers;
+        private static ObservableCollection<Buffer> _buffers;
+
+        public static ObservableCollection<Buffer> Buffers
+        {
+            get
+            {
+                return _buffers;
+            }
+            set
+            {
+                //ChangeProperty(ref _buffers, value);
+                _buffers = value;
+            }
+        }
         public BufferList()
         {
             Buffers = new ObservableCollection<Buffer>
@@ -26,18 +40,28 @@ namespace Your
             };
         }
 
-        public ObservableCollection<Buffer> GetBufferList()
+        private static void generateBuffers()
         {
-            return this.Buffers;
+            Buffers = new ObservableCollection<Buffer>
+            {
+                new Buffer{B_objName = "Receiving",B_description="General Receiving Buffer", B_ComID="ReceivingBuffer",B_Unit="Pallet"},
+                new Buffer{B_objName="High bay",B_description="High Bay",B_ComID="HighBay",B_Unit="Tray"},
+                new Buffer{B_objName="Tray store",B_description="Marshalling Area",B_ComID="Marshallow",B_Unit="Pallet"},
+                new Buffer{B_objName="Xdock",B_description="Xdock",B_ComID="Xdock",B_Unit="Pallet"},
+                new Buffer{B_objName="Receiving",B_description="General Receiving Buffer",B_ComID="ReceivingBuffer",B_Unit="Tray"},
+                new Buffer{B_objName="Tray Store GtP",B_description="Tray Store GtP",B_ComID="Ams",B_Unit="Tray"},
+                new Buffer{B_objName="Marshalling",B_description="Marshalling Area",B_ComID="Marshallow",B_Unit="Tray"},
+                new Buffer{B_objName="High bay",B_description="General Receiving Buffer",B_ComID="HighBay",B_Unit="Tray"}            
+            };
+        }
+        public static ObservableCollection<Buffer> GetBufferList()
+        {
+            return Buffers;
         }
 
-        public void RemoveABuffer(Buffer b)
+        public static Buffer GetABuffer(int n)
         {
-            this.Buffers.Remove(b);
-        }
-
-        public Buffer GetABuffer(int n)
-        {
+            generateBuffers();
             return Buffers.ElementAt(n); 
         }
 
@@ -50,6 +74,11 @@ namespace Your
             }
 
             return null;
+        }
+
+        public void DeleteABuffer(Buffer b)
+        {
+            Buffers.Remove(b);
         }
 
     }

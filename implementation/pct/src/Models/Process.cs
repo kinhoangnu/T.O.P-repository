@@ -11,21 +11,25 @@ namespace Your
     {
         private Guid uuid;
 
+        private string pc_objName;
+        private string editpc_objName;
+        private string pc_comID;
+        private string pc_description;
+        private Buffer inbufferRef;
+        private Buffer editinbufferRef;
+        private Buffer outbufferRef;
+        private Buffer editoutbufferRef;
+        private ProdArea prodRef;
+        private ProdArea editprodRef;
+
+        private bool isReplenished;
+        private bool exclFromKPI;
+
         public Guid Uuid
         {
             get { return uuid; }
             set { uuid = value; }
         }
-        private string pc_objName;
-        private string pc_comID;
-        private string pc_description;
-        private Buffer inbufferRef;
-        private Buffer outbufferRef;
-        private ProdArea prodRef;
-
-        private bool isReplenished;
-        private bool exclFromKPI;
-
         public bool ExclFromKPI
         {
             get { return exclFromKPI; }
@@ -34,29 +38,43 @@ namespace Your
                 ChangeProperty(ref exclFromKPI, value);
             }
         }
-
         public bool IsReplenished
         {
             get { return isReplenished; }
             set { ChangeProperty(ref isReplenished, value); }
         }
-
         public ProdArea ProdRef
         {
             get { return prodRef; }
             set { ChangeProperty(ref prodRef, value); }
+        }
+        public ProdArea EditProdRef
+        {
+            get { return editprodRef; }
+            set { ChangeProperty(ref editprodRef, value); }
         } 
-
         public Buffer OutbufferRef
         {
             get { return outbufferRef; }
             set { ChangeProperty(ref outbufferRef, value); }
         }
 
+        public Buffer EditOutbufferRef
+        {
+            get { return editoutbufferRef; }
+            set { ChangeProperty(ref editoutbufferRef, value); }
+        }
+
         public Buffer InbufferRef
         {
             get { return inbufferRef; }
             set { ChangeProperty(ref inbufferRef, value); }
+        }
+
+        public Buffer EditInbufferRef
+        {
+            get { return editinbufferRef; }
+            set { ChangeProperty(ref editinbufferRef, value); }
         }
 
         public string PC_description
@@ -70,7 +88,6 @@ namespace Your
                 ChangeProperty(ref pc_description, value);
             }
         }
-
         public string PC_objName
         {
             get
@@ -80,6 +97,17 @@ namespace Your
             set
             {
                 ChangeProperty(ref pc_objName, value);
+            }
+        }
+        public string editPC_objName
+        {
+            get
+            {
+                return editpc_objName;
+            }
+            set
+            {
+                ChangeProperty(ref editpc_objName, value);
             }
         }
         public string PC_ComID

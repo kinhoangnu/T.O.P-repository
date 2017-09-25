@@ -14,7 +14,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListView HorizontalAlignment="Stretch" x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableProdArea ,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedProdArea}">
+        <ListView HorizontalAlignment="Stretch" x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableProdArea}" SelectedItem="{Binding SelectedProdArea, Mode=TwoWay}">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
@@ -31,16 +31,17 @@
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" Width="auto">
             <TextBlock x:Name="lblb_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtb_objName" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_objName}"></TextBox>
+            <TextBox x:Name="txtb_objName" Text="{Binding TobeEditedItem.P_objName}"></TextBox>
             <TextBlock x:Name="lblb_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
-            <TextBox x:Name="txtb_objDes" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_description}"></TextBox>
+            <TextBox x:Name="txtb_objDes" Text="{Binding TobeEditedItem.P_description}"></TextBox>
             <TextBlock x:Name="lblB_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtB_ComID" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_ComID}"></TextBox>
+            <TextBox x:Name="txtB_ComID" Text="{Binding TobeEditedItem.P_ComID}"></TextBox>
             <TextBlock x:Name="lblB_Unit" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Type:"></TextBlock>
-            <TextBox x:Name="txtB_Unit" Text="{Binding ElementName=lstNames, Path=SelectedItem.P_Type}"></TextBox>
+            <TextBox x:Name="txtB_Unit" Text="{Binding TobeEditedItem.P_Type}"></TextBox>
         </StackPanel>
         
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="1" x:Name="btnUpdate" Command="{Binding UpdateCommand}" Content="Update selected item"/>
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="0" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Production Area"/>
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="1" x:Name="btnDelete" Content="Delete selected Item" Command="{Binding DeleteCommand}"/>
         </StackPanel>
