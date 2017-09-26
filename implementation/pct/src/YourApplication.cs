@@ -28,7 +28,9 @@ namespace Your
             MainWindowViewModel mainWnd = base.CreateMainWindowViewModel();
             mainWnd.ActivateContent(typeof(ProcessManagerViewModel));
             mainWnd.RegisterContent(typeof(BufferManagerViewModel));
-            mainWnd.RegisterContent(typeof(ProdAreaManagerViewModel));      
+            mainWnd.RegisterContent(typeof(ProdAreaManagerViewModel));
+            mainWnd.RegisterContent(typeof(SecondaryActivitiesViewModel));
+            mainWnd.RegisterContent(typeof(WorkstationClassesViewModel)); 
             return mainWnd;
         }
 

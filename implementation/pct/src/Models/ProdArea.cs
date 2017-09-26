@@ -11,8 +11,8 @@ namespace Your
     {
         private Guid uuid;
 
-        private string p_objName;
-        private string editp_objName;
+        private string p_name;
+        private string editp_name;
         private string p_comID;
         private string p_type;
         private string p_description;
@@ -33,29 +33,29 @@ namespace Your
                 ChangeProperty(ref p_description, value);
             }
         }
-        public string P_objName
+        public string P_name
         {
             get
             {
-                return p_objName;
+                return p_name;
             }
             set
             {
-                ChangeProperty(ref p_objName, value);
+                ChangeProperty(ref p_name, value);
             }
         }
-        public string editP_objName
+        public string editP_name
         {
             get
             {
-                return editp_objName;
+                return editp_name;
             }
             set
             {
-                ChangeProperty(ref editp_objName, value);
+                ChangeProperty(ref editp_name, value);
             }
         }
-        public string P_ComID
+        public string P_comID
         {
             get
             {

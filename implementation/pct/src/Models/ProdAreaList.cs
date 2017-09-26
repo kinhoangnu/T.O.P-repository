@@ -27,14 +27,14 @@ namespace Your
         {
             ProdAreas = new ObservableCollection<ProdArea>
             {
-                new ProdArea{P_objName = "Receiving XDock",P_description="Inbound Production Area Pallet Receiving Normal", P_ComID="ACPReceiving",P_Type="Inbound"},
-                new ProdArea{P_objName="ACP",P_description="Outbound Production Area ACP",P_ComID="ACP",P_Type="Outbound"},
-                new ProdArea{P_objName="NC",P_description="Outbound Production Area NC Picking",P_ComID="NC",P_Type="Outbound"},
-                new ProdArea{P_objName="Bulk",P_description="Outbound Production Area Bulk Picking",P_ComID="Bulk",P_Type="Outbound"},
-                new ProdArea{P_objName="Full Pallet Picking",P_description="Outbound Production Area Full Pallet Picking",P_ComID="FullPalletPicking",P_Type="Outbound"},
-                new ProdArea{P_objName="XDock",P_description="Outbound Production Area Xdock",P_ComID="XDock",P_Type="Outbound"},
-                new ProdArea{P_objName="NC",P_description="Inbound Production Area NC Picking",P_ComID="NC",P_Type="Inbound"},
-                new ProdArea{P_objName="Full Pallet Picking",P_description="Inbound Production Area Full Pallet Picking",P_ComID="FullPalletPicking",P_Type="Inbound"}            
+                new ProdArea{P_name = "Receiving XDock",P_description="Inbound Production Area Pallet Receiving Normal", P_comID="ACPReceiving",P_Type="Inbound"},
+                new ProdArea{P_name="ACP",P_description="Outbound Production Area ACP",P_comID="ACP",P_Type="Outbound"},
+                new ProdArea{P_name="NC",P_description="Outbound Production Area NC Picking",P_comID="NC",P_Type="Outbound"},
+                new ProdArea{P_name="Bulk",P_description="Outbound Production Area Bulk Picking",P_comID="Bulk",P_Type="Outbound"},
+                new ProdArea{P_name="Full Pallet Picking",P_description="Outbound Production Area Full Pallet Picking",P_comID="FullPalletPicking",P_Type="Outbound"},
+                new ProdArea{P_name="XDock",P_description="Outbound Production Area Xdock",P_comID="XDock",P_Type="Outbound"},
+                new ProdArea{P_name="NC",P_description="Inbound Production Area NC Picking",P_comID="NC",P_Type="Inbound"},
+                new ProdArea{P_name="Full Pallet Picking",P_description="Inbound Production Area Full Pallet Picking",P_comID="FullPalletPicking",P_Type="Inbound"}             
             };
         }
 
@@ -42,14 +42,14 @@ namespace Your
         {
             ProdAreas = new ObservableCollection<ProdArea>
             {
-                new ProdArea{P_objName = "Receiving XDock",P_description="Inbound Production Area Pallet Receiving Normal", P_ComID="ACPReceiving",P_Type="Inbound"},
-                new ProdArea{P_objName="ACP",P_description="Outbound Production Area ACP",P_ComID="ACP",P_Type="Outbound"},
-                new ProdArea{P_objName="NC",P_description="Outbound Production Area NC Picking",P_ComID="NC",P_Type="Outbound"},
-                new ProdArea{P_objName="Bulk",P_description="Outbound Production Area Bulk Picking",P_ComID="Bulk",P_Type="Outbound"},
-                new ProdArea{P_objName="Full Pallet Picking",P_description="Outbound Production Area Full Pallet Picking",P_ComID="FullPalletPicking",P_Type="Outbound"},
-                new ProdArea{P_objName="XDock",P_description="Outbound Production Area Xdock",P_ComID="XDock",P_Type="Outbound"},
-                new ProdArea{P_objName="NC",P_description="Inbound Production Area NC Picking",P_ComID="NC",P_Type="Inbound"},
-                new ProdArea{P_objName="Full Pallet Picking",P_description="Inbound Production Area Full Pallet Picking",P_ComID="FullPalletPicking",P_Type="Inbound"}            
+                new ProdArea{P_name = "Receiving XDock",P_description="Inbound Production Area Pallet Receiving Normal", P_comID="ACPReceiving",P_Type="Inbound"},
+                new ProdArea{P_name="ACP",P_description="Outbound Production Area ACP",P_comID="ACP",P_Type="Outbound"},
+                new ProdArea{P_name="NC",P_description="Outbound Production Area NC Picking",P_comID="NC",P_Type="Outbound"},
+                new ProdArea{P_name="Bulk",P_description="Outbound Production Area Bulk Picking",P_comID="Bulk",P_Type="Outbound"},
+                new ProdArea{P_name="Full Pallet Picking",P_description="Outbound Production Area Full Pallet Picking",P_comID="FullPalletPicking",P_Type="Outbound"},
+                new ProdArea{P_name="XDock",P_description="Outbound Production Area Xdock",P_comID="XDock",P_Type="Outbound"},
+                new ProdArea{P_name="NC",P_description="Inbound Production Area NC Picking",P_comID="NC",P_Type="Inbound"},
+                new ProdArea{P_name="Full Pallet Picking",P_description="Inbound Production Area Full Pallet Picking",P_comID="FullPalletPicking",P_Type="Inbound"}            
             };
         }
 
@@ -68,7 +68,7 @@ namespace Your
         {
             foreach (ProdArea p in ProdAreas)
             {
-                if (p.P_objName == s)
+                if (p.P_name == s)
                     return p;
             }
 

@@ -70,10 +70,10 @@ namespace Your
                 {
                     TobeEditedItem = new Buffer()
                     {
-                        B_objName = SelectedBuffer.B_objName,
-                        B_ComID = SelectedBuffer.B_ComID,
+                        B_name = SelectedBuffer.B_name,
+                        B_comID = SelectedBuffer.B_comID,
                         B_description = SelectedBuffer.B_description,
-                        B_Unit = SelectedBuffer.B_Unit,
+                        B_unit = SelectedBuffer.B_unit,
                     };
                 }
             }
@@ -89,10 +89,10 @@ namespace Your
         {
             this.ObservableBuffer.Add(new Buffer()
             {
-                B_objName = this.TobeEditedItem.B_objName,
+                B_name = this.TobeEditedItem.B_name,
                 B_description = this.TobeEditedItem.B_description,
-                B_ComID = this.TobeEditedItem.B_ComID,
-                B_Unit = this.TobeEditedItem.B_Unit
+                B_comID = this.TobeEditedItem.B_comID,
+                B_unit = this.TobeEditedItem.B_unit
             });
         }
 
@@ -103,10 +103,10 @@ namespace Your
         {
             if (SelectedBuffer != null)
             {
-                SelectedBuffer.B_objName = TobeEditedItem.B_objName;
+                SelectedBuffer.B_name = TobeEditedItem.B_name;
                 SelectedBuffer.B_description = TobeEditedItem.B_description;
-                SelectedBuffer.B_ComID = TobeEditedItem.B_ComID;
-                SelectedBuffer.B_Unit = TobeEditedItem.B_Unit;
+                SelectedBuffer.B_comID = TobeEditedItem.B_comID;
+                SelectedBuffer.B_unit = TobeEditedItem.B_unit;
             }
         }
 

@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace Your
 {
-    class WorkstationClassesViewModel : ContentViewModel
+    class ProcessManagerViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
         private Process selectedProcess;
@@ -36,7 +36,7 @@ namespace Your
         #endregion
 
         #region Constructor
-        public WorkstationClassesViewModel()
+        public ProcessManagerViewModel()
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
@@ -98,9 +98,9 @@ namespace Your
                 {
                     TobeEditedItem = new Process()
                     {
-                        PC_objName = SelectedProcess.PC_objName,
+                        PC_name = SelectedProcess.PC_name,
                         PC_description = SelectedProcess.PC_description,
-                        PC_ComID = SelectedProcess.PC_ComID,
+                        PC_comID = SelectedProcess.PC_comID,
                         ProdRef = SelectedProcess.ProdRef,
                         EditProdRef = SelectedProcess.ProdRef,
                         EditInbufferRef = SelectedProcess.InbufferRef,
@@ -122,12 +122,12 @@ namespace Your
         {
             if (SelectedProcess != null && SelectedProcess != TobeEditedItem)
             {
-                SelectedProcess.PC_objName = TobeEditedItem.PC_objName;
+                SelectedProcess.PC_name = TobeEditedItem.PC_name;
                 SelectedProcess.PC_description = TobeEditedItem.PC_description;
-                SelectedProcess.PC_ComID = TobeEditedItem.PC_ComID;
-                SelectedProcess.ProdRef.P_objName = TobeEditedItem.EditProdRef.editP_objName;
-                SelectedProcess.InbufferRef.B_objName = TobeEditedItem.EditInbufferRef.editB_objName;
-                SelectedProcess.OutbufferRef.B_objName = TobeEditedItem.EditOutbufferRef.editB_objName;
+                SelectedProcess.PC_comID = TobeEditedItem.PC_comID;
+                SelectedProcess.ProdRef.P_name = TobeEditedItem.EditProdRef.editP_name;
+                SelectedProcess.InbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
+                SelectedProcess.OutbufferRef.B_name = TobeEditedItem.EditOutbufferRef.editB_name;
                 SelectedProcess.IsReplenished = TobeEditedItem.IsReplenished;
                 SelectedProcess.ExclFromKPI = TobeEditedItem.ExclFromKPI;
             }
@@ -138,12 +138,12 @@ namespace Your
         /// </summary>
         public void Add()
         {
-            TobeEditedItem.EditInbufferRef.B_objName = TobeEditedItem.EditInbufferRef.editB_objName;
+            TobeEditedItem.EditInbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
             this.ObservableProcess.Add(new Process()
             {
-                PC_objName = this.TobeEditedItem.PC_objName,
+                PC_name = this.TobeEditedItem.PC_name,
                 PC_description = this.TobeEditedItem.PC_description,
-                PC_ComID = this.TobeEditedItem.PC_ComID,
+                PC_comID = this.TobeEditedItem.PC_comID,
                 ProdRef = this.TobeEditedItem.EditProdRef,
                 InbufferRef = this.TobeEditedItem.EditInbufferRef,
                 OutbufferRef = this.TobeEditedItem.EditOutbufferRef,

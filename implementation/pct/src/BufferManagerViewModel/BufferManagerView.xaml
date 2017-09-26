@@ -21,22 +21,22 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView x:Name="grdNames">
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding B_objName}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding B_name}"/>
                     <GridViewColumn Header="Description"  DisplayMemberBinding="{Binding B_description}"/>
-                    <GridViewColumn Header="Communication ID"  DisplayMemberBinding="{Binding B_ComID}"/>
-                    <GridViewColumn Header="Unit"  DisplayMemberBinding="{Binding B_Unit}"/>
+                    <GridViewColumn Header="Communication ID"  DisplayMemberBinding="{Binding B_comID}"/>
+                    <GridViewColumn Header="Unit"  DisplayMemberBinding="{Binding B_unit}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5,5,5">            
             <TextBlock x:Name="lblb_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtb_objName" Text="{Binding TobeEditedItem.B_objName}"></TextBox>
+            <TextBox x:Name="txtb_objName" Text="{Binding TobeEditedItem.B_name}"></TextBox>
             <TextBlock x:Name="lblb_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
             <TextBox x:Name="txtb_objDes" Text="{Binding TobeEditedItem.B_description}"></TextBox>
             <TextBlock x:Name="lblB_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtB_ComID" Text="{Binding TobeEditedItem.B_ComID}"></TextBox>
+            <TextBox x:Name="txtB_ComID" Text="{Binding TobeEditedItem.B_comID}"></TextBox>
             <TextBlock x:Name="lblB_Unit" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Unit"></TextBlock>
-            <TextBox x:Name="txtB_Unit" Text="{Binding TobeEditedItem.B_Unit}"></TextBox>
+            <TextBox x:Name="txtB_Unit" Text="{Binding TobeEditedItem.B_unit}"></TextBox>
 
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">

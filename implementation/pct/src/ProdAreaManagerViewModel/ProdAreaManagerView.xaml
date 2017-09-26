@@ -22,20 +22,20 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView x:Name="grdNames">
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding P_objName}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding P_name}"/>
                     <GridViewColumn Header="Description"  DisplayMemberBinding="{Binding P_description}"/>
-                    <GridViewColumn Header="Communication ID"  DisplayMemberBinding="{Binding P_ComID}"/>
+                    <GridViewColumn Header="Communication ID"  DisplayMemberBinding="{Binding P_comID}"/>
                     <GridViewColumn Header="Type"  DisplayMemberBinding="{Binding P_Type}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" Width="auto">
             <TextBlock x:Name="lblb_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtb_objName" Text="{Binding TobeEditedItem.P_objName}"></TextBox>
+            <TextBox x:Name="txtb_objName" Text="{Binding TobeEditedItem.P_name}"></TextBox>
             <TextBlock x:Name="lblb_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
             <TextBox x:Name="txtb_objDes" Text="{Binding TobeEditedItem.P_description}"></TextBox>
             <TextBlock x:Name="lblB_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtB_ComID" Text="{Binding TobeEditedItem.P_ComID}"></TextBox>
+            <TextBox x:Name="txtB_ComID" Text="{Binding TobeEditedItem.P_comID}"></TextBox>
             <TextBlock x:Name="lblB_Unit" FontFamily="Verdana" FontWeight="Bold" Margin="5"  Text="Type:"></TextBlock>
             <TextBox x:Name="txtB_Unit" Text="{Binding TobeEditedItem.P_Type}"></TextBox>
         </StackPanel>

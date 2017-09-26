@@ -5,7 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styling.xaml" />
+                <ResourceDictionary Source="C:\Users\nllhoa\Documents\T.O.P repository\vi-acp-top-pct\implementation\pct\src\Styling.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

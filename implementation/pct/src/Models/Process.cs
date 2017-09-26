@@ -11,8 +11,8 @@ namespace Your
     {
         private Guid uuid;
 
-        private string pc_objName;
-        private string editpc_objName;
+        private string pc_name;
+        private string editpc_name;
         private string pc_comID;
         private string pc_description;
         private Buffer inbufferRef;
@@ -88,29 +88,29 @@ namespace Your
                 ChangeProperty(ref pc_description, value);
             }
         }
-        public string PC_objName
+        public string PC_name
         {
             get
             {
-                return pc_objName;
+                return pc_name;
             }
             set
             {
-                ChangeProperty(ref pc_objName, value);
+                ChangeProperty(ref pc_name, value);
             }
         }
-        public string editPC_objName
+        public string editPC_name
         {
             get
             {
-                return editpc_objName;
+                return editpc_name;
             }
             set
             {
-                ChangeProperty(ref editpc_objName, value);
+                ChangeProperty(ref editpc_name, value);
             }
         }
-        public string PC_ComID
+        public string PC_comID
         {
             get
             {

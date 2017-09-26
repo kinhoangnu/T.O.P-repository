@@ -11,8 +11,8 @@ namespace Your
     {
         private Guid uuid;
 
-        private string b_objName;
-        private string editb_objName;
+        private string b_name;
+        private string editb_name;
         private string b_comID;
         private string b_unit;
         private string b_description;
@@ -33,30 +33,30 @@ namespace Your
                 ChangeProperty(ref b_description, value);
             }
         }
-        public string B_objName
+        public string B_name
         {
             get
             {
-                return b_objName;
+                return b_name;
             }
             set
             {
-                ChangeProperty(ref b_objName, value);
+                ChangeProperty(ref b_name, value);
             }
         }
 
-        public string editB_objName
+        public string editB_name
         {
             get
             {
-                return editb_objName;
+                return editb_name;
             }
             set
             {
-                ChangeProperty(ref editb_objName, value);
+                ChangeProperty(ref editb_name, value);
             }
         }
-        public string B_ComID
+        public string B_comID
         {
             get
             {
@@ -67,7 +67,7 @@ namespace Your
                 ChangeProperty(ref b_comID, value);
             }
         }
-        public string B_Unit
+        public string B_unit
         {
             get
             {
@@ -87,10 +87,10 @@ namespace Your
         public Buffer NewCopyBuffer(Buffer bCopy)
         {
             Buffer b = new Buffer();
-            b.B_objName = bCopy.B_objName;
+            b.B_name = bCopy.B_name;
             b.B_description = bCopy.B_description;
-            b.B_ComID = bCopy.B_ComID;
-            b.B_Unit = bCopy.B_Unit;
+            b.B_comID = bCopy.B_comID;
+            b.B_unit = bCopy.B_unit;
             b.Uuid = bCopy.Uuid;
             return b;
         }

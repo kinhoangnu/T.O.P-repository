@@ -18,9 +18,9 @@ namespace Your
     /// <summary>
     /// Interaction logic for ProcessManagerView.xaml
     /// </summary>
-    public partial class WorkstationClassesView : UserControl
+    public partial class ProcessManagerView : UserControl
     {
-        public WorkstationClassesView()
+        public ProcessManagerView()
         {
             InitializeComponent();
         }        

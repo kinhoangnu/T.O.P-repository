@@ -54,6 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Models\WorkstationClass.cs" />
+    <Compile Include="src\Models\WorkstationClassList.cs" />
+    <Compile Include="src\Models\SecondaryActivity.cs" />
+    <Compile Include="src\Models\SecondaryActivityList.cs" />
+    <Compile Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesView.xaml.cs">
+      <DependentUpon>SecondaryActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesViewModel.cs" />
     <Compile Include="src\Models\ProdArea.cs" />
     <Compile Include="src\Models\ProdAreaList.cs" />
     <Compile Include="src\WorkstationClassesViewModel\WorkstationClassesView.xaml.cs">
@@ -93,6 +101,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="src\WorkstationClassesViewModel\WorkstationClassesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

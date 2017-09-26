@@ -2,6 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- Application Wide Resource Dictionaries Based On Desktop Themed Controls -->
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="C:\Users\nllhoa\Desktop\TOP_Configuration\Styling\src\DesktopStyling.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/VI_Styling;component/src/DesktopStyling.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

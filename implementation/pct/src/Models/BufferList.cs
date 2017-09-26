@@ -29,14 +29,14 @@ namespace Your
         {
             Buffers = new ObservableCollection<Buffer>
             {
-                new Buffer{B_objName = "Receiving",B_description="General Receiving Buffer", B_ComID="ReceivingBuffer",B_Unit="Pallet"},
-                new Buffer{B_objName="High bay",B_description="High Bay",B_ComID="HighBay",B_Unit="Tray"},
-                new Buffer{B_objName="Tray store",B_description="Marshalling Area",B_ComID="Marshallow",B_Unit="Pallet"},
-                new Buffer{B_objName="Xdock",B_description="Xdock",B_ComID="Xdock",B_Unit="Pallet"},
-                new Buffer{B_objName="Receiving",B_description="General Receiving Buffer",B_ComID="ReceivingBuffer",B_Unit="Tray"},
-                new Buffer{B_objName="Tray Store GtP",B_description="Tray Store GtP",B_ComID="Ams",B_Unit="Tray"},
-                new Buffer{B_objName="Marshalling",B_description="Marshalling Area",B_ComID="Marshallow",B_Unit="Tray"},
-                new Buffer{B_objName="High bay",B_description="General Receiving Buffer",B_ComID="HighBay",B_Unit="Tray"}            
+                new Buffer{B_name = "Receiving",B_description="General Receiving Buffer", B_comID="ReceivingBuffer",B_unit="Pallet"},
+                new Buffer{B_name="High bay",B_description="High Bay",B_comID="HighBay",B_unit="Tray"},
+                new Buffer{B_name="Tray store",B_description="Marshalling Area",B_comID="Marshallow",B_unit="Pallet"},
+                new Buffer{B_name="Xdock",B_description="Xdock",B_comID="Xdock",B_unit="Pallet"},
+                new Buffer{B_name="Receiving",B_description="General Receiving Buffer",B_comID="ReceivingBuffer",B_unit="Tray"},
+                new Buffer{B_name="Tray Store GtP",B_description="Tray Store GtP",B_comID="Ams",B_unit="Tray"},
+                new Buffer{B_name="Marshalling",B_description="Marshalling Area",B_comID="Marshallow",B_unit="Tray"},
+                new Buffer{B_name="High bay",B_description="General Receiving Buffer",B_comID="HighBay",B_unit="Tray"}            
             };
         }
 
@@ -44,14 +44,14 @@ namespace Your
         {
             Buffers = new ObservableCollection<Buffer>
             {
-                new Buffer{B_objName = "Receiving",B_description="General Receiving Buffer", B_ComID="ReceivingBuffer",B_Unit="Pallet"},
-                new Buffer{B_objName="High bay",B_description="High Bay",B_ComID="HighBay",B_Unit="Tray"},
-                new Buffer{B_objName="Tray store",B_description="Marshalling Area",B_ComID="Marshallow",B_Unit="Pallet"},
-                new Buffer{B_objName="Xdock",B_description="Xdock",B_ComID="Xdock",B_Unit="Pallet"},
-                new Buffer{B_objName="Receiving",B_description="General Receiving Buffer",B_ComID="ReceivingBuffer",B_Unit="Tray"},
-                new Buffer{B_objName="Tray Store GtP",B_description="Tray Store GtP",B_ComID="Ams",B_Unit="Tray"},
-                new Buffer{B_objName="Marshalling",B_description="Marshalling Area",B_ComID="Marshallow",B_Unit="Tray"},
-                new Buffer{B_objName="High bay",B_description="General Receiving Buffer",B_ComID="HighBay",B_Unit="Tray"}            
+                new Buffer{B_name = "Receiving",B_description="General Receiving Buffer", B_comID="ReceivingBuffer",B_unit="Pallet"},
+                new Buffer{B_name="High bay",B_description="High Bay",B_comID="HighBay",B_unit="Tray"},
+                new Buffer{B_name="Tray store",B_description="Marshalling Area",B_comID="Marshallow",B_unit="Pallet"},
+                new Buffer{B_name="Xdock",B_description="Xdock",B_comID="Xdock",B_unit="Pallet"},
+                new Buffer{B_name="Receiving",B_description="General Receiving Buffer",B_comID="ReceivingBuffer",B_unit="Tray"},
+                new Buffer{B_name="Tray Store GtP",B_description="Tray Store GtP",B_comID="Ams",B_unit="Tray"},
+                new Buffer{B_name="Marshalling",B_description="Marshalling Area",B_comID="Marshallow",B_unit="Tray"},
+                new Buffer{B_name="High bay",B_description="General Receiving Buffer",B_comID="HighBay",B_unit="Tray"}              
             };
         }
         public static ObservableCollection<Buffer> GetBufferList()
@@ -69,7 +69,7 @@ namespace Your
         {
             foreach (Buffer b in Buffers)
             {
-                if (b.B_objName == s)
+                if (b.B_name == s)
                     return b;
             }
 

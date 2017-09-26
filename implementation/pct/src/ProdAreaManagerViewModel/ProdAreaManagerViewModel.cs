@@ -52,8 +52,8 @@ namespace Your
                 {
                     TobeEditedItem = new ProdArea()
                     {
-                        P_objName = SelectedProdArea.P_objName,
-                        P_ComID = SelectedProdArea.P_ComID,
+                        P_name = SelectedProdArea.P_name,
+                        P_comID = SelectedProdArea.P_comID,
                         P_description = SelectedProdArea.P_description,
                         P_Type = SelectedProdArea.P_Type,
                     };
@@ -90,9 +90,9 @@ namespace Your
         {
             this.ObservableProdArea.Add(new ProdArea()
             {
-                P_objName = this.TobeEditedItem.P_objName,
+                P_name = this.TobeEditedItem.P_name,
                 P_description = this.TobeEditedItem.P_description,
-                P_ComID = this.TobeEditedItem.P_ComID,
+                P_comID = this.TobeEditedItem.P_comID,
                 P_Type = this.TobeEditedItem.P_Type
             });
             ProdAreaList.ProdAreas = ObservableProdArea;
@@ -105,9 +105,9 @@ namespace Your
         {
             if (SelectedProdArea != null)
             {
-                SelectedProdArea.P_objName = TobeEditedItem.P_objName;
+                SelectedProdArea.P_name = TobeEditedItem.P_name;
                 SelectedProdArea.P_description = TobeEditedItem.P_description;
-                SelectedProdArea.P_ComID = TobeEditedItem.P_ComID;
+                SelectedProdArea.P_comID = TobeEditedItem.P_comID;
                 SelectedProdArea.P_Type = TobeEditedItem.P_Type;
             }
         }
