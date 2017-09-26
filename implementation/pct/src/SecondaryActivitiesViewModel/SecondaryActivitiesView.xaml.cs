@@ -12,18 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+
+using System.Globalization;
+using com.vanderlande.wpf;
 
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for WorkstationClassesView.xaml
+    /// Interaction logic for SecondaryActivitiesView.xaml
     /// </summary>
-    public partial class WorkstationClassesView : UserControl
+    public partial class SecondaryActivitiesView : UserControl
     {
-        public WorkstationClassesView()
+        public SecondaryActivitiesView()
         {
             InitializeComponent();
-        }        
-                
+        }
+
     }
 }

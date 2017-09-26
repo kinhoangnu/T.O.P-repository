@@ -13,7 +13,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListView x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableProcess}" SelectedItem="{Binding SelectedProcess, Mode=TwoWay}">
+        <ListView x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableWorkstationClass}" SelectedItem="{Binding SelectedProcess, Mode=TwoWay}">
             <ListView.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
@@ -21,36 +21,27 @@
             </ListView.Resources>
             <ListView.View>
                 <GridView x:Name="grdNames">
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding PC_objName}"/>
-                    <GridViewColumn Header="Description"  DisplayMemberBinding="{Binding PC_description}"/>
-                    <GridViewColumn Header="Communication ID"  DisplayMemberBinding="{Binding PC_ComID}"/>
-                    <GridViewColumn Header="Production Area" DisplayMemberBinding="{Binding ProdRef.P_objName}"/>
-                    <GridViewColumn Header="In-Buffer" DisplayMemberBinding="{Binding InbufferRef.B_objName}"/>
-                    <GridViewColumn Header="Out-Buffer" DisplayMemberBinding="{Binding OutbufferRef.B_objName}"/>
-                    <GridViewColumn Header="Replenished" DisplayMemberBinding="{Binding IsReplenished}"/>
-                    <GridViewColumn Header="KPIs Excluded" DisplayMemberBinding="{Binding ExclFromKPI}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding WC_name}"/>
+                    <GridViewColumn Header="Type"  DisplayMemberBinding="{Binding WC_type}"/>
+                    <GridViewColumn Header="Handling type"  DisplayMemberBinding="{Binding WC_handlingType}"/>
+                    <GridViewColumn Header="Process" DisplayMemberBinding="{Binding ProcessRef.P_name}"/>
+                    <GridViewColumn Header="Secondary activity" DisplayMemberBinding="{Binding SecondaryactivityRef.SC_objName}"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0">
             <TextBlock x:Name="lblpc_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtpc_objName" Text="{Binding TobeEditedItem.PC_objName}"></TextBox>
+            <TextBox x:Name="txtpc_objName" Text="{Binding TobeEditedItem.WC_name}"></TextBox>
             <TextBlock x:Name="lblpc_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
-            <TextBox x:Name="txtpc_objDes" Text="{Binding TobeEditedItem.PC_description}"></TextBox>
+            <TextBox x:Name="txtpc_objDes" Text="{Binding TobeEditedItem.WC_type}"></TextBox>
             <TextBlock x:Name="lblPC_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtPC_ComID" Text="{Binding TobeEditedItem.PC_ComID}"></TextBox>
-            <TextBlock x:Name="lblP_ProdArea" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Production Area:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedItem="null" Text="{Binding TobeEditedItem.EditProdRef.editP_objName}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
-            <TextBlock x:Name="lblPC_InBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="InBuffer:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditInbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
-            <TextBlock x:Name="lblPC_OutBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Outbuffer:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Outbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditOutbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox Content="Replenished." Margin="5" IsChecked="{Binding TobeEditedItem.IsReplenished}" />
-                <CheckBox Content="Excluded form KPIs." Margin="5" IsChecked="{Binding TobeEditedItem.ExclFromKPI}" />
-            </StackPanel>
-        </StackPanel>
+            <TextBox x:Name="txtPC_ComID" Text="{Binding TobeEditedItem.WC_handlingType}"></TextBox>
+            <TextBlock x:Name="lblP_ProdArea" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Process:"></TextBlock>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedItem="null" Text="{Binding TobeEditedItem.EditProcessRef.editP_name}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_name"></ComboBox>
+            <TextBlock x:Name="lblPC_InBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Secondary Activity:"></TextBlock>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditsecondaryactivityRef.editSC_name}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="SC_name"></ComboBox>
 
+        </StackPanel>
         <StackPanel Grid.Row="1" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnUpdate" Command="{Binding UpdateCommand}" Content="Update selected item"/>
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Process"/>

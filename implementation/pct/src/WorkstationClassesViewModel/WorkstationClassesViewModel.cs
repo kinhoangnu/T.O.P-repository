@@ -16,19 +16,19 @@ using System.ComponentModel;
 
 namespace Your
 {
-    class ProcessManagerViewModel : ContentViewModel
+    public class WorkstationClassesViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
-        private Process selectedProcess;
+        private WorkstationClass selectedWorkstationClass;
+        private WorkstationClass _tobeEditedItem;
 
+        private ObservableCollection<WorkstationClass> _observableWorkstationClass;
         private ObservableCollection<Process> _observableProcess;
-        private ObservableCollection<Buffer> _observableBuffer;
-        private ObservableCollection<ProdArea> _observableProdArea;
-        private Process _tobeEditedItem;
+        private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
 
+        public WorkstationClassList WClist;
         public ProcessList PClist;
-        public BufferList Blist;
-        public ProdAreaList Plist;
+        public SecondaryActivity SClist;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -36,47 +36,46 @@ namespace Your
         #endregion
 
         #region Constructor
-        public ProcessManagerViewModel()
+        public WorkstationClassesViewModel()
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
             this.UpdateCommand = new RelayCommand((obj) => Update());
+            WClist = new WorkstationClassList();
             PClist = new ProcessList();
-            Blist = new BufferList();
-            Plist = new ProdAreaList();
-            ObservableBuffer = new ObservableCollection<Buffer>();
+            SClist = new SecondaryActivity();
+            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();            
+            ObservableSecondaryActivity = new ObservableCollection<SecondaryActivity>();
+            ObservableSecondaryActivity = SecondaryActivityList.GetSecondaryActivityList();
             ObservableProcess = new ObservableCollection<Process>();
-            ObservableProdArea = new ObservableCollection<ProdArea>();
-            ObservableProdArea = ProdAreaList.GetProdAreaList();
-            ObservableBuffer = BufferList.GetBufferList();
             ObservableProcess = PClist.Processes;
-            this.TobeEditedItem = ObservableProcess.FirstOrDefault(); 
+            this.TobeEditedItem = ObservableWorkstationClass.FirstOrDefault(); 
         }
         #endregion
 
         #region Properties
+        public ObservableCollection<WorkstationClass> ObservableWorkstationClass
+        {
+            get { return _observableWorkstationClass; }
+            set { ChangeProperty(ref _observableWorkstationClass, value); }
+        }
+
         public ObservableCollection<Process> ObservableProcess
         {
             get { return _observableProcess; }
-            set { ChangeProperty(ref _observableProcess, value); }
+            set { _observableProcess = value; }
         }
 
-        public ObservableCollection<Buffer> ObservableBuffer
+        public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
         {
-            get { return BufferList.Buffers; }
-            set { _observableBuffer = value; }
-        }
-
-        public ObservableCollection<ProdArea> ObservableProdArea
-        {
-            get { return ProdAreaList.ProdAreas; }
-            set { ChangeProperty(ref _observableProdArea, value); }
+            get { return SecondaryActivityList.SecondaryActivities; }
+            set { ChangeProperty(ref _observableSecondaryActivity, value); }
         }
 
         /// <summary>
         /// Item that is being filled on the input controls
         /// </summary>
-        public Process TobeEditedItem
+        public WorkstationClass TobeEditedItem
         {
             get { return _tobeEditedItem; }
             set
@@ -88,25 +87,23 @@ namespace Your
         /// <summary>
         /// Item that is being selected on the list
         /// </summary>
-        public Process SelectedProcess
+        public WorkstationClass SelectedWorkstationClass
         {
-            get { return selectedProcess; }
+            get { return selectedWorkstationClass; }
             set
             {
-                selectedProcess = value;
-                if (SelectedProcess != null)
+                selectedWorkstationClass = value;
+                if (SelectedWorkstationClass != null)
                 {
-                    TobeEditedItem = new Process()
+                    TobeEditedItem = new WorkstationClass()
                     {
-                        PC_objName = SelectedProcess.PC_objName,
-                        PC_description = SelectedProcess.PC_description,
-                        PC_ComID = SelectedProcess.PC_ComID,
-                        ProdRef = SelectedProcess.ProdRef,
-                        EditProdRef = SelectedProcess.ProdRef,
-                        EditInbufferRef = SelectedProcess.InbufferRef,
-                        EditOutbufferRef = SelectedProcess.OutbufferRef,
-                        IsReplenished = SelectedProcess.IsReplenished,
-                        ExclFromKPI = SelectedProcess.ExclFromKPI
+                        WC_name = SelectedWorkstationClass.WC_name,
+                        WC_type = SelectedWorkstationClass.WC_type,
+                        WC_handlingType = SelectedWorkstationClass.WC_handlingType,
+                        ProcessRef = SelectedWorkstationClass.ProcessRef,
+                        EditprocessRef = SelectedWorkstationClass.EditprocessRef,
+                        SecondaryactivityRef = SelectedWorkstationClass.SecondaryactivityRef,
+                        EditsecondaryactivityRef = SelectedWorkstationClass.EditsecondaryactivityRef,
                     };
                 }
             }
@@ -120,19 +117,16 @@ namespace Your
         /// </summary>
         public void Update()
         {
-            if (SelectedProcess != null && SelectedProcess != TobeEditedItem)
+            if (SelectedWorkstationClass != null && SelectedWorkstationClass != TobeEditedItem)
             {
-                SelectedProcess.PC_objName = TobeEditedItem.PC_objName;
-                SelectedProcess.PC_description = TobeEditedItem.PC_description;
-                SelectedProcess.PC_ComID = TobeEditedItem.PC_ComID;
-                SelectedProcess.ProdRef.P_objName = TobeEditedItem.EditProdRef.editP_objName;
-                SelectedProcess.InbufferRef.B_objName = TobeEditedItem.EditInbufferRef.editB_objName;
-                SelectedProcess.OutbufferRef.B_objName = TobeEditedItem.EditOutbufferRef.editB_objName;
-                SelectedProcess.IsReplenished = TobeEditedItem.IsReplenished;
-                SelectedProcess.ExclFromKPI = TobeEditedItem.ExclFromKPI;
+                SelectedWorkstationClass.WC_name = TobeEditedItem.WC_name;
+                SelectedWorkstationClass.WC_type = TobeEditedItem.WC_type;
+                SelectedWorkstationClass.WC_handlingType = TobeEditedItem.WC_handlingType;
+                SelectedWorkstationClass.ProcessRef.PC_name = TobeEditedItem.ProcessRef.PC_name;
+                SelectedWorkstationClass.EditprocessRef.PC_name = TobeEditedItem.EditprocessRef.editPC_name;
+                SelectedWorkstationClass.SecondaryactivityRef.SC_name = TobeEditedItem.SecondaryactivityRef.SC_name;
+                SelectedWorkstationClass.EditsecondaryactivityRef = TobeEditedItem.EditsecondaryactivityRef;
             }
-            SelectedProcess = null;
-            TobeEditedItem = null;
         }
 
         /// <summary>
@@ -140,27 +134,23 @@ namespace Your
         /// </summary>
         public void Add()
         {
-            TobeEditedItem.EditInbufferRef.B_objName = TobeEditedItem.EditInbufferRef.editB_objName;
-            this.ObservableProcess.Add(new Process()
+            this.ObservableWorkstationClass.Add(new WorkstationClass()
             {
-                PC_objName = this.TobeEditedItem.PC_objName,
-                PC_description = this.TobeEditedItem.PC_description,
-                PC_ComID = this.TobeEditedItem.PC_ComID,
-                ProdRef = this.TobeEditedItem.EditProdRef,
-                InbufferRef = this.TobeEditedItem.EditInbufferRef,
-                OutbufferRef = this.TobeEditedItem.EditOutbufferRef,
-                IsReplenished = this.TobeEditedItem.IsReplenished,
-                ExclFromKPI = this.TobeEditedItem.ExclFromKPI
+                WC_name = this.TobeEditedItem.WC_name,
+                WC_type = this.TobeEditedItem.WC_type,
+                WC_handlingType = this.TobeEditedItem.WC_handlingType,
+                ProcessRef = this.TobeEditedItem.ProcessRef,
+                SecondaryactivityRef = this.TobeEditedItem.SecondaryactivityRef
             });
-            this.PClist.Processes = this.ObservableProcess;
+            this.WClist.WorkstationClasses = this.ObservableWorkstationClass;
         }
 
         /// <summary>
         /// Delete current selected item
         /// </summary>
         public void Delete()
-        {            
-            this.ObservableProcess.Remove(this.SelectedProcess);
+        {
+            this.ObservableWorkstationClass.Remove(this.SelectedWorkstationClass);
         }
         #endregion
 
