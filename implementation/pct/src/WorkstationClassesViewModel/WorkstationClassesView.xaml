@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Your.ProcessManagerView"
+﻿<UserControl x:Class="Your.WorkstationClassesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -27,39 +27,8 @@
                     <GridViewColumn Header="Production Area" DisplayMemberBinding="{Binding ProdRef.P_objName}"/>
                     <GridViewColumn Header="In-Buffer" DisplayMemberBinding="{Binding InbufferRef.B_objName}"/>
                     <GridViewColumn Header="Out-Buffer" DisplayMemberBinding="{Binding OutbufferRef.B_objName}"/>
-                    <!--<GridViewColumn Header="Replenished" DisplayMemberBinding="{Binding IsReplenished}">                        
-                    </GridViewColumn>-->
-                    <GridViewColumn Header="Replenished">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Width="18" Height="18" x:Name="myImage"/>
-                                <DataTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding IsReplenished}" Value="True">
-                                        <Setter TargetName="myImage" Property="Source" Value="pack://application:,,,/Resources/Images/True.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsReplenished}" Value="False">
-                                        <Setter TargetName="myImage" Property="Source" Value="pack://application:,,,/Resources/Images/False.png"/>
-                                    </DataTrigger>
-                                </DataTemplate.Triggers>                                
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <!--<GridViewColumn Header="KPIs Excluded" DisplayMemberBinding="{Binding ExclFromKPI}"/>-->
-                    <GridViewColumn Header="KPIs Excluded">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Width="18" Height="18" x:Name="myImage"/>
-                                <DataTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding ExclFromKPI}" Value="True">
-                                        <Setter TargetName="myImage" Property="Source" Value="pack://application:,,,/Resources/Images/True.png"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding ExclFromKPI}" Value="False">
-                                        <Setter TargetName="myImage" Property="Source" Value="pack://application:,,,/Resources/Images/False.png"/>
-                                    </DataTrigger>
-                                </DataTemplate.Triggers>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Replenished" DisplayMemberBinding="{Binding IsReplenished}"/>
+                    <GridViewColumn Header="KPIs Excluded" DisplayMemberBinding="{Binding ExclFromKPI}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -71,7 +40,7 @@
             <TextBlock x:Name="lblPC_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
             <TextBox x:Name="txtPC_ComID" Text="{Binding TobeEditedItem.PC_ComID}"></TextBox>
             <TextBlock x:Name="lblP_ProdArea" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Production Area:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" Text="{Binding TobeEditedItem.EditProdRef.editP_objName}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedItem="null" Text="{Binding TobeEditedItem.EditProdRef.editP_objName}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
             <TextBlock x:Name="lblPC_InBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="InBuffer:"></TextBlock>
             <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditInbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
             <TextBlock x:Name="lblPC_OutBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Outbuffer:"></TextBlock>

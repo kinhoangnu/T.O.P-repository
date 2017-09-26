@@ -56,6 +56,10 @@
     </ApplicationDefinition>
     <Compile Include="src\Models\ProdArea.cs" />
     <Compile Include="src\Models\ProdAreaList.cs" />
+    <Compile Include="src\WorkstationClassesViewModel\WorkstationClassesView.xaml.cs">
+      <DependentUpon>WorkstationClassesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\WorkstationClassesViewModel\WorkstationClassesViewModel.cs" />
     <Compile Include="src\ProdAreaManagerViewModel\ProdAreaManagerView.xaml.cs">
       <DependentUpon>ProdAreaManagerView.xaml</DependentUpon>
     </Compile>
@@ -77,6 +81,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\Images\False.png" />
+    <Resource Include="Resources\Images\True.png" />
     <Content Include="Resources\Languages\en-US.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +93,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="src\WorkstationClassesViewModel\WorkstationClassesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="src\ProdAreaManagerViewModel\ProdAreaManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

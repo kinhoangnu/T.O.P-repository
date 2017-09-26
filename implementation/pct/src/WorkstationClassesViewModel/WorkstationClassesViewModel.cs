@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace Your
 {
-    class WorkstationClassesViewModel : ContentViewModel
+    class ProcessManagerViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
         private Process selectedProcess;
@@ -36,7 +36,7 @@ namespace Your
         #endregion
 
         #region Constructor
-        public WorkstationClassesViewModel()
+        public ProcessManagerViewModel()
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
@@ -131,6 +131,8 @@ namespace Your
                 SelectedProcess.IsReplenished = TobeEditedItem.IsReplenished;
                 SelectedProcess.ExclFromKPI = TobeEditedItem.ExclFromKPI;
             }
+            SelectedProcess = null;
+            TobeEditedItem = null;
         }
 
         /// <summary>
