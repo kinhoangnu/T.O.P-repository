@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="com.vanderlande.wpf.PageList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:styling="clr-namespace:com.vanderlande.wpf;assembly=VI_STYLING"
+             xmlns:wpf="clr-namespace:com.vanderlande.wpf">
+
+    <!-- Using code behind to filter pages; those without a framework element are to be ignored -->
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Pages" Source="{Binding Path=SelectedContentEntries}" Filter="OnFilterPages" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0"
+                VerticalAlignment="Top"
+                Command="{Binding AddContentCommand}"
+                Content=" + "
+                Cursor="Hand"
+                Style="{DynamicResource PlusButtonStyle}"
+                Visibility="{Binding CanSelectContent,
+                                     Converter={styling:CollapseIfFalseConverter}}" />
+        <ListView Grid.Column="1"
+                  Background="Transparent"
+                  BorderBrush="Transparent"
+                  BorderThickness="0"
+                  ItemContainerStyle="{DynamicResource NavigationMenuListViewItem}"
+                  ItemsSource="{Binding Source={StaticResource ResourceKey=Pages}}"               
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  SelectedItem="{Binding SelectedContent}"
+                  SelectionMode="Single"
+                  Style="{DynamicResource NavigationMenuListView}"
+                  Visibility="{Binding Path=ShowSelectionMenu,
+                                       Converter={styling:CollapseIfFalseConverter}}">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <UserControl Height="Auto" MinWidth="80" Content="{Binding Converter={wpf:ContentEntryToButtonConverter}}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+    </Grid>
+
+</UserControl>
+
+
+
+
+

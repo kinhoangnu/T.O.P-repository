@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="com.vanderlande.wpf.SettingsListSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:styling="clr-namespace:com.vanderlande.wpf;assembly=VI_STYLING"
+             xmlns:wpf="clr-namespace:com.vanderlande.wpf">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Rectangle Grid.RowSpan="2" Fill="{DynamicResource MenuBackgroundBrush}" />
+        <TextBlock Grid.Row ="0" Style="{DynamicResource MenuTextBlock}" Text="{DynamicResource Settings}" />
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding SettingsList}"
+                 SelectedItem="{Binding SelectedSetting}"
+                 Style="{DynamicResource ListboxStyleMenu}">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="5" Source="{Binding Converter={styling:StringToImageConverter}}" />
+                        <TextBlock Margin="5 5 5 5" Text="{Binding Converter={wpf:StringToStringConverter}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+    </Grid>
+
+</UserControl>

@@ -18,7 +18,3 @@
 **/target/
 **/bin/
 rebel.xml
-
-# Temporary excludes
-implementation/pct/Framework/
-implementation/pct/Styling/

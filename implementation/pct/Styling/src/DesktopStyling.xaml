@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="ControlTemplating/Bitmaps.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Colors.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Button.xaml" />
+        <ResourceDictionary Source="ControlTemplating/ComboBox.xaml" />
+        <ResourceDictionary Source="ControlTemplating/DataGrid.xaml" />        
+        <ResourceDictionary Source="ControlTemplating/Expander.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Image.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Label.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Listbox.xaml" />
+        <ResourceDictionary Source="ControlTemplating/ListView.xaml" />
+        <ResourceDictionary Source="ControlTemplating/ProgressBar.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Scrollbar.xaml" />
+        <ResourceDictionary Source="ControlTemplating/TabControl.xaml" />
+        <ResourceDictionary Source="ControlTemplating/TextBlock.xaml" />
+        <ResourceDictionary Source="ControlTemplating/TextBox.xaml" />
+        <ResourceDictionary Source="ControlTemplating/Validation.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

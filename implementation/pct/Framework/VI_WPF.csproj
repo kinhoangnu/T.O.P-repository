@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F1566FFC-4C4D-45EA-948A-6DF5D58F6B10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>com.vanderlande.frs.wpf</RootNamespace>
+    <AssemblyName>VI_WPF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <ExpressionBlendVersion>12.0.51020.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MvvmValidation">
+      <HintPath>..\..\external\MvvmValidation.2.0.2\MvvmValidation.Portable\obj\$(Configuration)\MvvmValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VI_Styling">
+      <HintPath>..\Styling\obj\Debug\VI_Styling.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Converters\ContentEntryToButtonConverter.cs" />
+    <Compile Include="src\Converters\PageToStringConverter.cs" />
+    <Compile Include="src\Converters\PageToImageConverter.cs" />
+    <Compile Include="src\Converters\StringToStringConverter.cs" />
+    <Compile Include="src\Converters\ViewModelToViewConverter.cs" />
+    <Compile Include="src\Dialogs\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Dialogs\DialogViewModel.cs" />
+    <Compile Include="src\FunctionalModule\FunctionalModuleCommands.cs" />
+    <Compile Include="src\Helpers\ResourceKeyToStringHelper.cs" />
+    <Compile Include="src\Helpers\LastElementVisibleBehavior.cs" />
+    <Compile Include="src\Helpers\ScrollIntoViewBehavior.cs" />
+    <Compile Include="src\InActivity\InActivityDetector.cs" />
+    <Compile Include="src\InActivity\InActivityManager.cs" />
+    <Compile Include="src\InActivity\InActivityProcess.cs" />
+    <Compile Include="src\InitAssemblies.cs" />
+    <Compile Include="src\Logging\Logger.cs" />
+    <Compile Include="src\MainWindow\MainWindowViewModel.Mouse.cs" />
+    <Compile Include="src\MainWindow\MainWindowViewModel.Persistency.cs" />
+    <Compile Include="src\PageGroup\PageGroup.cs" />
+    <Compile Include="src\PageGroup\PageGroupManager.cs" />
+    <Compile Include="src\PageGroup\PageInfo.cs" />
+    <Compile Include="src\InActivity\ScreenSaver.cs" />
+    <Compile Include="src\CommandBase.cs" />
+    <Compile Include="src\Settings\CopyrightInfo.cs" />
+    <Compile Include="src\Settings\Persistency\SettingsPersistencyGroup.cs" />
+    <Compile Include="src\Settings\Persistency\SettingsPersistencyXML.cs" />
+    <Compile Include="src\Settings\Persistency\ISettingsPersistency.cs" />
+    <Compile Include="src\SelectPage\SelectPageView.xaml.cs">
+      <DependentUpon>SelectPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\SelectPage\SelectPageViewModel.cs" />
+    <Compile Include="src\Settings\SettingsListSection.xaml.cs">
+      <DependentUpon>SettingsListSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\SettingsBottomSection.xaml.cs">
+      <DependentUpon>SettingsBottomSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\SettingsPageViewModel.cs" />
+    <Compile Include="src\Settings\CopyrightSettingsViewModel.cs" />
+    <Compile Include="src\Settings\CopyrightSettingsView.xaml.cs">
+      <DependentUpon>CopyrightSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\OnSettings.cs" />
+    <Compile Include="src\StatusBar\SettingsCommandView.xaml.cs">
+      <DependentUpon>SettingsCommandView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\SettingsCommandViewModel.cs" />
+    <Compile Include="src\StatusBar\CommandViewModel.cs" />
+    <Compile Include="src\StatusBar\DisConnectedViewModel.cs" />
+    <Compile Include="src\StatusBar\DisConnectedView.xaml.cs">
+      <DependentUpon>DisConnectedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\ConnectedView.xaml.cs">
+      <DependentUpon>ConnectedView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\ConnectedViewModel.cs" />
+    <Compile Include="src\StatusBar\InfoNotificationView.xaml.cs">
+      <DependentUpon>InfoNotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\WarningNotificationView.xaml.cs">
+      <DependentUpon>WarningNotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\InfoNotificationViewModel.cs" />
+    <Compile Include="src\StatusBar\WarningNotificationViewModel.cs" />
+    <Compile Include="src\StatusBar\AlarmNotificationViewModel.cs" />
+    <Compile Include="src\StatusBar\AlarmNotificationView.xaml.cs">
+      <DependentUpon>AlarmNotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\NotificationViewModel.cs" />
+    <Compile Include="src\StatusBar\StatusBarViewModel.cs" />
+    <Compile Include="src\UserAuthorisation\Developers.cs" />
+    <Compile Include="src\Settings\LanguageSettingsViewModel.cs" />
+    <Compile Include="src\Settings\UserRoleSettingsViewModel.cs" />
+    <Compile Include="src\Settings\UserRoleSettingsView.xaml.cs">
+      <DependentUpon>UserRoleSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\LanguageSettingsView.xaml.cs">
+      <DependentUpon>LanguageSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\SettingsDeveloperView.xaml.cs">
+      <DependentUpon>SettingsDeveloperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\SettingsViewModel.cs" />
+    <Compile Include="src\UserAuthorisation\UserRoleLowestAvailable.cs" />
+    <Compile Include="src\UserAuthorisation\UserRoleFromRoleBasedSecurity.cs" />
+    <Compile Include="src\UserAuthorisation\UserRoleFromDirectoryServices.cs" />
+    <Compile Include="src\UserAuthorisation\UserRoleFromDevelopersFile.cs" />
+    <Compile Include="src\UserAuthorisation\UserRoleFactory.cs" />
+    <Compile Include="src\UserAuthorisation\UserRole.cs" />
+    <Compile Include="src\Validation\Validation.cs" />
+    <Compile Include="src\Validation\RuleResult.cs" />
+    <Compile Include="src\Validation\RuleResultFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\Validation\RuleResultFactory.StringValues.cs" />
+    <Compile Include="src\Validation\RuleResultFactory.NumericValues.cs" />
+    <Compile Include="src\FunctionalModule\FunctionalModule.cs" />
+    <Compile Include="src\ViApplication.cs" />
+    <Compile Include="src\MainWindow\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusBar\IconViewModel.cs" />
+    <Compile Include="src\ViewModels\CollectionViewModel.cs" />
+    <Compile Include="src\ViewModels\ContentViewModel.Events.cs" />
+    <Compile Include="src\ViewModels\ContentViewModel.Persistency.cs" />
+    <Compile Include="src\ViewModels\ContentViewModel.Validation.cs" />
+    <Compile Include="src\ViewModels\FloatPageViewModel.cs" />
+    <Compile Include="src\ViewModels\PageButtonViewModel.cs" />
+    <Compile Include="src\ViewModels\LayoutPersistency.cs" />
+    <Compile Include="src\ViewModels\ContentViewModel.cs" />
+    <Compile Include="src\ViewModels\PopupViewModel.cs" />
+    <Compile Include="src\ViewModels\ValidationViewModel.cs" />
+    <Compile Include="src\Xaml\BottomSection.xaml.cs">
+      <DependentUpon>BottomSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Settings\SettingsTopSection.xaml.cs">
+      <DependentUpon>SettingsTopSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\ClosePageButton.xaml.cs">
+      <DependentUpon>ClosePageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\FloatPageView.xaml.cs">
+      <DependentUpon>FloatPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\PageButton.xaml.cs">
+      <DependentUpon>PageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\IconList.xaml.cs">
+      <DependentUpon>IconList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\PageList.xaml.cs">
+      <DependentUpon>PageList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Xaml\TopSection.xaml.cs">
+      <DependentUpon>TopSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="src\ViewLocator.cs" />
+    <Compile Include="src\Mediator.cs" />
+    <Compile Include="src\RelayCommand.cs" />
+    <Compile Include="src\UserAuthorisation\User.cs" />
+    <Compile Include="src\MainWindow\ContentEntry.cs" />
+    <Compile Include="src\ViewModels\WindowViewModel.cs" />
+    <Compile Include="src\ViewModels\ViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="src\Dialogs\DialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\SelectPage\SelectPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\CopyrightSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusBar\SettingsCommandView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusBar\AlarmNotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusBar\DisConnectedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusBar\ConnectedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusBar\InfoNotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusBar\WarningNotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\ClosePageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\SettingsListSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\SettingsBottomSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\UserRoleSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\LanguageSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\SettingsDeveloperView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\MainWindow\MainWindowView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\BottomSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Settings\SettingsTopSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\FloatPageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\PageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\StatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\IconList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\PageList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\Xaml\TopSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MvvmValidation.dll" />
+    <Content Include="VI_Styling.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

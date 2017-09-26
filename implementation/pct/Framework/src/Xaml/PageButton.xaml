@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="com.vanderlande.wpf.PageButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="clr-namespace:com.vanderlande.wpf">
+
+    <StackPanel Height="Auto" MinWidth="80">
+        <Image Height="31"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               Source="{Binding Converter={wpf:PageToImageConverter},
+                                ConverterParameter=PageIcons}" />
+        <TextBlock Width="Auto"
+                   Margin="5 0 5 0"
+                   HorizontalAlignment="Center"
+                   Text="{Binding Converter={wpf:PageToStringConverter}}" />
+
+
+    </StackPanel>
+
+</UserControl>
+
+
+
+
+

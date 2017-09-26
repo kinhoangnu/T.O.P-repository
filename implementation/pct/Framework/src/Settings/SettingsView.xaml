@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="com.vanderlande.wpf.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vi="clr-namespace:com.vanderlande.wpf"
+             Width="Auto"
+             Height="Auto"
+             Background="{DynamicResource ApplicationBackgroundBrush}">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <vi:SettingsListSection Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="0" />
+
+        <!--  Vertical splitter  -->
+        <GridSplitter Grid.Row="0"
+                      Grid.RowSpan="2"
+                      Grid.Column="1"
+                      Width="3"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      Foreground="Transparent"
+                      ResizeDirection="Columns" />
+
+        <ContentPresenter Grid.Row="0"
+                          Grid.Column="2"
+                          MinWidth="300"
+                          MinHeight="300"
+                          Content="{Binding CurrentPage}" />
+
+        <vi:SettingsBottomSection Grid.Row="1"
+                                  Grid.Column="2"
+                                  HorizontalAlignment="Right" />
+    </Grid>
+</UserControl>

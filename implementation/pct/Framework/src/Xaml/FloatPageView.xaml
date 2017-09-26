@@ -1,0 +1,36 @@
+﻿<Window x:Class="com.vanderlande.wpf.FloatPageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpf="clr-namespace:com.vanderlande.wpf"
+        Title="{Binding ViewModel, Converter={wpf:PageToStringConverter}, ConverterParameter=Description}">
+
+    <!-- Description, shown when cursor hoovers the clipped thumbnail preview -->
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo
+                     ThumbnailClipMargin="80,0,80,140"
+                     Description="{Binding ViewModel, Converter={wpf:PageToStringConverter}, ConverterParameter=Description}"/>
+    </Window.TaskbarItemInfo>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0"
+                Grid.Column="0"
+                Background="White"
+                BorderBrush="{DynamicResource MenuBackgroundBrush}"
+                BorderThickness="0 0 0 1" />
+        <Image Grid.Row="0" Grid.Column="0" 
+               Source="{Binding ViewModel, Converter={wpf:PageToImageConverter}, ConverterParameter=PageIcons}" 
+               Margin="5,0,5,0"
+               Height="50"
+               VerticalAlignment="Center"/>
+        <wpf:TopSection Grid.Row="0" Grid.Column="1" />
+        <ContentPresenter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Content="{Binding Content}"/>
+    </Grid>
+</Window>

@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="com.vanderlande.wpf.StatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpf="clr-namespace:com.vanderlande.wpf"
+             xmlns:styling="clr-namespace:com.vanderlande.wpf;assembly=VI_STYLING"
+             Visibility="{Binding StatusBar.Text, Converter={styling:CollapseIfEmptyConverter}}">
+
+    <TextBox BorderThickness="0" Background="Transparent" Text="{Binding StatusBar.Text}"/>
+</UserControl>
+
+
+
+
+

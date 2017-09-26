@@ -50,7 +50,7 @@ namespace Your
             ObservableProdArea = ProdAreaList.GetProdAreaList();
             ObservableBuffer = BufferList.GetBufferList();
             ObservableProcess = PClist.Processes;
-            this.SelectedProcess = ObservableProcess.FirstOrDefault();
+            this.TobeEditedItem = ObservableProcess.FirstOrDefault(); 
         }
         #endregion
 
@@ -131,6 +131,8 @@ namespace Your
                 SelectedProcess.IsReplenished = TobeEditedItem.IsReplenished;
                 SelectedProcess.ExclFromKPI = TobeEditedItem.ExclFromKPI;
             }
+            SelectedProcess = null;
+            TobeEditedItem = null;
         }
 
         /// <summary>

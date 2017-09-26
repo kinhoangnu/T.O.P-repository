@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="com.vanderlande.wpf.LanguageSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:styling="clr-namespace:com.vanderlande.wpf;assembly=VI_Styling"
+             xmlns:wpf="clr-namespace:com.vanderlande.wpf">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="{DynamicResource SelectLanguage}" Style="{DynamicResource MenuContentTextblock}" />
+        
+        <ListBox Style="{DynamicResource ListboxStyleContent}"
+                 Grid.Row="1"                 
+                 ItemsSource="{Binding Values}"
+                 SelectedItem="{Binding Selected}"                 
+                 >
+            
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="5" Source="{Binding Converter={styling:CultureInfoToImageConverter}, ConverterParameter=Languages}" />
+                        <TextBlock Text="{Binding Converter={styling:CultureInfoToStringConverter}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

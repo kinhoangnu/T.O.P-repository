@@ -40,11 +40,11 @@
             <TextBlock x:Name="lblPC_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
             <TextBox x:Name="txtPC_ComID" Text="{Binding TobeEditedItem.PC_ComID}"></TextBox>
             <TextBlock x:Name="lblP_ProdArea" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Production Area:"></TextBlock>
-            <ComboBox x:Name="cb_Prodref" SelectedIndex="1" Text="{Binding TobeEditedItem.EditProdRef.editP_objName}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedItem="null" Text="{Binding TobeEditedItem.EditProdRef.editP_objName}" ItemsSource="{Binding ObservableProdArea}" DisplayMemberPath="P_objName"></ComboBox>
             <TextBlock x:Name="lblPC_InBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="InBuffer:"></TextBlock>
-            <ComboBox x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditInbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditInbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
             <TextBlock x:Name="lblPC_OutBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Outbuffer:"></TextBlock>
-            <ComboBox x:Name="cb_Outbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditOutbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Outbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditOutbufferRef.editB_objName}" ItemsSource="{Binding ObservableBuffer}" DisplayMemberPath="B_objName"></ComboBox>
             <StackPanel Orientation="Horizontal">
                 <CheckBox Content="Replenished." Margin="5" IsChecked="{Binding TobeEditedItem.IsReplenished}" />
                 <CheckBox Content="Excluded form KPIs." Margin="5" IsChecked="{Binding TobeEditedItem.ExclFromKPI}" />

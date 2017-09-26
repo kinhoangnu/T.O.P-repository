@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="SettingsIcon" UriSource="../Images/SettingsIcon.png" />
+    <BitmapImage x:Key="ClosePageIcon" UriSource="../Images/Close Page.png" />
+    <BitmapImage x:Key="GlassIcon" UriSource="../Images/Glass.png" />
+    <BitmapImage x:Key="DarkGlassIcon" UriSource="../Images/DarkGlass.png" />
+    <BitmapImage x:Key="OkIcon" UriSource="../Images/OkIcon.png" />
+    <BitmapImage x:Key="InfoIcon" UriSource="../Images/InfoIcon.png" />
+    <BitmapImage x:Key="WarningIcon" UriSource="../Images/WarningIcon.png" />
+    <BitmapImage x:Key="ErrorIcon" UriSource="../Images/ErrorIcon.png" />
+    <BitmapImage x:Key="FireAlarmIcon" UriSource="../Images/FireIcon.png" />
+    <BitmapImage x:Key="FireAlarmIconInside" UriSource="../Images/FireIconInside.png" />
+    <BitmapImage x:Key="FireAlarmIconOutside" UriSource="../Images/FireIconOutside.png" />
+    <BitmapImage x:Key="ConnectedIcon" UriSource="../Images/ConnectedIcon.png" />
+    <BitmapImage x:Key="DisconnectedIcon" UriSource="../Images/DisconnectedIcon.png" />
+    <BitmapImage x:Key="OverlayBackIcon" UriSource="../Images/OverlayBackButton.png" />
+
+</ResourceDictionary>
