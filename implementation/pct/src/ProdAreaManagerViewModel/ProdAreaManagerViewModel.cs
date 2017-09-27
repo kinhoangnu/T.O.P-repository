@@ -75,7 +75,7 @@ namespace Your
 
         public ObservableCollection<ProdArea> ObservableProdArea
         {
-            get { return _observableProdArea; }
+            get { return ProdAreaList.ProdAreas; }
             set { ChangeProperty(ref _observableProdArea, value); }
         }
 

@@ -41,7 +41,7 @@ namespace Your
         #region properties
         public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
         {
-            get { return _observableSecondaryActivity; }
+            get { return SecondaryActivityList.SecondaryActivities; }
             set { ChangeProperty(ref _observableSecondaryActivity, value); }
         }
 

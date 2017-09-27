@@ -21,7 +21,6 @@ namespace Your
             }
             set
             {
-                //ChangeProperty(ref _buffers, value);
                 _buffers = value;
             }
         }

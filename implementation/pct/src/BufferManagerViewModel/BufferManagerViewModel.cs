@@ -41,7 +41,7 @@ namespace Your
         #region properties
         public ObservableCollection<Buffer> ObservableBuffer
         {
-            get { return _observableBuffer; }
+            get { return BufferList.Buffers; }
             set { ChangeProperty(ref _observableBuffer, value); }
         }
 
@@ -118,7 +118,7 @@ namespace Your
             Buffer temp = new Buffer();
             temp = SelectedBuffer;
             this.ObservableBuffer.Remove(this.SelectedBuffer);
-            Blist.DeleteABuffer(temp);
+            BufferList.GetBufferList().Remove(temp);
         }
 
         #endregion

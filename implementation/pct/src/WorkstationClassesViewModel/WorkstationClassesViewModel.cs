@@ -48,7 +48,8 @@ namespace Your
             ObservableSecondaryActivity = new ObservableCollection<SecondaryActivity>();
             ObservableSecondaryActivity = SecondaryActivityList.GetSecondaryActivityList();
             ObservableProcess = new ObservableCollection<Process>();
-            ObservableProcess = PClist.Processes;
+            ObservableProcess = ProcessList.GetProcessList();
+            ObservableWorkstationClass = WClist.GetWorkstationClassList();
             this.TobeEditedItem = ObservableWorkstationClass.FirstOrDefault(); 
         }
         #endregion
@@ -62,7 +63,7 @@ namespace Your
 
         public ObservableCollection<Process> ObservableProcess
         {
-            get { return _observableProcess; }
+            get { return ProcessList.Processes; }
             set { _observableProcess = value; }
         }
 
@@ -100,10 +101,10 @@ namespace Your
                         WC_name = SelectedWorkstationClass.WC_name,
                         WC_type = SelectedWorkstationClass.WC_type,
                         WC_handlingType = SelectedWorkstationClass.WC_handlingType,
-                        ProcessRef = SelectedWorkstationClass.ProcessRef,
-                        EditprocessRef = SelectedWorkstationClass.EditprocessRef,
+                        ProcessRef = SelectedWorkstationClass.ProcessRef,                        
                         SecondaryactivityRef = SelectedWorkstationClass.SecondaryactivityRef,
-                        EditsecondaryactivityRef = SelectedWorkstationClass.EditsecondaryactivityRef,
+                        EditprocessRef = SelectedWorkstationClass.ProcessRef,
+                        EditsecondaryactivityRef = SelectedWorkstationClass.SecondaryactivityRef,
                     };
                 }
             }
@@ -122,10 +123,8 @@ namespace Your
                 SelectedWorkstationClass.WC_name = TobeEditedItem.WC_name;
                 SelectedWorkstationClass.WC_type = TobeEditedItem.WC_type;
                 SelectedWorkstationClass.WC_handlingType = TobeEditedItem.WC_handlingType;
-                SelectedWorkstationClass.ProcessRef.PC_name = TobeEditedItem.ProcessRef.PC_name;
-                SelectedWorkstationClass.EditprocessRef.PC_name = TobeEditedItem.EditprocessRef.editPC_name;
-                SelectedWorkstationClass.SecondaryactivityRef.SC_name = TobeEditedItem.SecondaryactivityRef.SC_name;
-                SelectedWorkstationClass.EditsecondaryactivityRef = TobeEditedItem.EditsecondaryactivityRef;
+                SelectedWorkstationClass.ProcessRef.PC_name = TobeEditedItem.EditprocessRef.editPC_name;
+                SelectedWorkstationClass.SecondaryactivityRef.SC_name = TobeEditedItem.EditsecondaryactivityRef.editSC_name;
             }
         }
 

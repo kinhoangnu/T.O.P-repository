@@ -27,7 +27,6 @@ namespace Your
         private Process _tobeEditedItem;
 
         public ProcessList PClist;
-        public BufferList Blist;
         public ProdAreaList Plist;
 
         public RelayCommand DeleteCommand { get; set; }
@@ -42,22 +41,21 @@ namespace Your
             this.AddCommand = new RelayCommand((obj) => Add());
             this.UpdateCommand = new RelayCommand((obj) => Update());
             PClist = new ProcessList();
-            Blist = new BufferList();
             Plist = new ProdAreaList();
             ObservableBuffer = new ObservableCollection<Buffer>();
             ObservableProcess = new ObservableCollection<Process>();
             ObservableProdArea = new ObservableCollection<ProdArea>();
             ObservableProdArea = ProdAreaList.GetProdAreaList();
             ObservableBuffer = BufferList.GetBufferList();
-            ObservableProcess = PClist.Processes;
-            this.TobeEditedItem = ObservableProcess.FirstOrDefault(); 
+            ObservableProcess = ProcessList.GetProcessList();
+            this.SelectedProcess = ObservableProcess.FirstOrDefault(); 
         }
         #endregion
 
         #region Properties
         public ObservableCollection<Process> ObservableProcess
         {
-            get { return _observableProcess; }
+            get { return ProcessList.Processes; }
             set { ChangeProperty(ref _observableProcess, value); }
         }
 
@@ -102,7 +100,7 @@ namespace Your
                         PC_description = SelectedProcess.PC_description,
                         PC_comID = SelectedProcess.PC_comID,
                         ProdRef = SelectedProcess.ProdRef,
-                        EditProdRef = SelectedProcess.ProdRef,
+                        EditProdRef = SelectedProcess.ProdRef,                        
                         EditInbufferRef = SelectedProcess.InbufferRef,
                         EditOutbufferRef = SelectedProcess.OutbufferRef,
                         IsReplenished = SelectedProcess.IsReplenished,
@@ -150,15 +148,17 @@ namespace Your
                 IsReplenished = this.TobeEditedItem.IsReplenished,
                 ExclFromKPI = this.TobeEditedItem.ExclFromKPI
             });
-            this.PClist.Processes = this.ObservableProcess;
         }
 
         /// <summary>
         /// Delete current selected item
         /// </summary>
         public void Delete()
-        {            
+        {
+            Process temp = new Process();
+            temp = SelectedProcess;
             this.ObservableProcess.Remove(this.SelectedProcess);
+            PClist.DeleteAProcess(temp);
         }
         #endregion
 
