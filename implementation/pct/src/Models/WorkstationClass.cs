@@ -14,7 +14,9 @@ namespace Your
         private string wc_name;
         private string editwc_name;
         private string wc_type;
+        private string editwc_type;
         private string wc_handlingType;
+        private string editwc_handlingType;
         private Process processRef;
         private Process editprocessRef;
         private SecondaryActivity secondaryactivityRef;
@@ -58,6 +60,17 @@ namespace Your
                 ChangeProperty(ref wc_type, value);
             }
         }
+        public string editWC_type
+        {
+            get
+            {
+                return editwc_type;
+            }
+            set
+            {
+                ChangeProperty(ref editwc_type, value);
+            }
+        }
         public string WC_name
         {
             get
@@ -89,6 +102,17 @@ namespace Your
             set
             {
                 ChangeProperty(ref wc_handlingType, value);
+            }
+        }
+        public string editWC_handlingType
+        {
+            get
+            {
+                return editwc_handlingType;
+            }
+            set
+            {
+                ChangeProperty(ref editwc_handlingType, value);
             }
         }
 

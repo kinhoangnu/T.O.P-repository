@@ -54,16 +54,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Models\WorkstationGroup.cs" />
+    <Compile Include="src\Models\Workstation.cs" />
     <Compile Include="src\Models\WorkstationClass.cs" />
+    <Compile Include="src\Models\WorkstationGroupList.cs" />
+    <Compile Include="src\Models\WorkstationList.cs" />
     <Compile Include="src\Models\WorkstationClassList.cs" />
     <Compile Include="src\Models\SecondaryActivity.cs" />
     <Compile Include="src\Models\SecondaryActivityList.cs" />
+    <Compile Include="src\WorkstationGroupViewModel\WorkstationGroupView.xaml.cs">
+      <DependentUpon>WorkstationGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\WorkstationGroupViewModel\WorkstationGroupViewModel.cs" />
     <Compile Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesView.xaml.cs">
       <DependentUpon>SecondaryActivitiesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesViewModel.cs" />
     <Compile Include="src\Models\ProdArea.cs" />
     <Compile Include="src\Models\ProdAreaList.cs" />
+    <Compile Include="src\WorkstationsViewModel\WorkstationsView.xaml.cs">
+      <DependentUpon>WorkstationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\WorkstationsViewModel\WorkstationsViewModel.cs" />
     <Compile Include="src\WorkstationClassesViewModel\WorkstationClassesView.xaml.cs">
       <DependentUpon>WorkstationClassesView.xaml</DependentUpon>
     </Compile>
@@ -101,7 +113,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="src\WorkstationGroupViewModel\WorkstationGroupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\WorkstationsViewModel\WorkstationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -30,7 +30,9 @@ namespace Your
             mainWnd.RegisterContent(typeof(BufferManagerViewModel));
             mainWnd.RegisterContent(typeof(ProdAreaManagerViewModel));
             mainWnd.RegisterContent(typeof(SecondaryActivitiesViewModel));
-            mainWnd.RegisterContent(typeof(WorkstationClassesViewModel)); 
+            mainWnd.RegisterContent(typeof(WorkstationClassesViewModel));
+            mainWnd.RegisterContent(typeof(WorkstationsViewModel));
+            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel)); 
             return mainWnd;
         }
 

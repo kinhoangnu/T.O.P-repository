@@ -82,7 +82,7 @@ namespace Your
         #region Add, Update and Delete
 
         /// <summary>
-        /// Add a new buffer to Buffer list
+        /// Add a new buffer to SelectedSecondaryActivity list
         /// </summary>
         public void Add()
         {
@@ -95,7 +95,7 @@ namespace Your
         }
 
         /// <summary>
-        /// Update current selected Buffer
+        /// Update current selected SelectedSecondaryActivity
         /// </summary>
         public void Update()
         {
@@ -108,7 +108,7 @@ namespace Your
         }
 
         /// <summary>
-        /// Delete current selected Buffer
+        /// Delete current selected SelectedSecondaryActivity
         /// </summary>
         public void Delete()
         {

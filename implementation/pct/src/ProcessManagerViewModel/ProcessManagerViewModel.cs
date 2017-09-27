@@ -158,7 +158,7 @@ namespace Your
             Process temp = new Process();
             temp = SelectedProcess;
             this.ObservableProcess.Remove(this.SelectedProcess);
-            PClist.DeleteAProcess(temp);
+            ProcessList.Processes.Remove(temp);
         }
         #endregion
 

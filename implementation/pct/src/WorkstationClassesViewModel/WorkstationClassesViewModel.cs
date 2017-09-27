@@ -41,23 +41,21 @@ namespace Your
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
             this.UpdateCommand = new RelayCommand((obj) => Update());
-            WClist = new WorkstationClassList();
-            PClist = new ProcessList();
-            SClist = new SecondaryActivity();
-            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();            
+                      
             ObservableSecondaryActivity = new ObservableCollection<SecondaryActivity>();
             ObservableSecondaryActivity = SecondaryActivityList.GetSecondaryActivityList();
             ObservableProcess = new ObservableCollection<Process>();
             ObservableProcess = ProcessList.GetProcessList();
-            ObservableWorkstationClass = WClist.GetWorkstationClassList();
-            this.TobeEditedItem = ObservableWorkstationClass.FirstOrDefault(); 
+            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();  
+            ObservableWorkstationClass = WorkstationClassList.GetWorkstationClassList();
+            this.SelectedWorkstationClass = ObservableWorkstationClass.FirstOrDefault(); 
         }
         #endregion
 
         #region Properties
         public ObservableCollection<WorkstationClass> ObservableWorkstationClass
         {
-            get { return _observableWorkstationClass; }
+            get { return WorkstationClassList.WorkstationClasses; }
             set { ChangeProperty(ref _observableWorkstationClass, value); }
         }
 
@@ -141,7 +139,7 @@ namespace Your
                 ProcessRef = this.TobeEditedItem.ProcessRef,
                 SecondaryactivityRef = this.TobeEditedItem.SecondaryactivityRef
             });
-            this.WClist.WorkstationClasses = this.ObservableWorkstationClass;
+            WorkstationClassList.WorkstationClasses = this.ObservableWorkstationClass;
         }
 
         /// <summary>
