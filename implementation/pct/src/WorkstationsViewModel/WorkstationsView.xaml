@@ -25,6 +25,7 @@
                     <GridViewColumn Header="Description"  DisplayMemberBinding="{Binding W_description}"/>
                     <GridViewColumn Header="Communication ID" DisplayMemberBinding="{Binding W_comID}"/>
                     <GridViewColumn Header="Workstation Class" DisplayMemberBinding="{Binding WorkstationclassRef.WC_name}"/>
+                    <GridViewColumn Header="Workstation Group" DisplayMemberBinding="{Binding WorkstationgroupRef.WG_name}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -36,7 +37,9 @@
             <TextBlock x:Name="lblw_comID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
             <TextBox x:Name="txtw_comID" Text="{Binding TobeEditedItem.W_comID}"></TextBox>
             <TextBlock x:Name="lblwc_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Workstation Class:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedIndex="1" Text="{Binding TobeEditedItem.EditworkstationClassRef.editWC_name}" ItemsSource="{Binding ObservableWorkstationClass}" DisplayMemberPath="WC_name"></ComboBox>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_wc_name" SelectedIndex="1" Text="{Binding TobeEditedItem.EditworkstationClassRef.editWC_name}" ItemsSource="{Binding ObservableWorkstationClass}" DisplayMemberPath="WC_name"></ComboBox>
+            <TextBlock x:Name="lblwg_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Workstation Class:"></TextBlock>
+            <ComboBox FontFamily="Arial" FontSize="11" x:Name="wg_name" SelectedIndex="1" Text="{Binding TobeEditedItem.EditWorkstationgroupRef.Editwg_name}" ItemsSource="{Binding ObservableWorkstationGroup}" DisplayMemberPath="WG_name"></ComboBox>
 
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">

@@ -19,6 +19,7 @@ namespace Your
 
         private ObservableCollection<Workstation> _observableWorkstation;
         private ObservableCollection<WorkstationClass> _observableWorkstationClass;
+        private ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
         
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -35,6 +36,8 @@ namespace Your
             ObservableWorkstation = WorkstationList.GetWorkstationList();
             ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();
             ObservableWorkstationClass = WorkstationClassList.GetWorkstationClassList();
+            ObservableWorkstationGroup = new ObservableCollection<WorkstationGroup>();
+            ObservableWorkstationGroup = WorkstationGroupList.GetWorkstationGroupList();
             this.SelectedWorkstation = ObservableWorkstation.FirstOrDefault(); 
         }
         #endregion
@@ -50,6 +53,11 @@ namespace Your
         {
             get { return WorkstationClassList.WorkstationClasses; }
             set { ChangeProperty(ref _observableWorkstationClass, value); }
+        }
+        public ObservableCollection<WorkstationGroup> ObservableWorkstationGroup
+        {
+            get { return WorkstationGroupList.WorkstationGroups; }
+            set { ChangeProperty(ref _observableWorkstationGroup, value); }
         }
         
 
@@ -76,15 +84,34 @@ namespace Your
                 selectedWorkstation = value;
                 if (SelectedWorkstation != null)
                 {
-                    TobeEditedItem = new Workstation()
+                    if (SelectedWorkstation.WorkstationgroupRef != null)
                     {
-                        W_name = SelectedWorkstation.W_name,
-                        W_description = SelectedWorkstation.W_description,
-                        W_comID = SelectedWorkstation.W_comID,
-                        EditworkstationClassRef = SelectedWorkstation.WorkstationclassRef,
-                        WorkstationclassRef = SelectedWorkstation.WorkstationclassRef,
-                    };
-                    TobeEditedItem.EditworkstationClassRef.editWC_name = SelectedWorkstation.WorkstationclassRef.WC_name;
+                        TobeEditedItem = new Workstation()
+                        {
+                            W_name = SelectedWorkstation.W_name,
+                            W_description = SelectedWorkstation.W_description,
+                            W_comID = SelectedWorkstation.W_comID,
+                            EditworkstationClassRef = SelectedWorkstation.WorkstationclassRef,
+                            WorkstationclassRef = SelectedWorkstation.WorkstationclassRef,
+                            WorkstationgroupRef = SelectedWorkstation.WorkstationgroupRef,
+                            EditWorkstationgroupRef = SelectedWorkstation.WorkstationgroupRef
+                        };
+                        TobeEditedItem.EditworkstationClassRef.editWC_name = SelectedWorkstation.WorkstationclassRef.WC_name;
+                        TobeEditedItem.EditWorkstationgroupRef.Editwg_name = SelectedWorkstation.WorkstationgroupRef.WG_name;
+                    }
+                    else
+                    {
+                        TobeEditedItem = new Workstation()
+                        {
+                            W_name = SelectedWorkstation.W_name,
+                            W_description = SelectedWorkstation.W_description,
+                            W_comID = SelectedWorkstation.W_comID,
+                            EditworkstationClassRef = SelectedWorkstation.WorkstationclassRef,
+                            WorkstationclassRef = SelectedWorkstation.WorkstationclassRef
+                        };
+                        TobeEditedItem.EditworkstationClassRef.editWC_name = SelectedWorkstation.WorkstationclassRef.WC_name;
+                        TobeEditedItem.EditWorkstationgroupRef = new WorkstationGroup();
+                    }
                 }
             }
         }
@@ -103,6 +130,7 @@ namespace Your
                 SelectedWorkstation.W_description = TobeEditedItem.W_description;
                 SelectedWorkstation.W_comID = TobeEditedItem.W_comID;
                 SelectedWorkstation.WorkstationclassRef.WC_name = TobeEditedItem.EditworkstationClassRef.editWC_name;
+                SelectedWorkstation.WorkstationgroupRef.WG_name = TobeEditedItem.WorkstationgroupRef.Editwg_name;
             }
         }
 
@@ -116,9 +144,11 @@ namespace Your
                 W_name = this.TobeEditedItem.W_name,
                 W_description = this.TobeEditedItem.W_description,
                 W_comID = this.TobeEditedItem.W_comID,
-                WorkstationclassRef = this.TobeEditedItem.WorkstationclassRef
+                WorkstationclassRef = this.TobeEditedItem.WorkstationclassRef,
+                WorkstationgroupRef = this.TobeEditedItem.WorkstationgroupRef
             });
             WorkstationList.Workstations = this.ObservableWorkstation;
+
         }
 
         /// <summary>

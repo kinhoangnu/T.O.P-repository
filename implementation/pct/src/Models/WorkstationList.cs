@@ -26,10 +26,10 @@ namespace Your
                 new Workstation{ W_name = "Pallet Infeed A3", W_description = "Pallet Infeed A3 (semi-automatic)", W_comID = "RCV/Rcv/EntryA3", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(0)},
                 new Workstation{ W_name = "Pallet Infeed B1", W_description = "Pallet Infeed B1 (semi-automatic)", W_comID = "RCV/Rcv/EntryB1", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(1)},
                 new Workstation{ W_name = "Pallet Infeed B2", W_description = "Pallet Infeed B2 (semi-automatic)", W_comID = "RCV/Rcv/EntryB2", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(1)},
-                new Workstation{ W_name = "Pallet Infeed C1", W_description = "Pallet Infeed C1 (semi-automatic)", W_comID = "RCV/Rcv/EntryC1", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2)},
-                new Workstation{ W_name = "Pallet Infeed C2", W_description = "Pallet Infeed C2 (semi-automatic)", W_comID = "RCV/Rcv/EntryC2", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2)},
-                new Workstation{ W_name = "Auto Pal 27", W_description = "Palletiser 27 (automatic)", W_comID = "PAL/AutoPal27", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3)},
-                new Workstation{ W_name = "Auto Pal 28", W_description = "Palletiser 28 (automatic)", W_comID = "PAL/AutoPal28", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3)}
+                new Workstation{ W_name = "Pallet Infeed C1", W_description = "Pallet Infeed C1 (semi-automatic)", W_comID = "RCV/Rcv/EntryC1", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(1)},
+                new Workstation{ W_name = "Pallet Infeed C2", W_description = "Pallet Infeed C2 (semi-automatic)", W_comID = "RCV/Rcv/EntryC2", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(3)},
+                new Workstation{ W_name = "Auto Pal 27", W_description = "Palletiser 27 (automatic)", W_comID = "PAL/AutoPal27", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(5)},
+                new Workstation{ W_name = "Auto Pal 28", W_description = "Palletiser 28 (automatic)", W_comID = "PAL/AutoPal28", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(7)}
             };
         }
 
@@ -42,10 +42,10 @@ namespace Your
                 new Workstation{ W_name = "Pallet Infeed A3", W_description = "Pallet Infeed A3 (semi-automatic)", W_comID = "RCV/Rcv/EntryA3", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(0)},
                 new Workstation{ W_name = "Pallet Infeed B1", W_description = "Pallet Infeed B1 (semi-automatic)", W_comID = "RCV/Rcv/EntryB1", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(1)},
                 new Workstation{ W_name = "Pallet Infeed B2", W_description = "Pallet Infeed B2 (semi-automatic)", W_comID = "RCV/Rcv/EntryB2", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(1)},
-                new Workstation{ W_name = "Pallet Infeed C1", W_description = "Pallet Infeed C1 (semi-automatic)", W_comID = "RCV/Rcv/EntryC1", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2)},
-                new Workstation{ W_name = "Pallet Infeed C2", W_description = "Pallet Infeed C2 (semi-automatic)", W_comID = "RCV/Rcv/EntryC2", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2)},
-                new Workstation{ W_name = "Auto Pal 27", W_description = "Palletiser 27 (automatic)", W_comID = "PAL/AutoPal27", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3)},
-                new Workstation{ W_name = "Auto Pal 28", W_description = "Palletiser 28 (automatic)", W_comID = "PAL/AutoPal28", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3)}
+                new Workstation{ W_name = "Pallet Infeed C1", W_description = "Pallet Infeed C1 (semi-automatic)", W_comID = "RCV/Rcv/EntryC1", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(1)},
+                new Workstation{ W_name = "Pallet Infeed C2", W_description = "Pallet Infeed C2 (semi-automatic)", W_comID = "RCV/Rcv/EntryC2", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(2), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(3)},
+                new Workstation{ W_name = "Auto Pal 27", W_description = "Palletiser 27 (automatic)", W_comID = "PAL/AutoPal27", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(5)},
+                new Workstation{ W_name = "Auto Pal 28", W_description = "Palletiser 28 (automatic)", W_comID = "PAL/AutoPal28", WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(3), WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(7)}
             };
         }
 
