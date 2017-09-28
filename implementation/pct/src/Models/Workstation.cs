@@ -12,11 +12,8 @@ namespace Your
         private Guid uuid;
 
         private string w_name;
-        private string editw_name;
         private string w_description;
-        private string editw_description;
         private string w_comID;
-        private string editw_comID;
         private WorkstationGroup workstationgroupRef;
         private WorkstationGroup editworkstationgroupRef;
         private WorkstationClass workstationclassRef;
@@ -50,17 +47,7 @@ namespace Your
             set { ChangeProperty(ref editWorkstationclassRef, value); }
         }
 
-        public string editW_name
-        {
-            get
-            {
-                return editw_name;
-            }
-            set
-            {
-                ChangeProperty(ref editw_name, value);
-            }
-        }
+        
         public string W_name
         {
             get
@@ -83,17 +70,6 @@ namespace Your
                 ChangeProperty(ref w_description, value);
             }
         }
-        public string editW_description
-        {
-            get
-            {
-                return editw_description;
-            }
-            set
-            {
-                ChangeProperty(ref editw_description, value);
-            }
-        }
         public string W_comID
         {
             get
@@ -103,17 +79,6 @@ namespace Your
             set
             {
                 ChangeProperty(ref w_comID, value);
-            }
-        }
-        public string editW_comID
-        {
-            get
-            {
-                return editw_comID;
-            }
-            set
-            {
-                ChangeProperty(ref editw_comID, value);
             }
         }
 

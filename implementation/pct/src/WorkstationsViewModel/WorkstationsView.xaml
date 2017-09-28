@@ -30,11 +30,11 @@
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="0">
             <TextBlock x:Name="lblw_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtw_name" Text="{Binding TobeEditedItem.editW_name}"></TextBox>
+            <TextBox x:Name="txtw_name" Text="{Binding TobeEditedItem.W_name}"></TextBox>
             <TextBlock x:Name="lblw_description" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
-            <TextBox x:Name="txtw_description" Text="{Binding TobeEditedItem.editW_description}"></TextBox>
+            <TextBox x:Name="txtw_description" Text="{Binding TobeEditedItem.W_description}"></TextBox>
             <TextBlock x:Name="lblw_comID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtw_comID" Text="{Binding TobeEditedItem.editW_comID}"></TextBox>
+            <TextBox x:Name="txtw_comID" Text="{Binding TobeEditedItem.W_comID}"></TextBox>
             <TextBlock x:Name="lblwc_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Workstation Class:"></TextBlock>
             <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedIndex="1" Text="{Binding TobeEditedItem.EditworkstationClassRef.editWC_name}" ItemsSource="{Binding ObservableWorkstationClass}" DisplayMemberPath="WC_name"></ComboBox>
 

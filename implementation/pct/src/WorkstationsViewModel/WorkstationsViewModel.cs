@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
@@ -40,7 +35,7 @@ namespace Your
             ObservableWorkstation = WorkstationList.GetWorkstationList();
             ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();
             ObservableWorkstationClass = WorkstationClassList.GetWorkstationClassList();
-            this.TobeEditedItem = ObservableWorkstation.FirstOrDefault(); 
+            this.SelectedWorkstation = ObservableWorkstation.FirstOrDefault(); 
         }
         #endregion
 
@@ -83,12 +78,13 @@ namespace Your
                 {
                     TobeEditedItem = new Workstation()
                     {
-                        editW_name = SelectedWorkstation.W_name,
-                        editW_description = SelectedWorkstation.W_description,
-                        editW_comID = SelectedWorkstation.W_comID,
+                        W_name = SelectedWorkstation.W_name,
+                        W_description = SelectedWorkstation.W_description,
+                        W_comID = SelectedWorkstation.W_comID,
                         EditworkstationClassRef = SelectedWorkstation.WorkstationclassRef,
-                        WorkstationclassRef = SelectedWorkstation.WorkstationclassRef,     
+                        WorkstationclassRef = SelectedWorkstation.WorkstationclassRef,
                     };
+                    TobeEditedItem.EditworkstationClassRef.editWC_name = SelectedWorkstation.WorkstationclassRef.WC_name;
                 }
             }
         }
@@ -103,9 +99,9 @@ namespace Your
         {
             if (SelectedWorkstation != null && SelectedWorkstation != TobeEditedItem)
             {
-                SelectedWorkstation.W_name = TobeEditedItem.editW_name;
-                SelectedWorkstation.W_description = TobeEditedItem.editW_description;
-                SelectedWorkstation.W_comID = TobeEditedItem.editW_comID;
+                SelectedWorkstation.W_name = TobeEditedItem.W_name;
+                SelectedWorkstation.W_description = TobeEditedItem.W_description;
+                SelectedWorkstation.W_comID = TobeEditedItem.W_comID;
                 SelectedWorkstation.WorkstationclassRef.WC_name = TobeEditedItem.EditworkstationClassRef.editWC_name;
             }
         }
@@ -117,9 +113,9 @@ namespace Your
         {
             this.ObservableWorkstation.Add(new Workstation()
             {
-                W_name = this.TobeEditedItem.editW_name,
-                W_description = this.TobeEditedItem.editW_description,
-                W_comID = this.TobeEditedItem.editW_comID,
+                W_name = this.TobeEditedItem.W_name,
+                W_description = this.TobeEditedItem.W_description,
+                W_comID = this.TobeEditedItem.W_comID,
                 WorkstationclassRef = this.TobeEditedItem.WorkstationclassRef
             });
             WorkstationList.Workstations = this.ObservableWorkstation;

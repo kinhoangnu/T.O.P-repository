@@ -106,6 +106,9 @@ namespace Your
                         IsReplenished = SelectedProcess.IsReplenished,
                         ExclFromKPI = SelectedProcess.ExclFromKPI
                     };
+                    TobeEditedItem.EditProdRef.editP_name = SelectedProcess.ProdRef.P_name;
+                    TobeEditedItem.EditInbufferRef.editB_name = SelectedProcess.InbufferRef.B_name;
+                    TobeEditedItem.EditOutbufferRef.editB_name = SelectedProcess.OutbufferRef.B_name;
                 }
             }
         }

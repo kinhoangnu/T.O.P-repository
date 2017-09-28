@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
@@ -104,6 +99,8 @@ namespace Your
                         EditprocessRef = SelectedWorkstationClass.ProcessRef,
                         EditsecondaryactivityRef = SelectedWorkstationClass.SecondaryactivityRef,
                     };
+                    TobeEditedItem.EditprocessRef.editPC_name = SelectedWorkstationClass.ProcessRef.PC_name;
+                    TobeEditedItem.EditsecondaryactivityRef.editSC_name = SelectedWorkstationClass.SecondaryactivityRef.SC_name;
                 }
             }
         }
