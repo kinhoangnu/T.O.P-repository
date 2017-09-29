@@ -21,6 +21,7 @@ namespace Your
          {
              WorkstationGroups = new ObservableCollection<WorkstationGroup>
             {
+                new WorkstationGroup{ WG_name = "<None>"},
                 new WorkstationGroup{ WG_name = "Super Module 1", WG_description="Super Module 1"},
                 new WorkstationGroup{ WG_name = "Super Module 2", WG_description = "Super Module 2"},
                 new WorkstationGroup{ WG_name = "Super Module 3", WG_description = "Super Module 3"},
@@ -37,6 +38,7 @@ namespace Your
         {
             WorkstationGroups = new ObservableCollection<WorkstationGroup>
             {
+                new WorkstationGroup{ WG_name = "<None>"},
                 new WorkstationGroup{ WG_name = "Super Module 1", WG_description="Super Module 1"},
                 new WorkstationGroup{ WG_name = "Super Module 2", WG_description = "Super Module 2"},
                 new WorkstationGroup{ WG_name = "Super Module 3", WG_description = "Super Module 3"},

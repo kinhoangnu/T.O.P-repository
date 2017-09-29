@@ -65,7 +65,7 @@ namespace Your
             get { return selectedBuffer; }
             set
             {
-                selectedBuffer = value;
+                ChangeProperty(ref selectedBuffer, value);
                 if (SelectedBuffer != null)
                 {
                     TobeEditedItem = new Buffer()
@@ -108,6 +108,7 @@ namespace Your
                 SelectedBuffer.B_comID = TobeEditedItem.B_comID;
                 SelectedBuffer.B_unit = TobeEditedItem.B_unit;
             }
+            SelectedBuffer = ObservableBuffer.ElementAt(ObservableBuffer.Count - 1);
         }
 
         /// <summary>
@@ -119,6 +120,7 @@ namespace Your
             temp = SelectedBuffer;
             this.ObservableBuffer.Remove(this.SelectedBuffer);
             BufferList.GetBufferList().Remove(temp);
+            SelectedBuffer = ObservableBuffer.ElementAt(ObservableBuffer.Count - 1);
         }
 
         #endregion

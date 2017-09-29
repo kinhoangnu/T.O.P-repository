@@ -167,6 +167,7 @@ namespace Your
         public void Delete()
         {
             this.ObservableWorkstation.Remove(this.SelectedWorkstation);
+            SelectedWorkstation = ObservableWorkstation.ElementAt(ObservableWorkstation.Count - 1);
         }
         #endregion
 

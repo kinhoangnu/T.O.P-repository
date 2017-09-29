@@ -44,7 +44,7 @@ namespace Your
             get { return selectedWorkstationGroup; }
             set
             {
-                selectedWorkstationGroup = value;
+                ChangeProperty(ref selectedWorkstationGroup, value);
                 if (SelectedWorkstationGroup != null)
                 {
                     TobeEditedItem = new WorkstationGroup()
@@ -89,6 +89,7 @@ namespace Your
                 WG_description = this.TobeEditedItem.WG_description,
             });
             WorkstationGroupList.WorkstationGroups = ObservableWorkstationGroup;
+            SelectedWorkstationGroup = ObservableWorkstationGroup.ElementAt(ObservableWorkstationGroup.Count - 1);
         }
 
         /// <summary>
@@ -109,6 +110,7 @@ namespace Your
         public void Delete()
         {
             this.ObservableWorkstationGroup.Remove(this.SelectedWorkstationGroup);
+            SelectedWorkstationGroup = ObservableWorkstationGroup.ElementAt(ObservableWorkstationGroup.Count - 1);
         }
         #endregion
 

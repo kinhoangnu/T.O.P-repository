@@ -65,7 +65,7 @@ namespace Your
             get { return selectedSecondaryActivity; }
             set
             {
-                selectedSecondaryActivity = value;
+                ChangeProperty(ref selectedSecondaryActivity, value);
                 if (SelectedSecondaryActivity != null)
                 {
                     TobeEditedItem = new SecondaryActivity()
@@ -105,6 +105,7 @@ namespace Your
                 SelectedSecondaryActivity.SC_description = TobeEditedItem.SC_description;
                 SelectedSecondaryActivity.SC_comID = TobeEditedItem.SC_comID;
             }
+            SelectedSecondaryActivity = ObservableSecondaryActivity.ElementAt(ObservableSecondaryActivity.Count - 1);
         }
 
         /// <summary>
@@ -116,6 +117,7 @@ namespace Your
             temp = SelectedSecondaryActivity;
             this.ObservableSecondaryActivity.Remove(this.SelectedSecondaryActivity);
             SClist.DeleteASecondaryActivity(temp);
+            SelectedSecondaryActivity = ObservableSecondaryActivity.ElementAt(ObservableSecondaryActivity.Count - 1);
         }
 
         #endregion

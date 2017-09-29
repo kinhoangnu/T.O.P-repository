@@ -47,7 +47,7 @@ namespace Your
             get { return selectedProdArea; }
             set
             {
-                selectedProdArea = value;
+                ChangeProperty(ref selectedProdArea, value);
                 if (SelectedProdArea != null)
                 {
                     TobeEditedItem = new ProdArea()
@@ -96,6 +96,7 @@ namespace Your
                 P_Type = this.TobeEditedItem.P_Type
             });
             ProdAreaList.ProdAreas = ObservableProdArea;
+            SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
         }
 
         /// <summary>
@@ -118,6 +119,7 @@ namespace Your
         public void Delete()
         {
             this.ObservableProdArea.Remove(this.SelectedProdArea);
+            SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
         }
         #endregion
 

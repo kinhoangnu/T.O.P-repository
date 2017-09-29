@@ -166,6 +166,7 @@ namespace Your
             temp = SelectedProcess;
             this.ObservableProcess.Remove(this.SelectedProcess);
             ProcessList.Processes.Remove(temp);
+            SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
         }
         #endregion
 
