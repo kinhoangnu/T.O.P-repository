@@ -86,7 +86,7 @@ namespace Your
             get { return selectedWorkstationClass; }
             set
             {
-                selectedWorkstationClass = value;
+                ChangeProperty(ref selectedWorkstationClass, value);
                 if (SelectedWorkstationClass != null)
                 {
                     TobeEditedItem = new WorkstationClass()
@@ -94,11 +94,13 @@ namespace Your
                         WC_name = SelectedWorkstationClass.WC_name,
                         WC_type = SelectedWorkstationClass.WC_type,
                         WC_handlingType = SelectedWorkstationClass.WC_handlingType,
-                        ProcessRef = SelectedWorkstationClass.ProcessRef,                        
-                        SecondaryactivityRef = SelectedWorkstationClass.SecondaryactivityRef,
+                        ProcessRef = new Process(),                        
+                        SecondaryactivityRef = new SecondaryActivity(),
                         EditprocessRef = SelectedWorkstationClass.ProcessRef,
                         EditsecondaryactivityRef = SelectedWorkstationClass.SecondaryactivityRef,
                     };
+                    TobeEditedItem.ProcessRef.PC_name = SelectedWorkstationClass.ProcessRef.PC_name;
+                    TobeEditedItem.SecondaryactivityRef.SC_name = SelectedWorkstationClass.SecondaryactivityRef.SC_name;
                     TobeEditedItem.EditprocessRef.editPC_name = SelectedWorkstationClass.ProcessRef.PC_name;
                     TobeEditedItem.EditsecondaryactivityRef.editSC_name = SelectedWorkstationClass.SecondaryactivityRef.SC_name;
                 }
@@ -128,6 +130,8 @@ namespace Your
         /// </summary>
         public void Add()
         {
+            TobeEditedItem.ProcessRef.PC_name = TobeEditedItem.EditprocessRef.editPC_name;
+            TobeEditedItem.SecondaryactivityRef.SC_name = TobeEditedItem.EditsecondaryactivityRef.editSC_name;
             this.ObservableWorkstationClass.Add(new WorkstationClass()
             {
                 WC_name = this.TobeEditedItem.WC_name,
@@ -136,7 +140,8 @@ namespace Your
                 ProcessRef = this.TobeEditedItem.ProcessRef,
                 SecondaryactivityRef = this.TobeEditedItem.SecondaryactivityRef
             });
-            WorkstationClassList.WorkstationClasses = this.ObservableWorkstationClass;
+            TobeEditedItem = new WorkstationClass();
+            SelectedWorkstationClass = ObservableWorkstationClass.ElementAt(ObservableWorkstationClass.Count - 1);
         }
 
         /// <summary>

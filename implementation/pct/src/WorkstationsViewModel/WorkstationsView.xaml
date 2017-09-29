@@ -38,7 +38,7 @@
             <TextBox x:Name="txtw_comID" Text="{Binding TobeEditedItem.W_comID}"></TextBox>
             <TextBlock x:Name="lblwc_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Workstation Class:"></TextBlock>
             <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_wc_name" SelectedIndex="1" Text="{Binding TobeEditedItem.EditworkstationClassRef.editWC_name}" ItemsSource="{Binding ObservableWorkstationClass}" DisplayMemberPath="WC_name"></ComboBox>
-            <TextBlock x:Name="lblwg_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Workstation Class:"></TextBlock>
+            <TextBlock x:Name="lblwg_name" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Workstation Group:"></TextBlock>
             <ComboBox FontFamily="Arial" FontSize="11" x:Name="wg_name" SelectedIndex="1" Text="{Binding TobeEditedItem.EditWorkstationgroupRef.Editwg_name}" ItemsSource="{Binding ObservableWorkstationGroup}" DisplayMemberPath="WG_name"></ComboBox>
 
         </StackPanel>

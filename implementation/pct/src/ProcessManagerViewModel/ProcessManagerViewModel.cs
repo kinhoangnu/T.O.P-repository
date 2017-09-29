@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
@@ -48,7 +43,7 @@ namespace Your
             ObservableProdArea = ProdAreaList.GetProdAreaList();
             ObservableBuffer = BufferList.GetBufferList();
             ObservableProcess = ProcessList.GetProcessList();
-            this.SelectedProcess = ObservableProcess.FirstOrDefault(); 
+            this.SelectedProcess = ObservableProcess.FirstOrDefault();
         }
         #endregion
 
@@ -91,7 +86,7 @@ namespace Your
             get { return selectedProcess; }
             set
             {
-                selectedProcess = value;
+                ChangeProperty(ref selectedProcess, value);
                 if (SelectedProcess != null)
                 {
                     TobeEditedItem = new Process()
@@ -99,13 +94,18 @@ namespace Your
                         PC_name = SelectedProcess.PC_name,
                         PC_description = SelectedProcess.PC_description,
                         PC_comID = SelectedProcess.PC_comID,
-                        ProdRef = SelectedProcess.ProdRef,
-                        EditProdRef = SelectedProcess.ProdRef,                        
+                        ProdRef = new ProdArea(),
+                        EditProdRef = SelectedProcess.ProdRef,
+                        InbufferRef = new Buffer(),
                         EditInbufferRef = SelectedProcess.InbufferRef,
+                        OutbufferRef = new Buffer(),
                         EditOutbufferRef = SelectedProcess.OutbufferRef,
                         IsReplenished = SelectedProcess.IsReplenished,
                         ExclFromKPI = SelectedProcess.ExclFromKPI
                     };
+                    TobeEditedItem.ProdRef.P_name = SelectedProcess.ProdRef.P_name;
+                    TobeEditedItem.InbufferRef.B_name = SelectedProcess.InbufferRef.B_name;
+                    TobeEditedItem.OutbufferRef.B_name = SelectedProcess.OutbufferRef.B_name;
                     TobeEditedItem.EditProdRef.editP_name = SelectedProcess.ProdRef.P_name;
                     TobeEditedItem.EditInbufferRef.editB_name = SelectedProcess.InbufferRef.B_name;
                     TobeEditedItem.EditOutbufferRef.editB_name = SelectedProcess.OutbufferRef.B_name;
@@ -115,7 +115,7 @@ namespace Your
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// Update current selected item
         /// </summary>
@@ -139,18 +139,22 @@ namespace Your
         /// </summary>
         public void Add()
         {
-            TobeEditedItem.EditInbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
+            TobeEditedItem.ProdRef.P_name = TobeEditedItem.EditProdRef.editP_name;
+            TobeEditedItem.InbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
+            TobeEditedItem.OutbufferRef.B_name = TobeEditedItem.EditOutbufferRef.editB_name;
             this.ObservableProcess.Add(new Process()
             {
                 PC_name = this.TobeEditedItem.PC_name,
                 PC_description = this.TobeEditedItem.PC_description,
                 PC_comID = this.TobeEditedItem.PC_comID,
-                ProdRef = this.TobeEditedItem.EditProdRef,
-                InbufferRef = this.TobeEditedItem.EditInbufferRef,
-                OutbufferRef = this.TobeEditedItem.EditOutbufferRef,
+                ProdRef = this.TobeEditedItem.ProdRef,
+                InbufferRef = this.TobeEditedItem.InbufferRef,
+                OutbufferRef = this.TobeEditedItem.OutbufferRef,
                 IsReplenished = this.TobeEditedItem.IsReplenished,
                 ExclFromKPI = this.TobeEditedItem.ExclFromKPI
             });
+            TobeEditedItem = new Process();
+            SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
         }
 
         /// <summary>
