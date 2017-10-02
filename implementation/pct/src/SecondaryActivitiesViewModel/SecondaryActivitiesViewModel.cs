@@ -8,6 +8,7 @@ using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Your
 {
@@ -113,11 +114,34 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            SecondaryActivity temp = new SecondaryActivity();
-            temp = SelectedSecondaryActivity;
-            this.ObservableSecondaryActivity.Remove(this.SelectedSecondaryActivity);
-            SClist.DeleteASecondaryActivity(temp);
-            SelectedSecondaryActivity = ObservableSecondaryActivity.ElementAt(ObservableSecondaryActivity.Count - 1);
+            if (checkMatchedSecondaryActivity())
+            {
+                MessageBox.Show("This Secondary Activity is currently attached to a Workstation Class. Please:"+
+                    " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first"+
+                    "\n..Or.."+
+                    "\nChange the attached activity to another one");
+            }
+            else
+            {
+                this.ObservableSecondaryActivity.Remove(this.SelectedSecondaryActivity);
+                SelectedSecondaryActivity = ObservableSecondaryActivity.ElementAt(ObservableSecondaryActivity.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// Return true if a matched Secondary Activity is found being used in a item of WorkstationClass list
+        /// </summary>
+        /// <returns></returns>
+        private bool checkMatchedSecondaryActivity()
+        {
+            foreach (WorkstationClass sc in WorkstationClassesViewModel.ObservableWorkstationClass)
+            {
+                if (sc.SecondaryactivityRef.SC_name == SelectedSecondaryActivity.SC_name && sc.SecondaryactivityRef.SC_comID == SelectedSecondaryActivity.SC_comID && sc.SecondaryactivityRef.SC_description == SelectedSecondaryActivity.SC_description)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion

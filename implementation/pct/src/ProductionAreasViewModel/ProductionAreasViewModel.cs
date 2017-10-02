@@ -121,7 +121,10 @@ namespace Your
         {
             if (checkMatchedProdArea())
             {
-                MessageBox.Show("This Production Area is currently in use by a process. Please remove the process in \"Processes\" tab first");
+                MessageBox.Show("This Production Area is currently attached to a Process. Please:" +
+                    " \n\nRemove the Process in \"Processes\" tab first" +
+                    "\n..Or.." +
+                    "\nChange the attached Production area to another one");
             }
             else
             {
@@ -130,6 +133,10 @@ namespace Your
             }
         }
 
+        /// <summary>
+        /// Return true if a matched Production Area is found being used in a item of Process list
+        /// </summary>
+        /// <returns></returns>
         private bool checkMatchedProdArea()
         {
             foreach (Process p in ProcessesViewModel.ObservableProcess)

@@ -8,6 +8,7 @@ using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Your
 {
@@ -162,9 +163,36 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            ProcessList.Processes.Remove(SelectedProcess);
-            SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
+            if (checkMatchedProcess())
+            {
+                MessageBox.Show("This Process is currently in attached to a Workstation Class. Please:" +
+                       " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first" +
+                       "\n..Or.." +
+                       "\nChange the attached process to another one");
+            }
+            else
+            {
+                ProcessList.Processes.Remove(SelectedProcess);
+                SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
+            }
         }
+
+        /// <summary>
+        /// Return true if a matched Process is found being used in a item of Workstation Class list
+        /// </summary>
+        /// <returns></returns>
+        private bool checkMatchedProcess()
+        {
+            foreach (WorkstationClass wc in WorkstationClassesViewModel.ObservableWorkstationClass)
+            {
+                if (wc.ProcessRef.PC_name == SelectedProcess.PC_name && wc.ProcessRef.PC_comID == SelectedProcess.PC_comID && wc.ProcessRef.PC_description == SelectedProcess.PC_description)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
 
     }

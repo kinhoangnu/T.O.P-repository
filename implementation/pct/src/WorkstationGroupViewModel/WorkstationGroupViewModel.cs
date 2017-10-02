@@ -8,6 +8,7 @@ using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Your
 {
@@ -109,8 +110,34 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            this.ObservableWorkstationGroup.Remove(this.SelectedWorkstationGroup);
-            SelectedWorkstationGroup = ObservableWorkstationGroup.ElementAt(ObservableWorkstationGroup.Count - 1);
+            if (checkMatchedWorkstationGroup())
+            {
+                MessageBox.Show("This Workstation class is currently attached to a Workstation. Please:" +
+                    " \n\nRemove the Workstation in \"Workstations\" tab first" +
+                    "\n..Or.." +
+                    "\nChange the attached Wrokstation class to another one");
+            }
+            else
+            {
+                this.ObservableWorkstationGroup.Remove(this.SelectedWorkstationGroup);
+                SelectedWorkstationGroup = ObservableWorkstationGroup.ElementAt(ObservableWorkstationGroup.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// Return true if a matched WorkstationGroup is found being used in a item of Workstation list
+        /// </summary>
+        /// <returns></returns>
+        private bool checkMatchedWorkstationGroup()
+        {
+            foreach (Workstation w in WorkstationsViewModel.ObservableWorkstation)
+            {
+                if (w.WorkstationgroupRef.WG_name == SelectedWorkstationGroup.WG_name && w.WorkstationgroupRef.WG_description == SelectedWorkstationGroup.WG_description)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 

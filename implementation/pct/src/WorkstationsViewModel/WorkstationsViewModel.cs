@@ -17,7 +17,7 @@ namespace Your
         private Workstation selectedWorkstation;
         private Workstation _tobeEditedItem;
 
-        private ObservableCollection<Workstation> _observableWorkstation;
+        private static ObservableCollection<Workstation> _observableWorkstation;
         private ObservableCollection<WorkstationClass> _observableWorkstationClass;
         private ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
 
@@ -43,10 +43,10 @@ namespace Your
         #endregion
 
         #region Properties
-        public ObservableCollection<Workstation> ObservableWorkstation
+        public static ObservableCollection<Workstation> ObservableWorkstation
         {
             get { return WorkstationList.Workstations; }
-            set { ChangeProperty(ref _observableWorkstation, value); }
+            set {_observableWorkstation = value; }
         }
 
         public ObservableCollection<WorkstationClass> ObservableWorkstationClass
@@ -148,7 +148,7 @@ namespace Your
             {
                 TobeEditedItem.WorkstationgroupRef.WG_name = TobeEditedItem.EditWorkstationgroupRef.Editwg_name;
             }
-            this.ObservableWorkstation.Add(new Workstation()
+            ObservableWorkstation.Add(new Workstation()
             {
                 W_name = this.TobeEditedItem.W_name,
                 W_description = this.TobeEditedItem.W_description,
@@ -166,7 +166,7 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            this.ObservableWorkstation.Remove(this.SelectedWorkstation);
+            ObservableWorkstation.Remove(this.SelectedWorkstation);
             SelectedWorkstation = ObservableWorkstation.ElementAt(ObservableWorkstation.Count - 1);
         }
         #endregion

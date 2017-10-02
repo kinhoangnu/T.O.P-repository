@@ -118,7 +118,10 @@ namespace Your
         {
             if (checkMatchedBuffer())
             {
-                MessageBox.Show("This Buffer is currently in use by a process. Please remove the process in \"Processes\" tab first");
+                MessageBox.Show("This Buffer is currently attached to a Process. Please:" +
+                       " \n\nRemove the Process in \"Processes\" tab first" +
+                       "\n..Or.." +
+                       "\nChange the attached buffer to another one");
             }
             else
             {
@@ -127,6 +130,10 @@ namespace Your
             }
         }
 
+        /// <summary>
+        /// Return true if a matched Buffer is found being used in a item of Process list
+        /// </summary>
+        /// <returns></returns>
         private bool checkMatchedBuffer()
         {
             foreach (Process p in ProcessesViewModel.ObservableProcess)

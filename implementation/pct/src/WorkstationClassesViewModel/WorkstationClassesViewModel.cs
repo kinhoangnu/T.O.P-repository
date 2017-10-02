@@ -8,6 +8,7 @@ using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Your
 {
@@ -17,7 +18,7 @@ namespace Your
         private WorkstationClass selectedWorkstationClass;
         private WorkstationClass _tobeEditedItem;
 
-        private ObservableCollection<WorkstationClass> _observableWorkstationClass;
+        private static ObservableCollection<WorkstationClass> _observableWorkstationClass;
         private ObservableCollection<Process> _observableProcess;
         private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
 
@@ -48,10 +49,10 @@ namespace Your
         #endregion
 
         #region Properties
-        public ObservableCollection<WorkstationClass> ObservableWorkstationClass
+        public static ObservableCollection<WorkstationClass> ObservableWorkstationClass
         {
             get { return WorkstationClassList.WorkstationClasses; }
-            set { ChangeProperty(ref _observableWorkstationClass, value); }
+            set { _observableWorkstationClass = value; }
         }
 
         public ObservableCollection<Process> ObservableProcess
@@ -132,7 +133,7 @@ namespace Your
         {
             TobeEditedItem.ProcessRef.PC_name = TobeEditedItem.EditprocessRef.editPC_name;
             TobeEditedItem.SecondaryactivityRef.SC_name = TobeEditedItem.EditsecondaryactivityRef.editSC_name;
-            this.ObservableWorkstationClass.Add(new WorkstationClass()
+            ObservableWorkstationClass.Add(new WorkstationClass()
             {
                 WC_name = this.TobeEditedItem.WC_name,
                 WC_type = this.TobeEditedItem.WC_type,
@@ -149,8 +150,34 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            this.ObservableWorkstationClass.Remove(this.SelectedWorkstationClass);
-            SelectedWorkstationClass = ObservableWorkstationClass.ElementAt(ObservableWorkstationClass.Count - 1);
+            if (checkMatchedWorkstationClass())
+            {
+                MessageBox.Show("This Workstation class is currently attached to a Workstation. Please:" +
+                    " \n\nRemove the Workstation in \"Workstations\" tab first" +
+                    "\n..Or.." +
+                    "\nChange the attached Wrokstation class to another one");
+            }
+            else
+            {
+                ObservableWorkstationClass.Remove(this.SelectedWorkstationClass);
+                SelectedWorkstationClass = ObservableWorkstationClass.ElementAt(ObservableWorkstationClass.Count - 1);
+            }
+        }
+
+        /// <summary>
+        /// Return true if a matched WorkstationClass is found being used in a item of Workstation list
+        /// </summary>
+        /// <returns></returns>
+        private bool checkMatchedWorkstationClass()
+        {
+            foreach (Workstation w in WorkstationsViewModel.ObservableWorkstation)
+            {
+                if (w.WorkstationclassRef.WC_name == SelectedWorkstationClass.WC_name && w.WorkstationclassRef.WC_handlingType == SelectedWorkstationClass.WC_handlingType && w.WorkstationclassRef.WC_type == SelectedWorkstationClass.WC_type)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 
