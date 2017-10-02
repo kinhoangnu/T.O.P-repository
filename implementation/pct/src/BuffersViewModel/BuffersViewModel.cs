@@ -8,17 +8,18 @@ using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Your
 {
-    class BufferManagerViewModel : ContentViewModel
+    class BuffersViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
         private Buffer selectedBuffer;
         private ObservableCollection<Buffer> _observableBuffer;
         private Buffer _tobeEditedItem;
+        private ProcessesViewModel pm;
 
-        public BufferList Blist;
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand UpdateCommand { get; set; }
@@ -26,12 +27,11 @@ namespace Your
         #endregion
 
         #region Constructor
-        public BufferManagerViewModel()
+        public BuffersViewModel()
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
             this.UpdateCommand = new RelayCommand((obj) => Update());
-            Blist = new BufferList();
             ObservableBuffer = new ObservableCollection<Buffer>();
             ObservableBuffer = BufferList.GetBufferList();
             this.SelectedBuffer = ObservableBuffer.FirstOrDefault();
@@ -116,11 +116,28 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            Buffer temp = new Buffer();
-            temp = SelectedBuffer;
-            this.ObservableBuffer.Remove(this.SelectedBuffer);
-            BufferList.GetBufferList().Remove(temp);
-            SelectedBuffer = ObservableBuffer.ElementAt(ObservableBuffer.Count - 1);
+            if (checkMatchedBuffer())
+            {
+                MessageBox.Show("This Buffer is currently in use by a process. Please remove the process in \"Processes\" tab first");
+            }
+            else
+            {
+                this.ObservableBuffer.Remove(this.SelectedBuffer);
+                SelectedBuffer = ObservableBuffer.ElementAt(ObservableBuffer.Count - 1);
+            }
+        }
+
+        private bool checkMatchedBuffer()
+        {
+            foreach (Process p in ProcessesViewModel.ObservableProcess)
+            {
+                if ((p.InbufferRef.B_name == SelectedBuffer.B_name && p.InbufferRef.B_unit == SelectedBuffer.B_unit && p.InbufferRef.B_description == SelectedBuffer.B_description && p.InbufferRef.B_comID == SelectedBuffer.B_comID) ||
+                    (p.OutbufferRef.B_name == SelectedBuffer.B_name && p.OutbufferRef.B_unit == SelectedBuffer.B_unit && p.OutbufferRef.B_description == SelectedBuffer.B_description && p.OutbufferRef.B_comID == SelectedBuffer.B_comID))
+                {                    
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion

@@ -81,22 +81,22 @@
       <DependentUpon>WorkstationClassesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\WorkstationClassesViewModel\WorkstationClassesViewModel.cs" />
-    <Compile Include="src\ProdAreaManagerViewModel\ProdAreaManagerView.xaml.cs">
-      <DependentUpon>ProdAreaManagerView.xaml</DependentUpon>
+    <Compile Include="src\ProductionAreasViewModel\ProductionAreasView.xaml.cs">
+      <DependentUpon>ProductionAreasView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ProdAreaManagerViewModel\ProdAreaManagerViewModel.cs" />
+    <Compile Include="src\ProductionAreasViewModel\ProductionAreasViewModel.cs" />
     <Compile Include="src\Models\Buffer.cs" />
     <Compile Include="src\Models\BufferList.cs" />
     <Compile Include="src\Models\Process.cs" />
     <Compile Include="src\Models\ProcessList.cs" />
-    <Compile Include="src\ProcessManagerViewModel\ProcessManagerView.xaml.cs">
-      <DependentUpon>ProcessManagerView.xaml</DependentUpon>
+    <Compile Include="src\ProcessesViewModel\ProcessesView.xaml.cs">
+      <DependentUpon>ProcessesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\ProcessManagerViewModel\ProcessManagerViewModel.cs" />
-    <Compile Include="src\BufferManagerViewModel\BufferManagerView.xaml.cs">
-      <DependentUpon>BufferManagerView.xaml</DependentUpon>
+    <Compile Include="src\ProcessesViewModel\ProcessesViewModel.cs" />
+    <Compile Include="src\BuffersViewModel\BuffersView.xaml.cs">
+      <DependentUpon>BuffersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\BufferManagerViewModel\BufferManagerViewModel.cs" />
+    <Compile Include="src\BuffersViewModel\BuffersViewModel.cs" />
     <Compile Include="src\YourApplication.cs" />
     <Compile Include="src\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -130,15 +130,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="src\ProdAreaManagerViewModel\ProdAreaManagerView.xaml">
+    <Page Include="src\ProductionAreasViewModel\ProductionAreasView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="src\ProcessManagerViewModel\ProcessManagerView.xaml">
+    <Page Include="src\ProcessesViewModel\ProcessesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="src\BufferManagerViewModel\BufferManagerView.xaml">
+    <Page Include="src\BuffersViewModel\BuffersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

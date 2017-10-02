@@ -11,12 +11,12 @@ using System.ComponentModel;
 
 namespace Your
 {
-    class ProcessManagerViewModel : ContentViewModel
+    class ProcessesViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
         private Process selectedProcess;
 
-        private ObservableCollection<Process> _observableProcess;
+        private static ObservableCollection<Process> _observableProcess;
         private ObservableCollection<Buffer> _observableBuffer;
         private ObservableCollection<ProdArea> _observableProdArea;
         private Process _tobeEditedItem;
@@ -30,7 +30,7 @@ namespace Your
         #endregion
 
         #region Constructor
-        public ProcessManagerViewModel()
+        public ProcessesViewModel()
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
@@ -48,10 +48,10 @@ namespace Your
         #endregion
 
         #region Properties
-        public ObservableCollection<Process> ObservableProcess
+        public static ObservableCollection<Process> ObservableProcess
         {
             get { return ProcessList.Processes; }
-            set { ChangeProperty(ref _observableProcess, value); }
+            set { _observableProcess = value; }
         }
 
         public ObservableCollection<Buffer> ObservableBuffer
@@ -142,7 +142,7 @@ namespace Your
             TobeEditedItem.ProdRef.P_name = TobeEditedItem.EditProdRef.editP_name;
             TobeEditedItem.InbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
             TobeEditedItem.OutbufferRef.B_name = TobeEditedItem.EditOutbufferRef.editB_name;
-            this.ObservableProcess.Add(new Process()
+            ObservableProcess.Add(new Process()
             {
                 PC_name = this.TobeEditedItem.PC_name,
                 PC_description = this.TobeEditedItem.PC_description,
@@ -162,10 +162,7 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            Process temp = new Process();
-            temp = SelectedProcess;
-            this.ObservableProcess.Remove(this.SelectedProcess);
-            ProcessList.Processes.Remove(temp);
+            ProcessList.Processes.Remove(SelectedProcess);
             SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
         }
         #endregion

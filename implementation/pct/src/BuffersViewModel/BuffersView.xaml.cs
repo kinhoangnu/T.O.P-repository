@@ -20,11 +20,11 @@ using com.vanderlande.wpf;
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for BufferManagerView.xaml
+    /// Interaction logic for BuffersView.xaml
     /// </summary>
-    public partial class BufferManagerView : UserControl
+    public partial class BuffersView : UserControl
     {
-        public BufferManagerView()
+        public BuffersView()
         {
             InitializeComponent();
         }

@@ -12,18 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+
+using System.Globalization;
+using com.vanderlande.wpf;
 
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for ProcessManagerView.xaml
+    /// Interaction logic for ProductionAreasView.xaml
     /// </summary>
-    public partial class ProcessManagerView : UserControl
+    public partial class ProductionAreasView : UserControl
     {
-        public ProcessManagerView()
+        public ProductionAreasView()
         {
             InitializeComponent();
-        }        
-                
+        }
+
     }
 }

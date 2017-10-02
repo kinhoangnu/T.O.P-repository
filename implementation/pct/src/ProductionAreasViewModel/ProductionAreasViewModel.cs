@@ -8,10 +8,11 @@ using com.vanderlande.wpf;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Your
 {
-    class ProdAreaManagerViewModel : ContentViewModel
+    class ProductionAreasViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
         private ProdArea selectedProdArea;
@@ -26,7 +27,7 @@ namespace Your
         #endregion
 
         #region contructor
-        public ProdAreaManagerViewModel()
+        public ProductionAreasViewModel()
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
@@ -118,8 +119,27 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            this.ObservableProdArea.Remove(this.SelectedProdArea);
-            SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
+            if (checkMatchedProdArea())
+            {
+                MessageBox.Show("This Production Area is currently in use by a process. Please remove the process in \"Processes\" tab first");
+            }
+            else
+            {
+                this.ObservableProdArea.Remove(this.SelectedProdArea);
+                SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
+            }
+        }
+
+        private bool checkMatchedProdArea()
+        {
+            foreach (Process p in ProcessesViewModel.ObservableProcess)
+            {
+                if (p.ProdRef.P_name == SelectedProdArea.P_name && p.ProdRef.P_comID == SelectedProdArea.P_comID && p.ProdRef.P_description == SelectedProdArea.P_description && p.ProdRef.P_Type == SelectedProdArea.P_Type) 
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
 
