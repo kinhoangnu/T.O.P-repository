@@ -1,0 +1,17 @@
+# The repository to which the packages will be pushed.
+snapshot_repository=acpplatform-nuget-snapshot-local
+release_repository=acpplatform-nuget-release-local
+
+# Solution
+sln=Your.sln
+
+# The physical path within the repository to which packages will be pushed.
+source_path=FmTop
+
+# The DLL to take the version from to be used for pushing all packages
+dll=output/Com.Vanderlande.Top.Common.dll
+
+# overwrite the framework to be used for msbuild, default will use env variable net_framework
+net_framework=C:\Program Files (x86)\MSBuild\14.0\Bin\
+
+disable_symbols=true
