@@ -5,15 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" Height="auto"  Width="auto">
     <Grid Margin="10,0,0,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="lstNames" Margin="5,5,35,5" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+        <DataGrid x:Name="lstNames" Margin="5,5,35,5" 
                   ItemsSource="{Binding ObservableProcess}" SelectedItem="{Binding SelectedProcess, Mode=TwoWay}"
                   AutoGenerateColumns="False">
             <DataGrid.InputBindings>
@@ -25,13 +21,13 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding PC_name}" Width="auto"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding PC_description}" Width="auto"/>
-                <DataGridTextColumn Header="Communication ID" Binding="{Binding PC_comID}" Width="auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding PC_name}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding PC_description}" Width="*"/>
+                <DataGridTextColumn Header="Communication ID" Binding="{Binding PC_comID}" Width="*"/>
                 <DataGridTemplateColumn Header="Production Area Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
                       ItemsSource="{Binding Path=ObservableProdArea}"
                       Text="{Binding Path=ProdRef.P_name}"
                       DisplayMemberPath="P_name"/>
@@ -41,7 +37,7 @@
                 <DataGridTemplateColumn Header="In-Buffer Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
                       ItemsSource="{Binding Path=ObservableBuffer}"
                       Text="{Binding Path=InbufferRef.B_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                       DisplayMemberPath="B_name"/>
@@ -51,7 +47,7 @@
                 <DataGridTemplateColumn Header="Out-Buffer Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
                       ItemsSource="{Binding Path=ObservableBuffer}"
                       Text="{Binding Path=OutbufferRef.B_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                       DisplayMemberPath="B_name"/>
@@ -61,7 +57,7 @@
                 <DataGridTemplateColumn Header="Replenishment">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                            <CheckBox Width="auto" HorizontalAlignment="Right" Margin="8,0,0,0" 
                       IsChecked="{Binding Path=IsReplenished}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -69,7 +65,7 @@
                 <DataGridTemplateColumn Header="Excluded From KPIs">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                            <CheckBox Width="auto" HorizontalAlignment="Right" Margin="8,0,0,0" 
                       IsChecked="{Binding Path=ExclFromKPI}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

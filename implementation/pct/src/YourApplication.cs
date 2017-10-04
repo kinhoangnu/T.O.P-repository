@@ -26,13 +26,13 @@ namespace Your
         protected override MainWindowViewModel CreateMainWindowViewModel()
         {
             MainWindowViewModel mainWnd = base.CreateMainWindowViewModel();
-            mainWnd.ActivateContent(typeof(ProcessesViewModel));
             mainWnd.RegisterContent(typeof(BuffersViewModel));
             mainWnd.RegisterContent(typeof(ProductionAreasViewModel));
             mainWnd.RegisterContent(typeof(SecondaryActivitiesViewModel));
+            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel)); 
+            mainWnd.ActivateContent(typeof(ProcessesViewModel));
             mainWnd.RegisterContent(typeof(WorkstationClassesViewModel));
             mainWnd.RegisterContent(typeof(WorkstationsViewModel));
-            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel)); 
             return mainWnd;
         }
 
