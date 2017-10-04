@@ -119,9 +119,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedProdArea())
+            if (checkMatchedProdArea() != null)
             {
-                MessageBox.Show("This Production Area is currently attached to a Process. Please:" +
+                MessageBox.Show("This Production Area is currently attached to a Process ("+checkMatchedProdArea().PC_name+"). Please:" +
                     " \n\nRemove the Process in \"Processes\" tab first" +
                     "\n..Or.." +
                     "\nChange the attached Production area to another one");
@@ -129,7 +129,6 @@ namespace Your
             else
             {
                 this.ObservableProdArea.Remove(this.SelectedProdArea);
-                SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
             }
         }
 
@@ -137,16 +136,16 @@ namespace Your
         /// Return true if a matched Production Area is found being used in a item of Process list
         /// </summary>
         /// <returns></returns>
-        private bool checkMatchedProdArea()
+        private Process checkMatchedProdArea()
         {
             foreach (Process p in ProcessesViewModel.ObservableProcess)
             {
-                if (p.ProdRef.P_name == SelectedProdArea.P_name && p.ProdRef.P_comID == SelectedProdArea.P_comID && p.ProdRef.P_description == SelectedProdArea.P_description && p.ProdRef.P_Type == SelectedProdArea.P_Type) 
+                if (p.ProdRef.P_name == SelectedProdArea.P_name) 
                 {
-                    return true;
+                    return p;
                 }
             }
-            return false;
+            return null;
         }
         #endregion
 

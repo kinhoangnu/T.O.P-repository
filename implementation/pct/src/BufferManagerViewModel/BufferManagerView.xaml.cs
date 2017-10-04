@@ -12,24 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+
+using System.Globalization;
+using com.vanderlande.wpf;
 
 namespace Your
 {
     /// <summary>
-    /// Interaction logic for ProcessesView.xaml
+    /// Interaction logic for ABCView.xaml
     /// </summary>
-    public partial class ProcessesView : UserControl
+    public partial class BufferManagerView : UserControl
     {
-        public ProcessesView()
+        public BufferManagerView()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.Application.Restart();
-            System.Windows.Application.Current.Shutdown();
-        }        
-                
     }
 }

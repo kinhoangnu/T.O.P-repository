@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI_Styling", "Styling\VI_St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VI_WPF", "Framework\VI_WPF.csproj", "{F1566FFC-4C4D-45EA-948A-6DF5D58F6B10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configurations", "..\Configurations\Configurations.csproj", "{05404EF8-8209-4BE8-B02A-7C103A61AB67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{F1566FFC-4C4D-45EA-948A-6DF5D58F6B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1566FFC-4C4D-45EA-948A-6DF5D58F6B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1566FFC-4C4D-45EA-948A-6DF5D58F6B10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05404EF8-8209-4BE8-B02A-7C103A61AB67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05404EF8-8209-4BE8-B02A-7C103A61AB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05404EF8-8209-4BE8-B02A-7C103A61AB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05404EF8-8209-4BE8-B02A-7C103A61AB67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

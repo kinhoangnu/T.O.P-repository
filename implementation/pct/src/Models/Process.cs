@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using com.vanderlande.wpf;
 
 namespace Your
@@ -14,13 +16,24 @@ namespace Your
         private string pc_name;
         private string editpc_name;
         private string pc_comID;
-        private string pc_description;
+        private string pc_description;        
         private Buffer inbufferRef;
-        private Buffer editinbufferRef;
         private Buffer outbufferRef;
-        private Buffer editoutbufferRef;
         private ProdArea prodRef;
-        private ProdArea editprodRef;
+        private ObservableCollection<ProdArea> _observableProdArea;
+        private ObservableCollection<Buffer> _observableBuffer;
+
+        public ObservableCollection<Buffer> ObservableBuffer
+        {
+            get { return BufferList.Buffers; }
+            set { ChangeProperty(ref _observableBuffer, value); }
+        }
+
+        public ObservableCollection<ProdArea> ObservableProdArea
+        {
+            get { return ProdAreaList.ProdAreas; }
+            set { ChangeProperty(ref _observableProdArea, value); }
+        }
 
         private bool isReplenished;
         private bool exclFromKPI;
@@ -48,33 +61,16 @@ namespace Your
             get { return prodRef; }
             set { ChangeProperty(ref prodRef, value); }
         }
-        public ProdArea EditProdRef
-        {
-            get { return editprodRef; }
-            set { ChangeProperty(ref editprodRef, value); }
-        } 
         public Buffer OutbufferRef
         {
             get { return outbufferRef; }
             set { ChangeProperty(ref outbufferRef, value); }
         }
 
-        public Buffer EditOutbufferRef
-        {
-            get { return editoutbufferRef; }
-            set { ChangeProperty(ref editoutbufferRef, value); }
-        }
-
         public Buffer InbufferRef
         {
             get { return inbufferRef; }
             set { ChangeProperty(ref inbufferRef, value); }
-        }
-
-        public Buffer EditInbufferRef
-        {
-            get { return editinbufferRef; }
-            set { ChangeProperty(ref editinbufferRef, value); }
         }
 
         public string PC_description
@@ -97,17 +93,6 @@ namespace Your
             set
             {
                 ChangeProperty(ref pc_name, value);
-            }
-        }
-        public string editPC_name
-        {
-            get
-            {
-                return editpc_name;
-            }
-            set
-            {
-                ChangeProperty(ref editpc_name, value);
             }
         }
         public string PC_comID

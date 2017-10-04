@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using com.vanderlande.wpf;
 
 namespace Your
@@ -14,37 +16,36 @@ namespace Your
         private string wc_name;
         private string wc_type;
         private string wc_handlingType;
-        private string editwc_name;
+        private ObservableCollection<Process> _observableProcess;
+        private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
         private Process processRef;
-        private Process editprocessRef;
         private SecondaryActivity secondaryactivityRef;
-        private SecondaryActivity editsecondaryactivityRef;
+
+        public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
+        {
+            get { return SecondaryActivityList.SecondaryActivities; }
+            set { ChangeProperty(ref _observableSecondaryActivity, value); }
+        }
 
         public Guid Uuid
         {
             get { return uuid; }
             set { uuid = value; }
         }
+        public ObservableCollection<Process> ObservableProcess
+        {
+            get { return ProcessList.Processes; }
+            set { ChangeProperty(ref _observableProcess, value); }
+        }
         public Process ProcessRef
         {
             get { return processRef; }
             set { ChangeProperty(ref processRef, value); }
         }
-        public Process EditprocessRef
-        {
-            get { return editprocessRef; }
-            set { ChangeProperty(ref editprocessRef, value); }
-        } 
         public SecondaryActivity SecondaryactivityRef
         {
             get { return secondaryactivityRef; }
             set { ChangeProperty(ref secondaryactivityRef, value); }
-        }
-
-        public SecondaryActivity EditsecondaryactivityRef
-        {
-            get { return editsecondaryactivityRef; }
-            set { ChangeProperty(ref editsecondaryactivityRef, value); }
         }
 
         public string WC_type
@@ -67,17 +68,6 @@ namespace Your
             set
             {
                 ChangeProperty(ref wc_name, value);
-            }
-        }
-        public string editWC_name
-        {
-            get
-            {
-                return editwc_name;
-            }
-            set
-            {
-                ChangeProperty(ref editwc_name, value);
             }
         }
         public string WC_handlingType

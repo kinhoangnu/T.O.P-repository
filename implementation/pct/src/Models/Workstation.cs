@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using com.vanderlande.wpf;
 
 namespace Your
@@ -15,9 +17,22 @@ namespace Your
         private string w_description;
         private string w_comID;
         private WorkstationGroup workstationgroupRef;
-        private WorkstationGroup editworkstationgroupRef;
         private WorkstationClass workstationclassRef;
-        private WorkstationClass editWorkstationclassRef;
+        private ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
+        private ObservableCollection<WorkstationClass> _observableWorkstationClass;
+
+
+        public ObservableCollection<WorkstationClass> ObservableWorkstationClass
+        {
+            get { return WorkstationClassList.WorkstationClasses; }
+            set { ChangeProperty(ref _observableWorkstationClass, value); }
+        }
+
+        public ObservableCollection<WorkstationGroup> ObservableWorkstationGroup
+        {
+            get { return WorkstationGroupList.WorkstationGroups; }
+            set { ChangeProperty(ref _observableWorkstationGroup, value); }
+        }
 
         public Guid Uuid
         {
@@ -30,21 +45,10 @@ namespace Your
             get { return workstationgroupRef; }
             set { ChangeProperty(ref workstationgroupRef, value); }
         }
-        public WorkstationGroup EditWorkstationgroupRef
-        {
-            get { return editworkstationgroupRef; }
-            set { ChangeProperty(ref editworkstationgroupRef, value); }
-        }
         public WorkstationClass WorkstationclassRef
         {
             get { return workstationclassRef; }
             set { ChangeProperty(ref workstationclassRef, value); }
-        }
-
-        public WorkstationClass EditworkstationClassRef
-        {
-            get { return editWorkstationclassRef; }
-            set { ChangeProperty(ref editWorkstationclassRef, value); }
         }
 
         

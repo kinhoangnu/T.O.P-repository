@@ -17,12 +17,10 @@ namespace Your
         #region Fields and auto-implement properties
         private SecondaryActivity selectedSecondaryActivity;
         private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
-        private SecondaryActivity _tobeEditedItem;
 
         public SecondaryActivityList SClist;
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand UpdateCommand { get; set; }
 
         #endregion
 
@@ -31,7 +29,6 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            this.UpdateCommand = new RelayCommand((obj) => Update());
             SClist = new SecondaryActivityList();
             ObservableSecondaryActivity = new ObservableCollection<SecondaryActivity>();
             ObservableSecondaryActivity = SecondaryActivityList.GetSecondaryActivityList();
@@ -47,18 +44,6 @@ namespace Your
         }
 
         /// <summary>
-        /// Item that is being filled on the input controls
-        /// </summary>
-        public SecondaryActivity TobeEditedItem
-        {
-            get { return _tobeEditedItem; }
-            set
-            {
-                ChangeProperty(ref _tobeEditedItem, value);
-            }
-        }
-
-        /// <summary>
         /// Item that is being selected on the list
         /// </summary>
         public SecondaryActivity SelectedSecondaryActivity
@@ -67,15 +52,6 @@ namespace Your
             set
             {
                 ChangeProperty(ref selectedSecondaryActivity, value);
-                if (SelectedSecondaryActivity != null)
-                {
-                    TobeEditedItem = new SecondaryActivity()
-                    {
-                        SC_name = SelectedSecondaryActivity.SC_name,
-                        SC_comID = SelectedSecondaryActivity.SC_comID,
-                        SC_description = SelectedSecondaryActivity.SC_description,
-                    };
-                }
             }
         }
         #endregion
@@ -89,24 +65,10 @@ namespace Your
         {
             this.ObservableSecondaryActivity.Add(new SecondaryActivity()
             {
-                SC_name = this.TobeEditedItem.SC_name,
-                SC_description = this.TobeEditedItem.SC_description,
-                SC_comID = this.TobeEditedItem.SC_comID
+                SC_name = "",
+                SC_description = "",
+                SC_comID = ""
             });
-        }
-
-        /// <summary>
-        /// Update current selected SelectedSecondaryActivity
-        /// </summary>
-        public void Update()
-        {
-            if (SelectedSecondaryActivity != null)
-            {
-                SelectedSecondaryActivity.SC_name = TobeEditedItem.SC_name;
-                SelectedSecondaryActivity.SC_description = TobeEditedItem.SC_description;
-                SelectedSecondaryActivity.SC_comID = TobeEditedItem.SC_comID;
-            }
-            SelectedSecondaryActivity = ObservableSecondaryActivity.ElementAt(ObservableSecondaryActivity.Count - 1);
         }
 
         /// <summary>
@@ -114,9 +76,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedSecondaryActivity())
+            if (checkMatchedSecondaryActivity() != null)
             {
-                MessageBox.Show("This Secondary Activity is currently attached to a Workstation Class. Please:"+
+                MessageBox.Show("This Secondary Activity is currently attached to a Workstation Class ("+checkMatchedSecondaryActivity().WC_name+"). Please:"+
                     " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first"+
                     "\n..Or.."+
                     "\nChange the attached activity to another one");
@@ -124,7 +86,6 @@ namespace Your
             else
             {
                 this.ObservableSecondaryActivity.Remove(this.SelectedSecondaryActivity);
-                SelectedSecondaryActivity = ObservableSecondaryActivity.ElementAt(ObservableSecondaryActivity.Count - 1);
             }
         }
 
@@ -132,16 +93,16 @@ namespace Your
         /// Return true if a matched Secondary Activity is found being used in a item of WorkstationClass list
         /// </summary>
         /// <returns></returns>
-        private bool checkMatchedSecondaryActivity()
+        private WorkstationClass checkMatchedSecondaryActivity()
         {
             foreach (WorkstationClass sc in WorkstationClassesViewModel.ObservableWorkstationClass)
             {
-                if (sc.SecondaryactivityRef.SC_name == SelectedSecondaryActivity.SC_name && sc.SecondaryactivityRef.SC_comID == SelectedSecondaryActivity.SC_comID && sc.SecondaryactivityRef.SC_description == SelectedSecondaryActivity.SC_description)
+                if (sc.SecondaryactivityRef.SC_name == SelectedSecondaryActivity.SC_name)
                 {
-                    return true;
+                    return sc;
                 }
             }
-            return false;
+            return null;
         }
 
         #endregion

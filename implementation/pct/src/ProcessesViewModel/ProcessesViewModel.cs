@@ -18,12 +18,6 @@ namespace Your
         private Process selectedProcess;
 
         private static ObservableCollection<Process> _observableProcess;
-        private ObservableCollection<Buffer> _observableBuffer;
-        private ObservableCollection<ProdArea> _observableProdArea;
-        private Process _tobeEditedItem;
-
-        public ProcessList PClist;
-        public ProdAreaList Plist;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -35,16 +29,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            this.UpdateCommand = new RelayCommand((obj) => Update());
-            PClist = new ProcessList();
-            Plist = new ProdAreaList();
-            ObservableBuffer = new ObservableCollection<Buffer>();
             ObservableProcess = new ObservableCollection<Process>();
-            ObservableProdArea = new ObservableCollection<ProdArea>();
-            ObservableProdArea = ProdAreaList.GetProdAreaList();
-            ObservableBuffer = BufferList.GetBufferList();
             ObservableProcess = ProcessList.GetProcessList();
-            this.SelectedProcess = ObservableProcess.FirstOrDefault();
         }
         #endregion
 
@@ -53,30 +39,6 @@ namespace Your
         {
             get { return ProcessList.Processes; }
             set { _observableProcess = value; }
-        }
-
-        public ObservableCollection<Buffer> ObservableBuffer
-        {
-            get { return BufferList.Buffers; }
-            set { _observableBuffer = value; }
-        }
-
-        public ObservableCollection<ProdArea> ObservableProdArea
-        {
-            get { return ProdAreaList.ProdAreas; }
-            set { ChangeProperty(ref _observableProdArea, value); }
-        }
-
-        /// <summary>
-        /// Item that is being filled on the input controls
-        /// </summary>
-        public Process TobeEditedItem
-        {
-            get { return _tobeEditedItem; }
-            set
-            {
-                ChangeProperty(ref _tobeEditedItem, value);
-            }
         }
 
         /// <summary>
@@ -88,73 +50,23 @@ namespace Your
             set
             {
                 ChangeProperty(ref selectedProcess, value);
-                if (SelectedProcess != null)
-                {
-                    TobeEditedItem = new Process()
-                    {
-                        PC_name = SelectedProcess.PC_name,
-                        PC_description = SelectedProcess.PC_description,
-                        PC_comID = SelectedProcess.PC_comID,
-                        ProdRef = new ProdArea(),
-                        EditProdRef = SelectedProcess.ProdRef,
-                        InbufferRef = new Buffer(),
-                        EditInbufferRef = SelectedProcess.InbufferRef,
-                        OutbufferRef = new Buffer(),
-                        EditOutbufferRef = SelectedProcess.OutbufferRef,
-                        IsReplenished = SelectedProcess.IsReplenished,
-                        ExclFromKPI = SelectedProcess.ExclFromKPI
-                    };
-                    TobeEditedItem.ProdRef.P_name = SelectedProcess.ProdRef.P_name;
-                    TobeEditedItem.InbufferRef.B_name = SelectedProcess.InbufferRef.B_name;
-                    TobeEditedItem.OutbufferRef.B_name = SelectedProcess.OutbufferRef.B_name;
-                    TobeEditedItem.EditProdRef.editP_name = SelectedProcess.ProdRef.P_name;
-                    TobeEditedItem.EditInbufferRef.editB_name = SelectedProcess.InbufferRef.B_name;
-                    TobeEditedItem.EditOutbufferRef.editB_name = SelectedProcess.OutbufferRef.B_name;
-                }
             }
         }
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Update current selected item
-        /// </summary>
-        public void Update()
-        {
-            if (SelectedProcess != null && SelectedProcess != TobeEditedItem)
-            {
-                SelectedProcess.PC_name = TobeEditedItem.PC_name;
-                SelectedProcess.PC_description = TobeEditedItem.PC_description;
-                SelectedProcess.PC_comID = TobeEditedItem.PC_comID;
-                SelectedProcess.ProdRef.P_name = TobeEditedItem.EditProdRef.editP_name;
-                SelectedProcess.InbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
-                SelectedProcess.OutbufferRef.B_name = TobeEditedItem.EditOutbufferRef.editB_name;
-                SelectedProcess.IsReplenished = TobeEditedItem.IsReplenished;
-                SelectedProcess.ExclFromKPI = TobeEditedItem.ExclFromKPI;
-            }
-        }
-
+        
         /// <summary>
         /// Add a new item with properties filled by the input controls
         /// </summary>
         public void Add()
         {
-            TobeEditedItem.ProdRef.P_name = TobeEditedItem.EditProdRef.editP_name;
-            TobeEditedItem.InbufferRef.B_name = TobeEditedItem.EditInbufferRef.editB_name;
-            TobeEditedItem.OutbufferRef.B_name = TobeEditedItem.EditOutbufferRef.editB_name;
             ObservableProcess.Add(new Process()
             {
-                PC_name = this.TobeEditedItem.PC_name,
-                PC_description = this.TobeEditedItem.PC_description,
-                PC_comID = this.TobeEditedItem.PC_comID,
-                ProdRef = this.TobeEditedItem.ProdRef,
-                InbufferRef = this.TobeEditedItem.InbufferRef,
-                OutbufferRef = this.TobeEditedItem.OutbufferRef,
-                IsReplenished = this.TobeEditedItem.IsReplenished,
-                ExclFromKPI = this.TobeEditedItem.ExclFromKPI
+                PC_name = "",
+                PC_description = "",
+                PC_comID = "",
             });
-            TobeEditedItem = new Process();
             SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
         }
 
@@ -163,9 +75,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedProcess())
+            if (checkMatchedProcess() != null)
             {
-                MessageBox.Show("This Process is currently in attached to a Workstation Class. Please:" +
+                MessageBox.Show("This Process is currently in attached to a Workstation Class ("+checkMatchedProcess().WC_name+"). Please:" +
                        " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first" +
                        "\n..Or.." +
                        "\nChange the attached process to another one");
@@ -173,7 +85,6 @@ namespace Your
             else
             {
                 ProcessList.Processes.Remove(SelectedProcess);
-                SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
             }
         }
 
@@ -181,16 +92,16 @@ namespace Your
         /// Return true if a matched Process is found being used in a item of Workstation Class list
         /// </summary>
         /// <returns></returns>
-        private bool checkMatchedProcess()
+        private WorkstationClass checkMatchedProcess()
         {
             foreach (WorkstationClass wc in WorkstationClassesViewModel.ObservableWorkstationClass)
             {
-                if (wc.ProcessRef.PC_name == SelectedProcess.PC_name && wc.ProcessRef.PC_comID == SelectedProcess.PC_comID && wc.ProcessRef.PC_description == SelectedProcess.PC_description)
+                if (wc.ProcessRef.PC_name == SelectedProcess.PC_name)
                 {
-                    return true;
+                    return wc;
                 }
             }
-            return false;
+            return null;
         }
 
         #endregion

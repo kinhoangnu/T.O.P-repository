@@ -17,12 +17,9 @@ namespace Your
         #region Fields and auto-implement properties
         private Buffer selectedBuffer;
         private ObservableCollection<Buffer> _observableBuffer;
-        private Buffer _tobeEditedItem;
-        private ProcessesViewModel pm;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand UpdateCommand { get; set; }
 
         #endregion
 
@@ -31,10 +28,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            this.UpdateCommand = new RelayCommand((obj) => Update());
             ObservableBuffer = new ObservableCollection<Buffer>();
             ObservableBuffer = BufferList.GetBufferList();
-            this.SelectedBuffer = ObservableBuffer.FirstOrDefault();
         }
         #endregion
 
@@ -46,18 +41,6 @@ namespace Your
         }
 
         /// <summary>
-        /// Item that is being filled on the input controls
-        /// </summary>
-        public Buffer TobeEditedItem
-        {
-            get { return _tobeEditedItem; }
-            set
-            {
-                ChangeProperty(ref _tobeEditedItem, value);
-            }
-        }
-
-        /// <summary>
         /// Item that is being selected on the list
         /// </summary>
         public Buffer SelectedBuffer
@@ -66,16 +49,6 @@ namespace Your
             set
             {
                 ChangeProperty(ref selectedBuffer, value);
-                if (SelectedBuffer != null)
-                {
-                    TobeEditedItem = new Buffer()
-                    {
-                        B_name = SelectedBuffer.B_name,
-                        B_comID = SelectedBuffer.B_comID,
-                        B_description = SelectedBuffer.B_description,
-                        B_unit = SelectedBuffer.B_unit,
-                    };
-                }
             }
         }
         #endregion
@@ -89,36 +62,21 @@ namespace Your
         {
             this.ObservableBuffer.Add(new Buffer()
             {
-                B_name = this.TobeEditedItem.B_name,
-                B_description = this.TobeEditedItem.B_description,
-                B_comID = this.TobeEditedItem.B_comID,
-                B_unit = this.TobeEditedItem.B_unit
+                B_name = "",
+                B_description = "",
+                B_comID = "",
+                B_unit = ""
             });
         }
-
-        /// <summary>
-        /// Update current selected Buffer
-        /// </summary>
-        public void Update()
-        {
-            if (SelectedBuffer != null)
-            {
-                SelectedBuffer.B_name = TobeEditedItem.B_name;
-                SelectedBuffer.B_description = TobeEditedItem.B_description;
-                SelectedBuffer.B_comID = TobeEditedItem.B_comID;
-                SelectedBuffer.B_unit = TobeEditedItem.B_unit;
-            }
-            SelectedBuffer = ObservableBuffer.ElementAt(ObservableBuffer.Count - 1);
-        }
-
+        
         /// <summary>
         /// Delete current selected Buffer
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedBuffer())
+            if (checkMatchedBuffer() != null)
             {
-                MessageBox.Show("This Buffer is currently attached to a Process. Please:" +
+                MessageBox.Show("This Buffer is currently attached to a Process ("+checkMatchedBuffer().PC_name+"). Please:" +
                        " \n\nRemove the Process in \"Processes\" tab first" +
                        "\n..Or.." +
                        "\nChange the attached buffer to another one");
@@ -126,7 +84,6 @@ namespace Your
             else
             {
                 this.ObservableBuffer.Remove(this.SelectedBuffer);
-                SelectedBuffer = ObservableBuffer.ElementAt(ObservableBuffer.Count - 1);
             }
         }
 
@@ -134,17 +91,17 @@ namespace Your
         /// Return true if a matched Buffer is found being used in a item of Process list
         /// </summary>
         /// <returns></returns>
-        private bool checkMatchedBuffer()
+        private Process checkMatchedBuffer()
         {
             foreach (Process p in ProcessesViewModel.ObservableProcess)
             {
-                if ((p.InbufferRef.B_name == SelectedBuffer.B_name && p.InbufferRef.B_unit == SelectedBuffer.B_unit && p.InbufferRef.B_description == SelectedBuffer.B_description && p.InbufferRef.B_comID == SelectedBuffer.B_comID) ||
-                    (p.OutbufferRef.B_name == SelectedBuffer.B_name && p.OutbufferRef.B_unit == SelectedBuffer.B_unit && p.OutbufferRef.B_description == SelectedBuffer.B_description && p.OutbufferRef.B_comID == SelectedBuffer.B_comID))
+                if ((p.InbufferRef.B_name == SelectedBuffer.B_name) ||
+                    (p.OutbufferRef.B_name == SelectedBuffer.B_name))
                 {                    
-                    return true;
+                    return p;
                 }
             }
-            return false;
+            return null;
         }
 
         #endregion

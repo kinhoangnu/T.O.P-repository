@@ -13,37 +13,45 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListView x:Name="lstNames" Margin="5,5,35,5" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1" ItemsSource="{Binding ObservableWorkstationClass}" SelectedItem="{Binding SelectedWorkstationClass, Mode=TwoWay}">
-            <ListView.Resources>
+        <DataGrid x:Name="lstNames" Margin="5,5,35,5" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                  ItemsSource="{Binding Path=ObservableWorkstationClass}" SelectedItem="{Binding Path=SelectedWorkstationClass}"
+                  AutoGenerateColumns="False">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" CommandParameter="Delete"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Resources>
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
                 </Style>
-            </ListView.Resources>
-            <ListView.View>
-                <GridView x:Name="grdNames">
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding WC_name}"/>
-                    <GridViewColumn Header="Type"  DisplayMemberBinding="{Binding WC_type}"/>
-                    <GridViewColumn Header="Handling type"  DisplayMemberBinding="{Binding WC_handlingType}"/>
-                    <GridViewColumn Header="Process" DisplayMemberBinding="{Binding ProcessRef.PC_name}"/>
-                    <GridViewColumn Header="Secondary activity" DisplayMemberBinding="{Binding SecondaryactivityRef.SC_name}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0">
-            <TextBlock x:Name="lblpc_objName" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Name:"></TextBlock>
-            <TextBox x:Name="txtpc_objName" Text="{Binding TobeEditedItem.WC_name}"></TextBox>
-            <TextBlock x:Name="lblpc_objDes" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Description:"></TextBlock>
-            <TextBox x:Name="txtpc_objDes" Text="{Binding TobeEditedItem.WC_type}"></TextBox>
-            <TextBlock x:Name="lblPC_ComID" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Communication ID:"></TextBlock>
-            <TextBox x:Name="txtPC_ComID" Text="{Binding TobeEditedItem.WC_handlingType}"></TextBox>
-            <TextBlock x:Name="lblP_ProdArea" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Process:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Prodref" SelectedIndex="1" Text="{Binding TobeEditedItem.EditprocessRef.editPC_name}" ItemsSource="{Binding ObservableProcess}" DisplayMemberPath="PC_name"></ComboBox>
-            <TextBlock x:Name="lblPC_InBuffer" FontFamily="Verdana" FontWeight="Bold" Margin="5" Text="Secondary Activity:"></TextBlock>
-            <ComboBox FontFamily="Arial" FontSize="11" x:Name="cb_Inbuffer" SelectedIndex="1" Text="{Binding TobeEditedItem.EditsecondaryactivityRef.editSC_name}" ItemsSource="{Binding ObservableSecondaryActivity}" DisplayMemberPath="SC_name"></ComboBox>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding WC_name}" Width="auto"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding WC_type}" Width="auto"/>
+                <DataGridTextColumn Header="Handling type" Binding="{Binding WC_handlingType}" Width="auto"/>
+                <DataGridTemplateColumn Header="Process Reference">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                      ItemsSource="{Binding Path=ObservableProcess}"
+                      Text="{Binding Path=ProcessRef.PC_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                      DisplayMemberPath="PC_name"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Secondary Activity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="150" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                      ItemsSource="{Binding Path=ObservableSecondaryActivity}"
+                      Text="{Binding Path=SecondaryactivityRef.SC_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                      DisplayMemberPath="SC_name"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>            
+        </DataGrid>
 
-        </StackPanel>
         <StackPanel Grid.Row="1" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnUpdate" Command="{Binding UpdateCommand}" Content="Update selected item"/>
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Workstation Class"/>
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnDelete" Content="Delete selected Item" Command="{Binding DeleteCommand}"/>
         </StackPanel>

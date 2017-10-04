@@ -16,12 +16,10 @@ namespace Your
     {
         #region Fields and auto-implement properties
         private WorkstationGroup selectedWorkstationGroup;
-        private ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
-        private WorkstationGroup _tobeEditedItem;
+        private static ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand UpdateCommand { get; set; }
         #endregion
 
         #region contructor
@@ -29,8 +27,6 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            this.UpdateCommand = new RelayCommand((obj) => Update());
-            ObservableWorkstationGroup = new ObservableCollection<WorkstationGroup>();
             ObservableWorkstationGroup = WorkstationGroupList.GetWorkstationGroupList();
             this.SelectedWorkstationGroup = ObservableWorkstationGroup.FirstOrDefault();
         }
@@ -46,33 +42,14 @@ namespace Your
             set
             {
                 ChangeProperty(ref selectedWorkstationGroup, value);
-                if (SelectedWorkstationGroup != null)
-                {
-                    TobeEditedItem = new WorkstationGroup()
-                    {
-                        WG_name = SelectedWorkstationGroup.WG_name,
-                        WG_description = SelectedWorkstationGroup.WG_description,
-                    };
-                }
             }
         }
 
-        /// <summary>
-        /// Item that is being filled on the input controls
-        /// </summary>
-        public WorkstationGroup TobeEditedItem
-        {
-            get { return _tobeEditedItem; }
-            set
-            {
-                ChangeProperty(ref _tobeEditedItem, value);
-            }
-        }
 
-        public ObservableCollection<WorkstationGroup> ObservableWorkstationGroup
+        public static ObservableCollection<WorkstationGroup> ObservableWorkstationGroup
         {
             get { return WorkstationGroupList.WorkstationGroups; }
-            set { ChangeProperty(ref _observableWorkstationGroup, value); }
+            set { _observableWorkstationGroup = value; }
         }
 
         #endregion
@@ -84,43 +61,28 @@ namespace Your
         /// </summary>
         public void Add()
         {
-            this.ObservableWorkstationGroup.Add(new WorkstationGroup()
+            ObservableWorkstationGroup.Add(new WorkstationGroup()
             {
-                WG_name = this.TobeEditedItem.WG_name,
-                WG_description = this.TobeEditedItem.WG_description,
+                WG_name = "",
+                WG_description = "",                
             });
-            WorkstationGroupList.WorkstationGroups = ObservableWorkstationGroup;
-            SelectedWorkstationGroup = ObservableWorkstationGroup.ElementAt(ObservableWorkstationGroup.Count - 1);
         }
-
-        /// <summary>
-        /// Update the current selected item on the list
-        /// </summary>
-        public void Update()
-        {
-            if (SelectedWorkstationGroup != null)
-            {
-                SelectedWorkstationGroup.WG_name = TobeEditedItem.WG_name;
-                SelectedWorkstationGroup.WG_description = TobeEditedItem.WG_description;
-            }
-        }
-
+        
         /// <summary>
         /// Delete the current selected on the list
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedWorkstationGroup())
+            if (checkMatchedWorkstationGroup() != null)
             {
-                MessageBox.Show("This Workstation class is currently attached to a Workstation. Please:" +
+                MessageBox.Show("This Workstation group (" + checkMatchedWorkstationGroup().WorkstationgroupRef.WG_name + ") is currently attached to a Workstation (" + checkMatchedWorkstationGroup().W_name+ "). Please:" +
                     " \n\nRemove the Workstation in \"Workstations\" tab first" +
                     "\n..Or.." +
                     "\nChange the attached Wrokstation class to another one");
             }
             else
             {
-                this.ObservableWorkstationGroup.Remove(this.SelectedWorkstationGroup);
-                SelectedWorkstationGroup = ObservableWorkstationGroup.ElementAt(ObservableWorkstationGroup.Count - 1);
+                ObservableWorkstationGroup.Remove(this.SelectedWorkstationGroup);
             }
         }
 
@@ -128,16 +90,16 @@ namespace Your
         /// Return true if a matched WorkstationGroup is found being used in a item of Workstation list
         /// </summary>
         /// <returns></returns>
-        private bool checkMatchedWorkstationGroup()
+        private Workstation checkMatchedWorkstationGroup()
         {
             foreach (Workstation w in WorkstationsViewModel.ObservableWorkstation)
             {
-                if (w.WorkstationgroupRef.WG_name == SelectedWorkstationGroup.WG_name && w.WorkstationgroupRef.WG_description == SelectedWorkstationGroup.WG_description)
-                {
-                    return true;
+                if (w.WorkstationgroupRef.WG_name == SelectedWorkstationGroup.WG_name)
+                {                    
+                    return w;
                 }
             }
-            return false;
+            return null;
         }
         #endregion
 
