@@ -31,11 +31,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            this.UpdateCommand = new RelayCommand((obj) => Update());
-            Plist = new ProdAreaList();
+            ProdAreaList.ProdAreas = new ObservableCollection<ProdArea>();
             ObservableProdArea = new ObservableCollection<ProdArea>();
-            ObservableProdArea = ProdAreaList.GetProdAreaList();
-            this.SelectedProdArea = ObservableProdArea.FirstOrDefault();
         }
         #endregion
 
@@ -56,7 +53,7 @@ namespace Your
                         P_name = SelectedProdArea.P_name,
                         P_comID = SelectedProdArea.P_comID,
                         P_description = SelectedProdArea.P_description,
-                        P_Type = SelectedProdArea.P_Type,
+                        P_type = SelectedProdArea.P_type,
                     };
                 }
             }
@@ -94,7 +91,7 @@ namespace Your
                 P_name = this.TobeEditedItem.P_name,
                 P_description = this.TobeEditedItem.P_description,
                 P_comID = this.TobeEditedItem.P_comID,
-                P_Type = this.TobeEditedItem.P_Type
+                P_type = this.TobeEditedItem.P_type
             });
             ProdAreaList.ProdAreas = ObservableProdArea;
             SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
@@ -110,7 +107,7 @@ namespace Your
                 SelectedProdArea.P_name = TobeEditedItem.P_name;
                 SelectedProdArea.P_description = TobeEditedItem.P_description;
                 SelectedProdArea.P_comID = TobeEditedItem.P_comID;
-                SelectedProdArea.P_Type = TobeEditedItem.P_Type;
+                SelectedProdArea.P_type = TobeEditedItem.P_type;
             }
         }
 

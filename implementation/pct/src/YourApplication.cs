@@ -29,10 +29,11 @@ namespace Your
             mainWnd.RegisterContent(typeof(BuffersViewModel));
             mainWnd.RegisterContent(typeof(ProductionAreasViewModel));
             mainWnd.RegisterContent(typeof(SecondaryActivitiesViewModel));
-            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel)); 
-            mainWnd.ActivateContent(typeof(ProcessesViewModel));
+            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel));
+            mainWnd.RegisterContent(typeof(ProcessesViewModel));
             mainWnd.RegisterContent(typeof(WorkstationClassesViewModel));
             mainWnd.RegisterContent(typeof(WorkstationsViewModel));
+            mainWnd.RegisterContent(typeof(LoadXMLViewModel));
             return mainWnd;
         }
 

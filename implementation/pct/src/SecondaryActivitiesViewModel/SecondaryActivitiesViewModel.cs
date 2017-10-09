@@ -30,9 +30,8 @@ namespace Your
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
             SClist = new SecondaryActivityList();
+            SecondaryActivityList.SecondaryActivities = new ObservableCollection<SecondaryActivity>();
             ObservableSecondaryActivity = new ObservableCollection<SecondaryActivity>();
-            ObservableSecondaryActivity = SecondaryActivityList.GetSecondaryActivityList();
-            this.SelectedSecondaryActivity = ObservableSecondaryActivity.FirstOrDefault();
         }
         #endregion
 

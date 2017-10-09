@@ -27,8 +27,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
+            WorkstationGroupList.WorkstationGroups = new ObservableCollection<WorkstationGroup>();
             ObservableWorkstationGroup = WorkstationGroupList.GetWorkstationGroupList();
-            this.SelectedWorkstationGroup = ObservableWorkstationGroup.FirstOrDefault();
         }
         #endregion
 

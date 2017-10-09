@@ -9,15 +9,18 @@ namespace Your
 {
     public class ProdArea : ContentViewModel
     {
-        private Guid uuid;
-
+        private string uuid;
         private string p_name;
-        private string editp_name;
-        private string p_comID;
-        private string p_type;
+        private string p_comID;        
         private string p_description;
+        private string p_type;
 
-        public Guid Uuid
+        public string P_type
+        {
+            get { return p_type; }
+            set { p_type = value; }
+        }
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -44,17 +47,6 @@ namespace Your
                 ChangeProperty(ref p_name, value);
             }
         }
-        public string editP_name
-        {
-            get
-            {
-                return editp_name;
-            }
-            set
-            {
-                ChangeProperty(ref editp_name, value);
-            }
-        }
         public string P_comID
         {
             get
@@ -66,21 +58,8 @@ namespace Your
                 ChangeProperty(ref p_comID, value);
             }
         }
-        public string P_Type
-        {
-            get
-            {
-                return p_type;
-            }
-            set
-            {
-                ChangeProperty(ref p_type, value);
-            }
-        }
-
         public ProdArea()
         {
-            uuid = Guid.NewGuid();
         }
     }
 }

@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Your</RootNamespace>
     <AssemblyName>Your</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FmCommonContract">
+      <HintPath>packages\FmCommonContract.1.8.4\lib\net452\FmCommonContract.dll</HintPath>
+    </Reference>
+    <Reference Include="FmTopIntContract">
+      <HintPath>packages\FmTopIntContract.0.4.9\lib\net452\FmTopIntContract.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -73,6 +80,10 @@
     <Compile Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesViewModel.cs" />
     <Compile Include="src\Models\ProdArea.cs" />
     <Compile Include="src\Models\ProdAreaList.cs" />
+    <Compile Include="src\LoadXML\LoadXMLView.xaml.cs">
+      <DependentUpon>LoadXMLView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\LoadXML\LoadXMLViewModel.cs" />
     <Compile Include="src\WorkstationsViewModel\WorkstationsView.xaml.cs">
       <DependentUpon>WorkstationsView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +130,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="src\SecondaryActivitiesViewModel\SecondaryActivitiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\LoadXML\LoadXMLView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -175,6 +190,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Configurations\Configurations.csproj">
+      <Project>{05404ef8-8209-4be8-b02a-7c103a61ab67}</Project>
+      <Name>Configurations</Name>
+    </ProjectReference>
     <ProjectReference Include="Framework\VI_WPF.csproj">
       <Project>{f1566ffc-4c4d-45ea-948a-6df5d58f6b10}</Project>
       <Name>VI_WPF</Name>

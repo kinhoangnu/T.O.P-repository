@@ -9,14 +9,13 @@ namespace Your
 {
     public class SecondaryActivity : ContentViewModel
     {
-        private Guid uuid;
-
+        private string uuid;
         private string sc_name;
         private string editsc_name;
         private string sc_comID;
         private string sc_description;
 
-        public Guid Uuid
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -69,7 +68,6 @@ namespace Your
 
         public SecondaryActivity()
         {
-            uuid = Guid.NewGuid();
         }
 
         public SecondaryActivity NewCopySecondaryActivity(SecondaryActivity scCopy)

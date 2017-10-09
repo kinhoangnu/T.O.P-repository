@@ -26,24 +26,24 @@ namespace Your
         }
         public SecondaryActivityList()
         {
-            SecondaryActivities = new ObservableCollection<SecondaryActivity>
-            {
-                new SecondaryActivity{SC_name="Teaching",SC_description="Depalletising teaching", SC_comID="TEACHING"},
-                new SecondaryActivity{SC_name="Return pallet building",SC_description="Return pallet building",SC_comID="RETURNS"},
-                new SecondaryActivity{SC_name="Maintenance",SC_description="maintenance",SC_comID="MAINTENANCE"},
-                new SecondaryActivity{SC_name="Extended maintenance",SC_description="Workstation + aisle maintenance",SC_comID="MAINTENANCE_MODULE"}
-            };
+            //SecondaryActivities = new ObservableCollection<SecondaryActivity>
+            //{
+            //    new SecondaryActivity{SC_name="Teaching",SC_description="Depalletising teaching", SC_comID="TEACHING"},
+            //    new SecondaryActivity{SC_name="Return pallet building",SC_description="Return pallet building",SC_comID="RETURNS"},
+            //    new SecondaryActivity{SC_name="Maintenance",SC_description="maintenance",SC_comID="MAINTENANCE"},
+            //    new SecondaryActivity{SC_name="Extended maintenance",SC_description="Workstation + aisle maintenance",SC_comID="MAINTENANCE_MODULE"}
+            //};
         }
 
         private static void generateSecondaryActivities()
         {
-            SecondaryActivities = new ObservableCollection<SecondaryActivity>
-            {
-                new SecondaryActivity{SC_name="Teaching",SC_description="Depalletising teaching", SC_comID="TEACHING"},
-                new SecondaryActivity{SC_name="Return pallet building",SC_description="Return pallet building",SC_comID="RETURNS"},
-                new SecondaryActivity{SC_name="Maintenance",SC_description="maintenance",SC_comID="MAINTENANCE"},
-                new SecondaryActivity{SC_name="Extended maintenance",SC_description="Workstation + aisle maintenance",SC_comID="MAINTENANCE_MODULE"}
-            };
+            //SecondaryActivities = new ObservableCollection<SecondaryActivity>
+            //{
+            //    new SecondaryActivity{SC_name="Teaching",SC_description="Depalletising teaching", SC_comID="TEACHING"},
+            //    new SecondaryActivity{SC_name="Return pallet building",SC_description="Return pallet building",SC_comID="RETURNS"},
+            //    new SecondaryActivity{SC_name="Maintenance",SC_description="maintenance",SC_comID="MAINTENANCE"},
+            //    new SecondaryActivity{SC_name="Extended maintenance",SC_description="Workstation + aisle maintenance",SC_comID="MAINTENANCE_MODULE"}
+            //};
         }
         public static ObservableCollection<SecondaryActivity> GetSecondaryActivityList()
         {
@@ -52,7 +52,7 @@ namespace Your
 
         public static SecondaryActivity GetASecondaryActivity(int n)
         {
-            generateSecondaryActivities();
+            //generateSecondaryActivities();
             return SecondaryActivities.ElementAt(n); 
         }
 

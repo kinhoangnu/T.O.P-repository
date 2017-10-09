@@ -29,8 +29,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
+            ProcessList.Processes = new ObservableCollection<Process>();
             ObservableProcess = new ObservableCollection<Process>();
-            ObservableProcess = ProcessList.GetProcessList();
         }
         #endregion
 

@@ -25,7 +25,7 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding P_name}" Width="*"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding P_description}" Width="*"/>
                 <DataGridTextColumn Header="Communication ID" Binding="{Binding P_comID}" Width="*"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding P_Type}" Width="*"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding P_type}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         

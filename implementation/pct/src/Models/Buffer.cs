@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using com.vanderlande.wpf;
+using System.Xml.Serialization;
 
 namespace Your
 {
-    public class Buffer : ContentViewModel
+    public class Buffer
     {
-        private Guid uuid;
-
+        private string uuid;
         private string b_name;
-        private string editb_name;
         private string b_comID;
         private string b_unit;
         private string b_description;
-
-        public Guid Uuid
+                
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -30,7 +29,7 @@ namespace Your
             }
             set
             {
-                ChangeProperty(ref b_description, value);
+                b_description = value;
             }
         }
         public string B_name
@@ -41,19 +40,7 @@ namespace Your
             }
             set
             {
-                ChangeProperty(ref b_name, value);
-            }
-        }
-
-        public string editB_name
-        {
-            get
-            {
-                return editb_name;
-            }
-            set
-            {
-                ChangeProperty(ref editb_name, value);
+                b_name = value;
             }
         }
         public string B_comID
@@ -64,7 +51,7 @@ namespace Your
             }
             set
             {
-                ChangeProperty(ref b_comID, value);
+                b_comID= value;
             }
         }
         public string B_unit
@@ -75,13 +62,12 @@ namespace Your
             }
             set
             {
-                ChangeProperty(ref b_unit, value);
+                b_unit= value;
             }
         }
 
         public Buffer()
         {
-            uuid = Guid.NewGuid();
         }
 
         public Buffer NewCopyBuffer(Buffer bCopy)
@@ -95,4 +81,5 @@ namespace Your
             return b;
         }
     }
+
 }

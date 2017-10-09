@@ -30,7 +30,6 @@ namespace Your
             this.AddCommand = new RelayCommand((obj) => Add());
             ObservableWorkstation = new ObservableCollection<Workstation>();
             ObservableWorkstation = WorkstationList.GetWorkstationList();
-            this.SelectedWorkstation = ObservableWorkstation.FirstOrDefault();
         }
         #endregion
 

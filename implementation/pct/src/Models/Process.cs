@@ -11,12 +11,10 @@ namespace Your
 {
     public class Process : ContentViewModel
     {
-        private Guid uuid;
-
+        private string uuid;
         private string pc_name;
-        private string editpc_name;
         private string pc_comID;
-        private string pc_description;        
+        private string pc_description;
         private Buffer inbufferRef;
         private Buffer outbufferRef;
         private ProdArea prodRef;
@@ -38,7 +36,7 @@ namespace Your
         private bool isReplenished;
         private bool exclFromKPI;
 
-        public Guid Uuid
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -109,7 +107,6 @@ namespace Your
 
         public Process()
         {
-            uuid = Guid.NewGuid();
         }
     }
 }

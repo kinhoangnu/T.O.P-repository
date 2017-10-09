@@ -9,14 +9,13 @@ namespace Your
 {
     public class WorkstationGroup : ContentViewModel
     {
-        private Guid uuid;
-
+        private string uuid;
         private string wg_name;
         private string editwg_name;
         private string wg_description;
         private string editwg_description;
 
-        public Guid Uuid
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -69,7 +68,6 @@ namespace Your
 
         public WorkstationGroup()
         {
-            uuid = Guid.NewGuid();
         }
     }
 }

@@ -28,8 +28,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
+            BufferList.Buffers = new ObservableCollection<Buffer>();
             ObservableBuffer = new ObservableCollection<Buffer>();
-            ObservableBuffer = BufferList.GetBufferList();
         }
         #endregion
 
@@ -93,14 +93,19 @@ namespace Your
         /// <returns></returns>
         private Process checkMatchedBuffer()
         {
-            foreach (Process p in ProcessesViewModel.ObservableProcess)
+            if (ProcessList.Processes != null)
             {
-                if ((p.InbufferRef.B_name == SelectedBuffer.B_name) ||
-                    (p.OutbufferRef.B_name == SelectedBuffer.B_name))
-                {                    
-                    return p;
+                foreach (Process p in ProcessesViewModel.ObservableProcess)
+                {
+                    if ((p.InbufferRef.B_name == SelectedBuffer.B_name) ||
+                        (p.OutbufferRef.B_name == SelectedBuffer.B_name))
+                    {
+                        return p;
+                    }
                 }
+                return null;
             }
+            else
             return null;
         }
 
