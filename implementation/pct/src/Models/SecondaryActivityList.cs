@@ -50,20 +50,13 @@ namespace Your
             return SecondaryActivities;
         }
 
-        public static SecondaryActivity GetASecondaryActivity(int n)
-        {
-            //generateSecondaryActivities();
-            return SecondaryActivities.ElementAt(n); 
-        }
-
-        public SecondaryActivity ReturnASecondaryActivity(string s)
+        public static SecondaryActivity GetASecondaryActivity(string s)
         {
             foreach (SecondaryActivity sc in SecondaryActivities)
             {
-                if (sc.SC_name == s)
+                if (sc.Uuid == s)
                     return sc;
             }
-
             return null;
         }
 

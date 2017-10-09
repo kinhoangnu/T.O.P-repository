@@ -77,7 +77,6 @@ namespace Your
                 }
                 foreach (FM.Top.TopIntTypes.Process pc in topConfigurationObject.Processes)
                 {
-                    
                     ProcessList.Processes.Add(new Process() 
                     {
                         PC_comID = pc.CommunicationId,
@@ -85,7 +84,10 @@ namespace Your
                         PC_name = pc.ObjectIdentification.Name,
                         Uuid = pc.ObjectIdentification.UUID,
                         InbufferRef = BufferList.GetABuffer(pc.InBuffer),
-                        OutbufferRef = BufferList.GetABuffer(pc.OutBuffers.ToString()),
+                        OutbufferRef = BufferList.GetABuffer(string.Join("",pc.OutBuffers)),
+                        ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef),
+                        ExclFromKPI = pc.ExcludeFromKPIs,
+                        IsReplenished = pc.IsReplenishment
                     });
                 }
                 foreach (FM.Top.TopIntTypes.SecondaryActivity s in topConfigurationObject.SecondaryActivities)
@@ -107,6 +109,19 @@ namespace Your
                         Uuid = wg.ObjectIdentification.UUID
                     });
                 }
+                foreach (FM.Top.TopIntTypes.WorkstationClass wc in topConfigurationObject.WorkstationClasses)
+                {
+                    WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
+                    {
+                        WC_handlingType = wc.HandlingType.ToString(),
+                        WC_name = wc.ObjectIdentification.Name,
+                        WC_type = wc.WorkstationType,
+                        Uuid = wc.ObjectIdentification.UUID,
+                        ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),
+                        //SecondaryactivityRef = SecondaryActivityList.GetASecondaryActivity(string.Join("", Array.ConvertAll(wc.SecondaryActivities, x => x.ToString())))
+                    });
+                }
+
                 //ConfigurationService.DeserializeAndValidate<TopProjectModel>(reader, null);
                 //XmlSerializer ser = new XmlSerializer(typeof(Buffers));
                 //reader.ReadToDescendant("Buffers");

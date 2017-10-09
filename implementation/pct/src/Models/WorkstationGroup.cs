@@ -11,26 +11,12 @@ namespace Your
     {
         private string uuid;
         private string wg_name;
-        private string editwg_name;
         private string wg_description;
-        private string editwg_description;
 
         public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
-        }
-
-        public string Editwg_name
-        {
-            get
-            {
-                return editwg_name;
-            }
-            set
-            {
-                ChangeProperty(ref editwg_name, value);
-            }
         }
         public string WG_name
         {
@@ -52,17 +38,6 @@ namespace Your
             set
             {
                 ChangeProperty(ref wg_description, value);
-            }
-        }
-        public string editWG_description
-        {
-            get
-            {
-                return editwg_description;
-            }
-            set
-            {
-                ChangeProperty(ref editwg_description, value);
             }
         }
 

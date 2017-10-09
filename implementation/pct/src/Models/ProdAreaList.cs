@@ -58,10 +58,14 @@ namespace Your
             return ProdAreas;
         }
 
-        public static ProdArea GetAProdArea(int n)
+        public static ProdArea GetAProdArea(string s)
         {
-            generateAProdarea();
-            return ProdAreas.ElementAt(n); 
+            foreach (ProdArea p in ProdAreas)
+            {
+                if (p.Uuid == s)
+                    return p;
+            }
+            return null;
         }
 
         public ProdArea ReturnAProdArea(string s)

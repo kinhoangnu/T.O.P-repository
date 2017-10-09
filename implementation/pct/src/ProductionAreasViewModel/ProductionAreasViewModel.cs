@@ -19,8 +19,6 @@ namespace Your
         private ObservableCollection<ProdArea> _observableProdArea;
         private ProdArea _tobeEditedItem;
 
-        public ProdAreaList Plist;
-
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand UpdateCommand { get; set; }

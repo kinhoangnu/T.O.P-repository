@@ -57,10 +57,14 @@ namespace Your
             return WorkstationClasses;
         }
 
-        public static WorkstationClass GetAWorkstationClass(int n)
+        public static WorkstationClass GetAWorkstationClass(string s)
         {
-            generateWorkstationClasses();
-            return WorkstationClasses.ElementAt(n);
+            foreach (WorkstationClass wc in WorkstationClasses)
+            {
+                if (wc.Uuid == s)
+                    return wc;
+            }
+            return null;
         }
     }
 }

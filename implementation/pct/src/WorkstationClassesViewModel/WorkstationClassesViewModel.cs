@@ -28,8 +28,8 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
+            WorkstationClassList.WorkstationClasses = new ObservableCollection<WorkstationClass>();
             ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();  
-            ObservableWorkstationClass = WorkstationClassList.GetWorkstationClassList();
             //this.SelectedWorkstationClass = ObservableWorkstationClass.FirstOrDefault(); 
         }
         #endregion

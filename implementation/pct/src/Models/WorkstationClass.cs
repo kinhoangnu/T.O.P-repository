@@ -11,7 +11,7 @@ namespace Your
 {
     public class WorkstationClass : ContentViewModel
     {
-        private Guid uuid;
+        private string uuid;
 
         private string wc_name;
         private string wc_type;
@@ -27,7 +27,7 @@ namespace Your
             set { ChangeProperty(ref _observableSecondaryActivity, value); }
         }
 
-        public Guid Uuid
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -85,7 +85,6 @@ namespace Your
 
         public WorkstationClass()
         {
-            uuid = Guid.NewGuid();
         }
     }
 }

@@ -56,10 +56,14 @@ namespace Your
             return Processes;
         }
 
-        public static Process GetAProcess(int n)
+        public static Process GetAProcess(string s)
         {
-            //generateProcesses();
-            return Processes.ElementAt(n);
+            foreach (Process pc in Processes)
+            {
+                if (pc.PC_name == s)
+                    return pc;
+            }
+            return null;
         }
 
         public void DeleteAProcess(Process p)

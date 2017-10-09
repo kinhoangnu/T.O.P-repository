@@ -29,7 +29,7 @@ namespace Your
         {
             Buffers = new ObservableCollection<Buffer>
             {
-               //new Buffer{B_name ="",B_description="", B_comID="",B_unit=""},
+            //new Buffer{B_name ="",B_description="", B_comID="",B_unit=""},
             //    new Buffer{B_name="High bay",B_description="High Bay",B_comID="HighBay",B_unit="Tray"},
             //    new Buffer{B_name="Tray store",B_description="Marshalling Area",B_comID="Marshallow",B_unit="Pallet"},
             //    new Buffer{B_name="Xdock",B_description="Xdock",B_comID="Xdock",B_unit="Pallet"},
@@ -65,7 +65,7 @@ namespace Your
             //generateBuffers();
             foreach (Buffer b in Buffers)
             {
-                if (b.B_name == s)
+                if (b.Uuid == s)
                     return b;
             }
             return null;

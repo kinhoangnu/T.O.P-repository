@@ -57,10 +57,14 @@ namespace Your
             return WorkstationGroups;
         }
 
-        public static WorkstationGroup GetAWorkstationGroup(int n)
+        public static WorkstationGroup GetAWorkstationGroup(string s)
         {
-            //generateWorkstationGroups();
-            return WorkstationGroups.ElementAt(n);
+            foreach (WorkstationGroup wg in WorkstationGroups)
+            {
+                if (wg.Uuid == s)
+                    return wg;
+            }
+            return null;
         }
 
         public void DeleteAProcess(WorkstationGroup p)
