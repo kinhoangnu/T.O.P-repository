@@ -53,6 +53,7 @@ namespace Your
                 {
                     topConfigurationObject = (TopProjectModel)serializer.Deserialize(reader);
                 }
+                #region Import Production Area
                 foreach (FM.Top.TopIntTypes.ProductionArea p in topConfigurationObject.ProductionAreas)
                 {
                     ProdAreaList.ProdAreas.Add(new ProdArea()
@@ -64,6 +65,8 @@ namespace Your
                             Uuid = p.ObjectIdentification.UUID
                 });
                 }
+                #endregion
+                #region Import Buffer
                 foreach (FM.Top.TopIntTypes.Buffer b in topConfigurationObject.Buffers)
                 {
                     BufferList.Buffers.Add(new Buffer()
@@ -75,6 +78,8 @@ namespace Your
                         Uuid = b.ObjectIdentification.UUID
                     });
                 }
+                #endregion
+                #region Import Process
                 foreach (FM.Top.TopIntTypes.Process pc in topConfigurationObject.Processes)
                 {
                     ProcessList.Processes.Add(new Process() 
@@ -90,6 +95,8 @@ namespace Your
                         IsReplenished = pc.IsReplenishment
                     });
                 }
+                #endregion
+                #region Import Secondary Activity
                 foreach (FM.Top.TopIntTypes.SecondaryActivity s in topConfigurationObject.SecondaryActivities)
                 {
                     SecondaryActivityList.SecondaryActivities.Add(new SecondaryActivity()
@@ -100,6 +107,8 @@ namespace Your
                         Uuid = s.ObjectIdentification.UUID
                     });
                 }
+                #endregion
+                #region Import Workstation group
                 foreach (FM.Top.TopIntTypes.WorkstationGroup wg in topConfigurationObject.WorkstationGroups)
                 {
                     WorkstationGroupList.WorkstationGroups.Add(new WorkstationGroup()
@@ -109,6 +118,8 @@ namespace Your
                         Uuid = wg.ObjectIdentification.UUID
                     });
                 }
+                #endregion
+                #region Import Workstation class
                 foreach (FM.Top.TopIntTypes.WorkstationClass wc in topConfigurationObject.WorkstationClasses)
                 {
                     WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
@@ -117,11 +128,39 @@ namespace Your
                         WC_name = wc.ObjectIdentification.Name,
                         WC_type = wc.WorkstationType,
                         Uuid = wc.ObjectIdentification.UUID,
-                        ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),
+                        ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString())
                         //SecondaryactivityRef = SecondaryActivityList.GetASecondaryActivity(string.Join("", Array.ConvertAll(wc.SecondaryActivities, x => x.ToString())))
                     });
                 }
-
+                #endregion
+                #region Import Workstation
+                foreach (FM.Top.TopIntTypes.Workstation w in topConfigurationObject.Workstations)
+                {
+                    if (w.WorkstationGroupRef != null)
+                    {
+                        WorkstationList.Workstations.Add(new Workstation()
+                            {
+                                W_comID = w.CommunicationId,
+                                W_description = w.ObjectIdentification.Description,
+                                W_name = w.ObjectIdentification.Name,
+                                Uuid = w.ObjectIdentification.UUID,
+                                WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef.ToString()),
+                                WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(w.WorkstationGroupRef.ToString())
+                            });
+                    }
+                    else
+                    {
+                        WorkstationList.Workstations.Add(new Workstation()
+                        {
+                            W_comID = w.CommunicationId,
+                            W_description = w.ObjectIdentification.Description,
+                            W_name = w.ObjectIdentification.Name,
+                            Uuid = w.ObjectIdentification.UUID,
+                            WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef.ToString())
+                        });
+                    }
+                }
+                #endregion
                 //ConfigurationService.DeserializeAndValidate<TopProjectModel>(reader, null);
                 //XmlSerializer ser = new XmlSerializer(typeof(Buffers));
                 //reader.ReadToDescendant("Buffers");

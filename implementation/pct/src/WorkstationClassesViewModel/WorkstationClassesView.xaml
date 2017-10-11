@@ -27,20 +27,34 @@
                 <DataGridTemplateColumn Header="Process Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                      ItemsSource="{Binding Path=ObservableProcess}"
-                      Text="{Binding Path=ProcessRef.PC_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                      DisplayMemberPath="PC_name"/>
+                          <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                          ItemsSource="{Binding Path=ObservableProcess}"
+                          Text="{Binding Path=ProcessRef.PC_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                          DisplayMemberPath="PC_name"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Secondary Activity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                      ItemsSource="{Binding Path=ObservableSecondaryActivity}"
-                      Text="{Binding Path=SecondaryactivityRef.SC_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                      DisplayMemberPath="SC_name"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                              ItemsSource="{Binding Path=ObservableSecondaryActivity}"                                          
+                              Text="{Binding Path=SecondaryactivityRef.SC_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                              DisplayMemberPath="SC_name"/>
+                                <Button Width="auto" Height="auto" x:Name="btnAdds" Command="{Binding Path=DataContext.AddsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" Content="+"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Secondary Activity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
+                              ItemsSource="{Binding Path=Sclist}"                                          
+                              DisplayMemberPath="ObservableSecondaryActivity.ElementAt(0).SC_name"/>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -11,7 +11,7 @@ namespace Your
 {
     public class Workstation : ContentViewModel
     {
-        private Guid uuid;
+        private string uuid;
 
         private string w_name;
         private string w_description;
@@ -34,7 +34,7 @@ namespace Your
             set { ChangeProperty(ref _observableWorkstationGroup, value); }
         }
 
-        public Guid Uuid
+        public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
@@ -88,7 +88,6 @@ namespace Your
 
         public Workstation()
         {
-            uuid = Guid.NewGuid();
         }
     }
 }

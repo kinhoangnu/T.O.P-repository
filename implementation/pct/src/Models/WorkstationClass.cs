@@ -18,8 +18,15 @@ namespace Your
         private string wc_handlingType;
         private ObservableCollection<Process> _observableProcess;
         private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
+        private ObservableCollection<ObservableCollection<SecondaryActivity>> _sclist;
         private Process processRef;
         private SecondaryActivity secondaryactivityRef;
+
+        public ObservableCollection<ObservableCollection<SecondaryActivity>> Sclist
+        {
+            get { return _sclist; }
+            set { ChangeProperty(ref _sclist, value); }
+        }
 
         public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
         {

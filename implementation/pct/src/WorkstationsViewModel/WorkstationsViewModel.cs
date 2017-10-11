@@ -28,7 +28,7 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            ObservableWorkstation = new ObservableCollection<Workstation>();
+            WorkstationList.Workstations = new ObservableCollection<Workstation>();
             ObservableWorkstation = WorkstationList.GetWorkstationList();
         }
         #endregion

@@ -51,7 +51,7 @@ namespace Your
 
         public static ObservableCollection<Workstation> GetWorkstationList()
         {
-            generateWorkstations();
+            //generateWorkstations();
             return Workstations;
         }
 

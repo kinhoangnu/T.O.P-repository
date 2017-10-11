@@ -60,7 +60,7 @@ namespace Your
         {
             foreach (Process pc in Processes)
             {
-                if (pc.PC_name == s)
+                if (pc.Uuid== s)
                     return pc;
             }
             return null;

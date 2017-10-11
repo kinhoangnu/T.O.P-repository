@@ -93,12 +93,12 @@ namespace Your
         /// <returns></returns>
         private WorkstationClass checkMatchedSecondaryActivity()
         {
-            foreach (WorkstationClass sc in WorkstationClassesViewModel.ObservableWorkstationClass)
+            foreach (WorkstationClass wc in WorkstationClassesViewModel.ObservableWorkstationClass)
             {
-                if (sc.SecondaryactivityRef.SC_name == SelectedSecondaryActivity.SC_name)
-                {
-                    return sc;
-                }
+                //if (wc.SecondaryactivityRef.SC_name == SelectedSecondaryActivity.SC_name)
+                //{
+                //    return wc;
+                //}
             }
             return null;
         }

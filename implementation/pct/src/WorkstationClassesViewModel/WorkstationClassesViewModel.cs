@@ -21,6 +21,7 @@ namespace Your
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
+        public RelayCommand AddsCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -28,8 +29,9 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
+            this.AddsCommand = new RelayCommand((obj) => Adds());
             WorkstationClassList.WorkstationClasses = new ObservableCollection<WorkstationClass>();
-            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();  
+            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();
             //this.SelectedWorkstationClass = ObservableWorkstationClass.FirstOrDefault(); 
         }
         #endregion
@@ -103,6 +105,16 @@ namespace Your
             }
             return null;
         }
+
+
+        public void Adds()
+        {
+            SelectedWorkstationClass.Sclist = new ObservableCollection<ObservableCollection<SecondaryActivity>>();
+            SelectedWorkstationClass.Sclist.Add(SelectedWorkstationClass.ObservableSecondaryActivity);
+            
+        }
+
+
         #endregion
 
     }
