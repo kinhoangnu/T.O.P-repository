@@ -17,22 +17,21 @@ namespace Your
         private string wc_type;
         private string wc_handlingType;
         private ObservableCollection<Process> _observableProcess;
-        private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
-        private ObservableCollection<ObservableCollection<SecondaryActivity>> _sclist;
+        //private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
         private Process processRef;
-        private SecondaryActivity secondaryactivityRef;
+        private ObservableCollection<SecondaryActivity> secondaryactivityRef;
+        private SecondaryActivity scRef;
 
-        public ObservableCollection<ObservableCollection<SecondaryActivity>> Sclist
+        public SecondaryActivity ScRef
         {
-            get { return _sclist; }
-            set { ChangeProperty(ref _sclist, value); }
+            get { return scRef; }
+            set { scRef = value; }
         }
-
-        public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
-        {
-            get { return SecondaryActivityList.SecondaryActivities; }
-            set { ChangeProperty(ref _observableSecondaryActivity, value); }
-        }
+        //public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
+        //{
+        //    get { return SecondaryActivityList.SecondaryActivities; }
+        //    set { ChangeProperty(ref _observableSecondaryActivity, value); }
+        //}
 
         public string Uuid
         {
@@ -49,7 +48,7 @@ namespace Your
             get { return processRef; }
             set { ChangeProperty(ref processRef, value); }
         }
-        public SecondaryActivity SecondaryactivityRef
+        public ObservableCollection<SecondaryActivity> SecondaryactivityRef
         {
             get { return secondaryactivityRef; }
             set { ChangeProperty(ref secondaryactivityRef, value); }

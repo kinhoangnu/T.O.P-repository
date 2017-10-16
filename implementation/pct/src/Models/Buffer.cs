@@ -15,6 +15,13 @@ namespace Your
         private string b_comID;
         private string b_unit;
         private string b_description;
+        private bool isSelected;
+
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set { isSelected = value; }
+        }
                 
         public string Uuid
         {

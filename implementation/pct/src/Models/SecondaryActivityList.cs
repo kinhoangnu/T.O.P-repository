@@ -51,11 +51,19 @@ namespace Your
         }
 
         public static SecondaryActivity GetASecondaryActivity(string s)
-        {
+        {            
             foreach (SecondaryActivity sc in SecondaryActivities)
             {
-                if (sc.Uuid == s)
-                    return sc;
+                if (sc.Uuid == s) 
+                {
+                    SecondaryActivity tempsc = new SecondaryActivity();
+                    tempsc.SC_name = sc.SC_name;
+                    tempsc.Uuid = sc.Uuid;
+                    tempsc.SC_comID = sc.SC_comID;
+                    tempsc.SC_description = sc.SC_description;
+                    tempsc.IsSelected = true;
+                    return tempsc;
+                }                    
             }
             return null;
         }

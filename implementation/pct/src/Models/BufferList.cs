@@ -66,19 +66,16 @@ namespace Your
             foreach (Buffer b in Buffers)
             {
                 if (b.Uuid == s)
-                    return b;
+                {
+                    Buffer tempb = new Buffer();
+                    tempb.B_name = b.B_name;
+                    tempb.B_description = b.B_description;
+                    tempb.B_comID = b.B_comID;
+                    tempb.B_unit = b.B_unit;
+                    tempb.IsSelected = true;
+                    return tempb;
+                }
             }
-            return null;
-        }
-
-        public Buffer ReturnABuffer(string s)
-        {
-            foreach (Buffer b in Buffers)
-            {
-                if (b.B_name == s)
-                    return b;
-            }
-
             return null;
         }
 

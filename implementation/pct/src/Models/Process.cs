@@ -20,6 +20,13 @@ namespace Your
         private ProdArea prodRef;
         private ObservableCollection<ProdArea> _observableProdArea;
         private ObservableCollection<Buffer> _observableBuffer;
+        private ObservableCollection<Buffer> _observableOutBuffer;
+
+        public ObservableCollection<Buffer> ObservableOutBuffer
+        {
+            get { return _observableOutBuffer; }
+            set { ChangeProperty(ref _observableOutBuffer, value); }
+        }
 
         public ObservableCollection<Buffer> ObservableBuffer
         {

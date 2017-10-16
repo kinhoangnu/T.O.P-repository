@@ -62,6 +62,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Models\Operator.cs" />
+    <Compile Include="src\Models\OperatorList.cs" />
+    <Compile Include="src\Models\OperatorActivity.cs" />
+    <Compile Include="src\Models\OperatorActivityList.cs" />
+    <Compile Include="src\OperatorViewModel\OperatorsView.xaml.cs">
+      <DependentUpon>OperatorsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\OperatorViewModel\OperatorsViewModel.cs" />
     <Compile Include="src\Models\WorkstationGroup.cs" />
     <Compile Include="src\Models\Workstation.cs" />
     <Compile Include="src\Models\WorkstationClass.cs" />
@@ -125,6 +133,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="src\OperatorViewModel\OperatorsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="src\WorkstationGroupViewModel\WorkstationGroupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

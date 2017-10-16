@@ -17,11 +17,12 @@ namespace Your
         #region Fields and auto-implement properties
         private WorkstationClass selectedWorkstationClass;
 
+        private static ObservableCollection<ObservableCollection<SecondaryActivity>> _slist;
+
         private static ObservableCollection<WorkstationClass> _observableWorkstationClass;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        public RelayCommand AddsCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -29,14 +30,19 @@ namespace Your
         {
             this.DeleteCommand = new RelayCommand((obj) => Delete());
             this.AddCommand = new RelayCommand((obj) => Add());
-            this.AddsCommand = new RelayCommand((obj) => Adds());
             WorkstationClassList.WorkstationClasses = new ObservableCollection<WorkstationClass>();
             ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();
-            //this.SelectedWorkstationClass = ObservableWorkstationClass.FirstOrDefault(); 
+            SelectedWorkstationClass = new WorkstationClass();
         }
         #endregion
 
         #region Properties
+        public static ObservableCollection<ObservableCollection<SecondaryActivity>> Slist
+        {
+            get { return _slist; }
+            set { _slist = value; }
+        }
+
         public static ObservableCollection<WorkstationClass> ObservableWorkstationClass
         {
             get { return WorkstationClassList.WorkstationClasses; }
@@ -49,7 +55,10 @@ namespace Your
         /// </summary>
         public WorkstationClass SelectedWorkstationClass
         {
-            get { return selectedWorkstationClass; }
+            get 
+            {
+                return selectedWorkstationClass;
+            }
             set
             {
                 ChangeProperty(ref selectedWorkstationClass, value);
@@ -68,6 +77,7 @@ namespace Your
                 WC_name = "",
                 WC_type = "",
                 WC_handlingType = "",
+                SecondaryactivityRef = SecondaryActivityList.SecondaryActivities
             });
             SelectedWorkstationClass = ObservableWorkstationClass.ElementAt(ObservableWorkstationClass.Count - 1);
         }
@@ -106,13 +116,6 @@ namespace Your
             return null;
         }
 
-
-        public void Adds()
-        {
-            SelectedWorkstationClass.Sclist = new ObservableCollection<ObservableCollection<SecondaryActivity>>();
-            SelectedWorkstationClass.Sclist.Add(SelectedWorkstationClass.ObservableSecondaryActivity);
-            
-        }
 
 
         #endregion

@@ -28,12 +28,15 @@ namespace Your
             MainWindowViewModel mainWnd = base.CreateMainWindowViewModel();
             mainWnd.RegisterContent(typeof(BuffersViewModel));
             mainWnd.RegisterContent(typeof(ProductionAreasViewModel));
-            mainWnd.RegisterContent(typeof(SecondaryActivitiesViewModel));
-            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel));
             mainWnd.RegisterContent(typeof(ProcessesViewModel));
+            mainWnd.RegisterContent(typeof(SecondaryActivitiesViewModel));
             mainWnd.RegisterContent(typeof(WorkstationClassesViewModel));
+            mainWnd.RegisterContent(typeof(WorkstationGroupViewModel));
             mainWnd.RegisterContent(typeof(WorkstationsViewModel));
+            mainWnd.RegisterContent(typeof(OperatorsViewModel));
+
             mainWnd.RegisterContent(typeof(LoadXMLViewModel));
+            
             return mainWnd;
         }
 

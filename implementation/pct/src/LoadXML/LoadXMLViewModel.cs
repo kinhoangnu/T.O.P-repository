@@ -31,11 +31,12 @@ namespace Your
         string path = string.Empty;
         string xmlInputData = string.Empty;
         string xmlOutputData = string.Empty;
+        ObservableCollection<SecondaryActivity> tempSClist = new ObservableCollection<SecondaryActivity>();
+        ObservableCollection<Buffer> tempBlist = new ObservableCollection<Buffer>();
 
         public LoadXMLViewModel()
         {
             this.LoadCommand = new RelayCommand((obj) => Load());
-
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Your
                             P_description = p.ObjectIdentification.Description,
                             P_type = p.ProductionType.ToString(),
                             Uuid = p.ObjectIdentification.UUID
-                });
+                        });
                 }
                 #endregion
                 #region Import Buffer
@@ -82,18 +83,51 @@ namespace Your
                 #region Import Process
                 foreach (FM.Top.TopIntTypes.Process pc in topConfigurationObject.Processes)
                 {
-                    ProcessList.Processes.Add(new Process() 
+                    if (pc.OutBuffers != null && pc.OutBuffers.Count() > 0)
                     {
-                        PC_comID = pc.CommunicationId,
-                        PC_description = pc.ObjectIdentification.Description,
-                        PC_name = pc.ObjectIdentification.Name,
-                        Uuid = pc.ObjectIdentification.UUID,
-                        InbufferRef = BufferList.GetABuffer(pc.InBuffer),
-                        OutbufferRef = BufferList.GetABuffer(string.Join("",pc.OutBuffers)),
-                        ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef),
-                        ExclFromKPI = pc.ExcludeFromKPIs,
-                        IsReplenished = pc.IsReplenishment
-                    });
+                        tempBlist = new ObservableCollection<Buffer>();
+
+                        for (int i = 0; i < pc.OutBuffers.Count(); i++)
+                        {
+                            tempBlist.Add(BufferList.GetABuffer(pc.OutBuffers[i].ToString()));
+                        }
+                        foreach (Buffer b in BufferList.Buffers)
+                        {
+                            if (!tempBlist.Contains(b))
+                            {
+                                foreach (Buffer b1 in tempBlist)
+                                {
+                                    if (b.B_name == b1.B_name)
+                                    {
+                                        goto Outer;
+                                    }
+                                }
+                                tempBlist.Add(b);
+                            Outer: continue;
+                            }
+                        }
+                        ProcessList.Processes.Add(new Process(){
+                            PC_comID = pc.CommunicationId,
+                            PC_description = pc.ObjectIdentification.Description,
+                            PC_name = pc.ObjectIdentification.Name,
+                            Uuid = pc.ObjectIdentification.UUID,
+                            ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
+                            InbufferRef = BufferList.GetABuffer(pc.InBuffer),
+                            ObservableOutBuffer = tempBlist                            
+                        });
+                    }
+                    else
+                    {
+                        ProcessList.Processes.Add(new Process(){
+                            PC_comID = pc.CommunicationId,
+                            PC_description = pc.ObjectIdentification.Description,
+                            PC_name = pc.ObjectIdentification.Name,
+                            Uuid = pc.ObjectIdentification.UUID,
+                            ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
+                            InbufferRef = BufferList.GetABuffer(pc.InBuffer),
+                            ObservableOutBuffer = BufferList.Buffers
+                        });
+                    }
                 }
                 #endregion
                 #region Import Secondary Activity
@@ -122,15 +156,51 @@ namespace Your
                 #region Import Workstation class
                 foreach (FM.Top.TopIntTypes.WorkstationClass wc in topConfigurationObject.WorkstationClasses)
                 {
-                    WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
+                     if (wc.SecondaryActivities != null && wc.SecondaryActivities.Count() > 0)
                     {
-                        WC_handlingType = wc.HandlingType.ToString(),
-                        WC_name = wc.ObjectIdentification.Name,
-                        WC_type = wc.WorkstationType,
-                        Uuid = wc.ObjectIdentification.UUID,
-                        ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString())
-                        //SecondaryactivityRef = SecondaryActivityList.GetASecondaryActivity(string.Join("", Array.ConvertAll(wc.SecondaryActivities, x => x.ToString())))
-                    });
+                        tempSClist = new ObservableCollection<SecondaryActivity>();
+                        
+                        for (int i = 0; i < wc.SecondaryActivities.Count(); i++)
+                        {                            
+                            tempSClist.Add(SecondaryActivityList.GetASecondaryActivity(wc.SecondaryActivities[i].ObjectRef.ToString()));                            
+                        }
+                        foreach (SecondaryActivity s in SecondaryActivityList.SecondaryActivities)
+                        {
+                            if (!tempSClist.Contains(s))
+                            {
+                                foreach (SecondaryActivity s1 in tempSClist)
+                                {
+                                    if (s.SC_name == s1.SC_name)
+                                    {
+                                        goto Outer;
+                                    }
+                                }
+                                tempSClist.Add(s);
+                            Outer: continue;
+                            }
+                        }
+                        WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
+                        {
+                            WC_handlingType = wc.HandlingType.ToString(),
+                            WC_name = wc.ObjectIdentification.Name,
+                            WC_type = wc.WorkstationType,
+                            Uuid = wc.ObjectIdentification.UUID,
+                            ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),
+                            SecondaryactivityRef = tempSClist,                                
+                        });
+                    }
+                    else
+                    {
+                        WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
+                        {
+                            WC_handlingType = wc.HandlingType.ToString(),
+                            WC_name = wc.ObjectIdentification.Name,
+                            WC_type = wc.WorkstationType,
+                            Uuid = wc.ObjectIdentification.UUID,
+                            ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),    
+                            SecondaryactivityRef = SecondaryActivityList.SecondaryActivities                           
+                        });                         
+                    }
                 }
                 #endregion
                 #region Import Workstation
@@ -159,6 +229,18 @@ namespace Your
                             WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef.ToString())
                         });
                     }
+                }
+                #endregion
+                #region Import Operator
+                foreach (FM.Top.TopIntTypes.Operator o in topConfigurationObject.Operators)
+                {
+                    OperatorList.Operators.Add(new Operator()
+                    {
+                        O_description = o.ObjectIdentification.Description,
+                        O_name = o.ObjectIdentification.Name,
+                        O_useCustomUpperLimit = o.UseCustomUpperLimit,
+                        Uuid = o.ObjectIdentification.UUID
+                    });
                 }
                 #endregion
                 //ConfigurationService.DeserializeAndValidate<TopProjectModel>(reader, null);

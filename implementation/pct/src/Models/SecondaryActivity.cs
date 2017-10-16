@@ -11,9 +11,15 @@ namespace Your
     {
         private string uuid;
         private string sc_name;
-        private string editsc_name;
         private string sc_comID;
         private string sc_description;
+        private bool isSelected = false;
+
+        public bool IsSelected 
+        {
+            get { return isSelected; }
+            set { isSelected = value; }
+        }
 
         public string Uuid
         {
@@ -42,18 +48,6 @@ namespace Your
                 ChangeProperty(ref sc_name, value);
             }
         }
-
-        public string editSC_name
-        {
-            get
-            {
-                return editsc_name;
-            }
-            set
-            {
-                ChangeProperty(ref editsc_name, value);
-            }
-        }
         public string SC_comID
         {
             get
@@ -70,14 +64,5 @@ namespace Your
         {
         }
 
-        public SecondaryActivity NewCopySecondaryActivity(SecondaryActivity scCopy)
-        {
-            SecondaryActivity sc = new SecondaryActivity();
-            sc.SC_name = scCopy.SC_name;
-            sc.SC_description = scCopy.SC_description;
-            sc.SC_comID = scCopy.SC_comID;
-            sc.Uuid = scCopy.Uuid;
-            return sc;
-        }
     }
 }
