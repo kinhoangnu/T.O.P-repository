@@ -60,8 +60,19 @@ namespace Your
                 return selectedWorkstationClass;
             }
             set
-            {
+            {                
                 ChangeProperty(ref selectedWorkstationClass, value);
+                if (SelectedWorkstationClass == null)
+                {
+                    SelectedWorkstationClass = new WorkstationClass();
+                } 
+                if (SelectedWorkstationClass != null)
+                {
+                    if (SelectedWorkstationClass.SecondaryactivityRef == null)
+                    {
+                        SelectedWorkstationClass.SecondaryactivityRef = SecondaryActivityList.SecondaryActivities;
+                    }
+                }
             }
         }
         #endregion

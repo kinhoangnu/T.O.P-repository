@@ -41,7 +41,7 @@
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
                       ItemsSource="{Binding Path=ObservableBuffer}"
                       Text="{Binding Path=InbufferRef.B_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                      DisplayMemberPath="B_name"/>
+                      DisplayMemberPath="B_name" SelectedIndex="0"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -52,12 +52,12 @@
                               ItemsSource="{Binding ObservableOutBuffer}"                                          
                               SnapsToDevicePixels="True" OverridesDefaultStyle="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               AllowDrop="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" 
-                              IsSynchronizedWithCurrentItem="True" ToolTip="{Binding Path=Text, RelativeSource={RelativeSource Self}}">
+                              IsSynchronizedWithCurrentItem="True" Text="{Binding B_name}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding B_name}"  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" 
+                                            <CheckBox x:Name="cbox" Content="{Binding B_name}"  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" 
                                                   Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}"/>
-                                    </DataTemplate>
+                                    </DataTemplate>                                    
                                 </ComboBox.ItemTemplate>
                             </ComboBox>                            
                         </DataTemplate>

@@ -111,6 +111,8 @@ namespace Your
                             PC_description = pc.ObjectIdentification.Description,
                             PC_name = pc.ObjectIdentification.Name,
                             Uuid = pc.ObjectIdentification.UUID,
+                            ExclFromKPI = pc.ExcludeFromKPIs,
+                            IsReplenished = pc.IsReplenishment,
                             ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
                             InbufferRef = BufferList.GetABuffer(pc.InBuffer),
                             ObservableOutBuffer = tempBlist                            
@@ -123,6 +125,8 @@ namespace Your
                             PC_description = pc.ObjectIdentification.Description,
                             PC_name = pc.ObjectIdentification.Name,
                             Uuid = pc.ObjectIdentification.UUID,
+                            ExclFromKPI = pc.ExcludeFromKPIs,
+                            IsReplenished = pc.IsReplenishment,
                             ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
                             InbufferRef = BufferList.GetABuffer(pc.InBuffer),
                             ObservableOutBuffer = BufferList.Buffers

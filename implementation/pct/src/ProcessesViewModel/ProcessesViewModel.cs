@@ -46,10 +46,25 @@ namespace Your
         /// </summary>
         public Process SelectedProcess
         {
-            get { return selectedProcess; }
+            get 
+            { 
+
+                return selectedProcess; 
+            }
             set
-            {
+            {                
                 ChangeProperty(ref selectedProcess, value);
+                if (SelectedProcess == null)
+                {
+                    SelectedProcess = new Process();
+                }
+                if (SelectedProcess != null)
+                {
+                    if (SelectedProcess.ObservableOutBuffer == null)
+                    {
+                        SelectedProcess.ObservableOutBuffer = BufferList.Buffers;
+                    }
+                }
             }
         }
         #endregion
