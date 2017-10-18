@@ -130,7 +130,8 @@ namespace Your
                                             goto Outer;
                                         }
                                     }
-                                    tempBlist.Add(b);
+                                    //tempBlist.Add(b);
+                                    tempBlist.Add(BufferList.GetANotSelectedBuffer(b.Uuid.ToString()));
                                 Outer: continue;
                                 }
                             }
@@ -209,7 +210,8 @@ namespace Your
                                             goto Outer;
                                         }
                                     }
-                                    tempSClist.Add(s);
+                                    //tempSClist.Add(s);
+                                    tempSClist.Add(SecondaryActivityList.GetANotSelectedSecondaryActivity(s.Uuid.ToString()));
                                 Outer: continue;
                                 }
                             }

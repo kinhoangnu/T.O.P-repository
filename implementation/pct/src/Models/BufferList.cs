@@ -79,6 +79,26 @@ namespace Your
             return null;
         }
 
+        public static Buffer GetANotSelectedBuffer(string s)
+        {
+            //generateBuffers();
+            foreach (Buffer b in Buffers)
+            {
+                if (b.Uuid == s)
+                {
+                    Buffer tempb = new Buffer();
+                    tempb.B_name = b.B_name;
+                    tempb.B_description = b.B_description;
+                    tempb.B_comID = b.B_comID;
+                    tempb.B_unit = b.B_unit;
+                    tempb.IsSelected = false;
+                    return tempb;
+                }
+            }
+            return null;
+        }
+
+
         public void DeleteABuffer(Buffer b)
         {
             Buffers.Remove(b);
