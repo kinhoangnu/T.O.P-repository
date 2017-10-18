@@ -31,6 +31,7 @@ namespace Your
             this.AddCommand = new RelayCommand((obj) => Add());
             ProcessList.Processes = new ObservableCollection<Process>();
             ObservableProcess = new ObservableCollection<Process>();
+            SelectedProcess = new Process();
         }
         #endregion
 
@@ -81,6 +82,7 @@ namespace Your
                 PC_name = "",
                 PC_description = "",
                 PC_comID = "",
+                ObservableOutBuffer = BufferList.Buffers
             });
             SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
         }

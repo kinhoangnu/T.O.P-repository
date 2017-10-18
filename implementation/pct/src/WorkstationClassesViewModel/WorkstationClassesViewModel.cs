@@ -15,7 +15,7 @@ namespace Your
     public class WorkstationClassesViewModel : ContentViewModel
     {
         #region Fields and auto-implement properties
-        private WorkstationClass selectedWorkstationClass;
+        private static WorkstationClass selectedWorkstationClass;
 
         private static ObservableCollection<ObservableCollection<SecondaryActivity>> _slist;
 
@@ -53,7 +53,7 @@ namespace Your
         /// <summary>
         /// Item that is being selected on the list
         /// </summary>
-        public WorkstationClass SelectedWorkstationClass
+        public static WorkstationClass SelectedWorkstationClass
         {
             get 
             {
@@ -61,7 +61,8 @@ namespace Your
             }
             set
             {                
-                ChangeProperty(ref selectedWorkstationClass, value);
+                //ChangeProperty(ref selectedWorkstationClass, value);
+                selectedWorkstationClass = value;
                 if (SelectedWorkstationClass == null)
                 {
                     SelectedWorkstationClass = new WorkstationClass();
@@ -107,7 +108,7 @@ namespace Your
             }
             else
             {
-                ObservableWorkstationClass.Remove(this.SelectedWorkstationClass); 
+                ObservableWorkstationClass.Remove(SelectedWorkstationClass); 
             }
         }
 

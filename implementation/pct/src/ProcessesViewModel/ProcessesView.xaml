@@ -50,7 +50,7 @@
                               ItemsSource="{Binding ObservableOutBuffer}"                                          
                               SnapsToDevicePixels="True" OverridesDefaultStyle="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               AllowDrop="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" 
-                              IsSynchronizedWithCurrentItem="True" Text="{Binding B_name}">
+                              IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                             <CheckBox x:Name="cbox" Content="{Binding B_name}"  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" 

@@ -13,7 +13,8 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" Background="#fafafa" Width="auto">
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnAdd" Command="{Binding LoadCommand}" Content="Load XML File"/>
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnLoad" Command="{Binding LoadCommand}" Content="LOAD XML File"/>
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnSave" Command="{Binding SaveCommand}" Content="SAVE XML File"/>
         </StackPanel>
 
 

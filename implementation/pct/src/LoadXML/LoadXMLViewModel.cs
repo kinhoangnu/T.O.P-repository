@@ -25,18 +25,21 @@ namespace Your
     public class LoadXMLViewModel : ContentViewModel
     {
         public RelayCommand LoadCommand { get; set; }
+        public RelayCommand SaveCommand { get; set; }
         XmlDocument doc = new XmlDocument();
         ConfigurationService con = new ConfigurationService();
         XmlReaderSettings setting = new XmlReaderSettings();
         string path = string.Empty;
         string xmlInputData = string.Empty;
         string xmlOutputData = string.Empty;
-        ObservableCollection<SecondaryActivity> tempSClist = new ObservableCollection<SecondaryActivity>();
-        ObservableCollection<Buffer> tempBlist = new ObservableCollection<Buffer>();
+        List<ObservableCollection<Object>> list;        
+        ObservableCollection<SecondaryActivity> tempSClist;
+        ObservableCollection<Buffer> tempBlist;
 
         public LoadXMLViewModel()
         {
             this.LoadCommand = new RelayCommand((obj) => Load());
+            this.SaveCommand = new RelayCommand((obj) => Save());
         }
 
         /// <summary>
@@ -140,7 +143,7 @@ namespace Your
                                 ExclFromKPI = pc.ExcludeFromKPIs,
                                 IsReplenished = pc.IsReplenishment,
                                 ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
-                                InbufferRef = BufferList.GetABuffer(pc.InBuffer),
+                                InbufferRef = BufferList.GetABuffer(pc.InBuffer),                                
                                 ObservableOutBuffer = tempBlist
                             });
                         }
@@ -215,7 +218,7 @@ namespace Your
                                 WC_handlingType = wc.HandlingType.ToString(),
                                 WC_name = wc.ObjectIdentification.Name,
                                 WC_type = wc.WorkstationType,
-                                Uuid = wc.ObjectIdentification.UUID,
+                                Uuid = wc.ObjectIdentification.UUID, 
                                 ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),
                                 SecondaryactivityRef = tempSClist,
                             });
@@ -280,11 +283,51 @@ namespace Your
                     //object input = ser.Deserialize(reader);
                     //Buffers XmlData = (Buffers)input;
                     //reader.Close();  
-                    MessageBox.Show("Import is done. No errors.");
 
                 }
             }
             catch(Exception e)          
+            {
+                MessageBox.Show("Error details: " + e.Message);
+            }
+        }
+
+        public void Save()
+        {
+            
+            Exception exception = null;
+            //try
+            //{
+            //    var topConfigurationObject = new TopProjectModel();
+                
+            //    SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //    if(saveFileDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        var path = saveFileDialog.FileName;
+            //        var serializer = new XmlSerializer(typeof(TopProjectModel));
+
+            //        serializer.Serialize(path, b);
+            //    }
+            //}
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                XmlSerializer serializer = new XmlSerializer(typeof(List<ObservableCollection<object>>));
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var path = saveFileDialog.FileName;
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        serializer.Serialize(stream, list);
+                        stream.Position = 0;
+                        xmlDocument.Load(stream);
+                        xmlDocument.Save(path+".xml");
+                        stream.Close();
+                    }
+                }
+            }
+            catch(Exception e) 
             {
                 MessageBox.Show("Error details: " + e.Message);
             }
