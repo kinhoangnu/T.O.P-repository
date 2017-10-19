@@ -20,6 +20,7 @@ using com.vanderlande.wpf;
 using FM.Top.TopIntModel;
 using FM.Top.TopIntTypes;
 
+
 namespace Your
 {
     public class LoadXMLViewModel : ContentViewModel
@@ -334,6 +335,36 @@ namespace Your
                 MessageBox.Show("Error details: " + e.Message);
             }
         }
+
+        //public void LoadValidation(TopProjectModel topProjectModel)
+        //{
+        //    var loader = new top
+        //    loader.Load(topProjectModel);
+
+        //    var validationResult = inMemoryResourceDefinitions.Validate();
+        //    validationResult = validationResult.Validate();
+
+        //    if (validationResult.HasFailures())
+        //    {
+        //        throw new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
+        //    }
+        //}
+
+        //public void Load(TopProjectModel topProjectModel)
+        //{
+        //    CreateParameters(topProjectModel.Parameters);
+        //    CreateActivities(topProjectModel.SecondaryActivities);
+        //    CreateAreas(topProjectModel.ProductionAreas);
+        //    CreateBuffers(topProjectModel.Buffers);
+        //    CreateProcesses(topProjectModel.Processes);
+        //    CreateWorkstationClasses(topProjectModel.WorkstationClasses);
+        //    CreateWorkstationGroups(topProjectModel.WorkstationGroups);
+        //    CreateWorkstations(topProjectModel.Workstations);
+        //    CreateOperators(topProjectModel.Operators);
+        //    CreateOperatorAlgorithms(topProjectModel.OperatorActivities);
+        //    CreateOperatorAlgorithms(topProjectModel.OperatorPresences);
+        //    CreateExtensionUnits(topProjectModel.ExtensionUnits);
+        //}
 
     }
 }

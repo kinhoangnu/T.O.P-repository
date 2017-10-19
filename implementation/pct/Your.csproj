@@ -78,6 +78,10 @@
     <Compile Include="src\Models\WorkstationClassList.cs" />
     <Compile Include="src\Models\SecondaryActivity.cs" />
     <Compile Include="src\Models\SecondaryActivityList.cs" />
+    <Compile Include="src\StatusPage\WarningsView.xaml.cs">
+      <DependentUpon>WarningsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\StatusPage\WarningsViewModel.cs" />
     <Compile Include="src\WorkstationGroupViewModel\WorkstationGroupView.xaml.cs">
       <DependentUpon>WorkstationGroupView.xaml</DependentUpon>
     </Compile>
@@ -134,6 +138,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Page Include="src\OperatorViewModel\OperatorsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\StatusPage\WarningsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

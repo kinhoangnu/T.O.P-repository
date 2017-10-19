@@ -43,8 +43,8 @@
                               IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <CheckBox Content="{Binding SC_name}"  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" Tag="{RelativeSource FindAncestor, 
-                                                AncestorType={x:Type ComboBox}}"/>
+                                            <CheckBox x:Name="cbox" Content="{Binding SC_name}"  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" 
+                                                      Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>

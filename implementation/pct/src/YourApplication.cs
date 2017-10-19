@@ -17,12 +17,34 @@ using com.vanderlande.wpf;
 
 namespace Your
 {
-    public class YourApplication : ViApplication 
+    public class YourApplication : ViApplication
     {
+        #region Fields
+        public static NotificationViewModel Alarm;
+        public static NotificationViewModel Warning;
+        public static NotificationViewModel Information;
+
+        public delegate void ClickOnNotification();
+        public static event ClickOnNotification OnAlarm;
+        public static event ClickOnNotification OnWarning;
+        public static event ClickOnNotification OnInfo;
+        #endregion
+
+        #region Constructor
         public YourApplication() :
             base("Configuration tool ", "T.O.P Project")
-        { }
+        {
+            OnAlarm += NoAction;        // Add 'no action' to avoid NullReferenceExceptions
+            OnWarning += NoAction;
+            OnInfo += NoAction;
 
+            Alarm = new AlarmNotificationViewModel(new RelayCommand(x => OnAlarm()));
+            Warning = new WarningNotificationViewModel(new RelayCommand(x => OnWarning()));
+            Information = new InfoNotificationViewModel(new RelayCommand(x => OnInfo()));
+        }
+        #endregion
+
+        #region Methods
         protected override MainWindowViewModel CreateMainWindowViewModel()
         {
             MainWindowViewModel mainWnd = base.CreateMainWindowViewModel();
@@ -36,13 +58,26 @@ namespace Your
             mainWnd.RegisterContent(typeof(OperatorsViewModel));
 
             mainWnd.RegisterContent(typeof(LoadXMLViewModel));
+            mainWnd.RegisterContent(typeof(WarningsViewModel));
             
             return mainWnd;
         }
 
+        protected override void OnStartup(object sender, StartupEventArgs args)
+        {
+            base.OnStartup(sender, args);
+            
+            MainWindowViewModel.AddNotification(Alarm);
+            MainWindowViewModel.AddNotification(Warning);
+            MainWindowViewModel.AddNotification(Information);
+        }
+
+        private void NoAction()
+        { }
+        #endregion
 
 
-        
+
 
     }
 
