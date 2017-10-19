@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Height="auto"  Width="auto">
+             mc:Ignorable="d" Height="auto"  Width="auto" Validation.ErrorTemplate="{StaticResource NoErrorTemplate}">
     <Grid Margin="10,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -17,15 +17,23 @@
             </DataGrid.InputBindings>
             <DataGrid.Resources>
                 <Style TargetType="GridViewColumnHeader">
-                    <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Visibility" Value="Visible" />                    
                 </Style>
+
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding B_name}" Width="*"/>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding B_name}"/>                
                 <DataGridTextColumn Header="Description" Binding="{Binding B_description}" Width="*"/>
                 <DataGridTextColumn Header="Unit" Binding="{Binding B_unit}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal"
+                    Visibility="{Binding HasErrors}">
+            <TextBlock Margin="5,5,15,5" Text="Errors:" />
+            <TextBlock Margin="5,5,5,5" Text="{Binding Error}" />
+        </StackPanel>
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="0" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Buffer"/>
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Column="0" Grid.Row="1" x:Name="btnDelete" Content="Delete selected Item" Command="{Binding DeleteCommand}"/>

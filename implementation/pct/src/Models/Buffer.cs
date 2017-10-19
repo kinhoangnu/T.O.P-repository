@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Your
 {
-    public class Buffer
+    public class Buffer : ContentViewModel
     {
         private string uuid;
         private string b_name;
@@ -16,6 +16,13 @@ namespace Your
         private string b_unit;
         private string b_description;
         private bool isSelected;
+        private string _isValid;
+
+        public string IsValid
+        {
+            get { return _isValid; }
+            set { ChangeProperty(ref _isValid, value); }
+        }
 
         public bool IsSelected
         {
@@ -47,7 +54,8 @@ namespace Your
             }
             set
             {
-                b_name = value;
+                if (ChangeProperty(ref b_name, value) == true)
+                    IsValid = IsPropertyValid() ? "valid" : "invalid";
             }
         }
         public string B_comID
@@ -75,17 +83,39 @@ namespace Your
 
         public Buffer()
         {
+            // Add property validators in the constructor.
+            Validator.AddRule(ValidateTextBlock1, () => B_name);
+            Validator.AddRule(() => ValidateTextBlock2(B_name), () => B_name);
+
+            // Initialize the property here so ChangeProperty is raised and IsPropertyValid is determined.
+            B_name = "";
         }
 
-        public Buffer NewCopyBuffer(Buffer bCopy)
+        private RuleResult ValidateTextBlock1()
         {
-            Buffer b = new Buffer();
-            b.B_name = bCopy.B_name;
-            b.B_description = bCopy.B_description;
-            b.B_comID = bCopy.B_comID;
-            b.B_unit = bCopy.B_unit;
-            b.Uuid = bCopy.Uuid;
-            return b;
+            int value;
+            return RuleResult.Assert(!(int.TryParse(B_name, out value)), "*Number is not allowed");
+        }
+
+        // This check is only executed when the first one succeeds.
+        private RuleResult ValidateTextBlock2(string str)
+        {
+            return RuleResult.Assert(CheckDuplicateName(B_name), string.Format("Duplicated name!"));
+        }
+
+        bool CheckDuplicateName(string s)
+        {
+            int i = 0;
+            foreach (Buffer b in BufferList.Buffers)
+            {
+                if (s == b.B_name)
+                    i++;
+            }
+            if (i > 1)
+            {
+                return false;
+            }
+            return true;
         }
     }
 

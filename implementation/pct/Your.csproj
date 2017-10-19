@@ -41,6 +41,10 @@
     <Reference Include="FmTopIntContract">
       <HintPath>packages\FmTopIntContract.0.4.9\lib\net452\FmTopIntContract.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmValidation, Version=2.1.0.0, Culture=neutral, PublicKeyToken=113792d2053ac461, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MvvmValidation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -125,8 +129,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Validations\Validation.cs" />
     <Resource Include="Resources\Images\False.png" />
     <Resource Include="Resources\Images\True.png" />
+    <Content Include="MvvmValidation.dll" />
     <Content Include="Resources\Languages\en-US.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -223,7 +229,9 @@
       <Name>VI_Styling</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -18,6 +18,8 @@ namespace Your
         private Buffer selectedBuffer;
         private ObservableCollection<Buffer> _observableBuffer;
 
+        Validation validation = new Validation();
+
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
 

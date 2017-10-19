@@ -9,6 +9,8 @@
 *  program(s) have been supplied.
 *  
 */
+using MvvmValidation;
+using System;
 
 namespace com.vanderlande.wpf
 {
