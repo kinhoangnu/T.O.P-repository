@@ -12,17 +12,17 @@ namespace Your
 {
     public class OperatorList : ContentViewModel
     {
-        private static ObservableCollection<Operator> _operators;
+        private static ObservableCollection<Operator> operators;
 
         public static ObservableCollection<Operator> Operators
         {
             get
             {
-                return _operators;
+                return operators;
             }
             set
             {
-                _operators = value;
+                operators = value;
             }
         }
         public OperatorList()
@@ -40,7 +40,7 @@ namespace Your
             };
         }
 
-        private static void generateOperators()
+        private static void GenerateOperators()
         {
             Operators = new ObservableCollection<Operator>
             {
@@ -68,9 +68,9 @@ namespace Your
                 if (o.Uuid == s)
                 {
                     Operator tempo = new Operator();
-                    tempo.O_name = o.O_name;
-                    tempo.O_description = o.O_description;
-                    tempo.O_useCustomUpperLimit = o.O_useCustomUpperLimit;
+                    tempo.OName = o.OName;
+                    tempo.ODescription = o.ODescription;
+                    tempo.OUseCustomUpperLimit = o.OUseCustomUpperLimit;
                     tempo.IsSelected = true;
                     return tempo;
                 }

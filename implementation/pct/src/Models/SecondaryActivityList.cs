@@ -11,17 +11,17 @@ namespace Your
 {
     public class SecondaryActivityList : ContentViewModel
     {
-        private static ObservableCollection<SecondaryActivity> _secondaryActivities;
+        private static ObservableCollection<SecondaryActivity> secondaryActivities;
 
         public static ObservableCollection<SecondaryActivity> SecondaryActivities
         {
             get
             {
-                return _secondaryActivities;
+                return secondaryActivities;
             }
             set
             {
-                _secondaryActivities = value;
+                secondaryActivities = value;
             }
         }
         public SecondaryActivityList()
@@ -35,7 +35,7 @@ namespace Your
             //};
         }
 
-        private static void generateSecondaryActivities()
+        private static void GenerateSecondaryActivities()
         {
             //SecondaryActivities = new ObservableCollection<SecondaryActivity>
             //{
@@ -57,10 +57,10 @@ namespace Your
                 if (sc.Uuid == s) 
                 {
                     SecondaryActivity tempsc = new SecondaryActivity();
-                    tempsc.SC_name = sc.SC_name;
+                    tempsc.ScName = sc.ScName;
                     tempsc.Uuid = sc.Uuid;
-                    tempsc.SC_comID = sc.SC_comID;
-                    tempsc.SC_description = sc.SC_description;
+                    tempsc.ScComId = sc.ScComId;
+                    tempsc.ScDescription = sc.ScDescription;
                     tempsc.IsSelected = true;
                     return tempsc;
                 }                    
@@ -75,10 +75,10 @@ namespace Your
                 if (sc.Uuid == s)
                 {
                     SecondaryActivity tempsc = new SecondaryActivity();
-                    tempsc.SC_name = sc.SC_name;
+                    tempsc.ScName = sc.ScName;
                     tempsc.Uuid = sc.Uuid;
-                    tempsc.SC_comID = sc.SC_comID;
-                    tempsc.SC_description = sc.SC_description;
+                    tempsc.ScComId = sc.ScComId;
+                    tempsc.ScDescription = sc.ScDescription;
                     tempsc.IsSelected = false;
                     return tempsc;
                 }

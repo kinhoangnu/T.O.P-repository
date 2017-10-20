@@ -16,8 +16,8 @@ namespace Your
     {
         #region Fields and auto-implement properties
         private ProdArea selectedProdArea;
-        private ObservableCollection<ProdArea> _observableProdArea;
-        private ProdArea _tobeEditedItem;
+        private ObservableCollection<ProdArea> observableProdArea;
+        private ProdArea tobeEditedItem;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -48,10 +48,10 @@ namespace Your
                 {
                     TobeEditedItem = new ProdArea()
                     {
-                        P_name = SelectedProdArea.P_name,
-                        P_comID = SelectedProdArea.P_comID,
-                        P_description = SelectedProdArea.P_description,
-                        P_type = SelectedProdArea.P_type,
+                        PName = SelectedProdArea.PName,
+                        PComId = SelectedProdArea.PComId,
+                        PDescription = SelectedProdArea.PDescription,
+                        PType = SelectedProdArea.PType,
                     };
                 }
             }
@@ -62,17 +62,17 @@ namespace Your
         /// </summary>
         public ProdArea TobeEditedItem
         {
-            get { return _tobeEditedItem; }
+            get { return tobeEditedItem; }
             set
             {
-                ChangeProperty(ref _tobeEditedItem, value);
+                ChangeProperty(ref tobeEditedItem, value);
             }
         }
 
         public ObservableCollection<ProdArea> ObservableProdArea
         {
             get { return ProdAreaList.ProdAreas; }
-            set { ChangeProperty(ref _observableProdArea, value); }
+            set { ChangeProperty(ref observableProdArea, value); }
         }
 
         #endregion
@@ -86,10 +86,10 @@ namespace Your
         {
             this.ObservableProdArea.Add(new ProdArea()
             {
-                P_name = this.TobeEditedItem.P_name,
-                P_description = this.TobeEditedItem.P_description,
-                P_comID = this.TobeEditedItem.P_comID,
-                P_type = this.TobeEditedItem.P_type
+                PName = this.TobeEditedItem.PName,
+                PDescription = this.TobeEditedItem.PDescription,
+                PComId = this.TobeEditedItem.PComId,
+                PType = this.TobeEditedItem.PType
             });
             ProdAreaList.ProdAreas = ObservableProdArea;
             SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
@@ -102,10 +102,10 @@ namespace Your
         {
             if (SelectedProdArea != null)
             {
-                SelectedProdArea.P_name = TobeEditedItem.P_name;
-                SelectedProdArea.P_description = TobeEditedItem.P_description;
-                SelectedProdArea.P_comID = TobeEditedItem.P_comID;
-                SelectedProdArea.P_type = TobeEditedItem.P_type;
+                SelectedProdArea.PName = TobeEditedItem.PName;
+                SelectedProdArea.PDescription = TobeEditedItem.PDescription;
+                SelectedProdArea.PComId = TobeEditedItem.PComId;
+                SelectedProdArea.PType = TobeEditedItem.PType;
             }
         }
 
@@ -114,9 +114,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedProdArea() != null)
+            if (CheckMatchedProdArea() != null)
             {
-                MessageBox.Show("This Production Area is currently attached to a Process ("+checkMatchedProdArea().PC_name+"). Please:" +
+                MessageBox.Show("This Production Area is currently attached to a Process ("+CheckMatchedProdArea().PcName+"). Please:" +
                     " \n\nRemove the Process in \"Processes\" tab first" +
                     "\n..Or.." +
                     "\nChange the attached Production area to another one");
@@ -131,11 +131,11 @@ namespace Your
         /// Return true if a matched Production Area is found being used in a item of Process list
         /// </summary>
         /// <returns></returns>
-        private Process checkMatchedProdArea()
+        private Process CheckMatchedProdArea()
         {
             foreach (Process p in ProcessesViewModel.ObservableProcess)
             {
-                if (p.ProdRef.P_name == SelectedProdArea.P_name) 
+                if (p.ProdRef.PName == SelectedProdArea.PName) 
                 {
                     return p;
                 }

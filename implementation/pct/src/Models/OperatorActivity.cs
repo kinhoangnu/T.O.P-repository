@@ -19,8 +19,8 @@ namespace Your
         
         private Process processRef;
         private Operator operatorRef;
-        private ObservableCollection<Process> _observableProcess;
-        private ObservableCollection<Operator> _observableOperator;
+        private ObservableCollection<Process> observableProcess;
+        private ObservableCollection<Operator> observableOperator;
 
         public string Unit
         {
@@ -59,13 +59,13 @@ namespace Your
         public ObservableCollection<Operator> ObservableOperator
         {
             get { return OperatorList.Operators; }
-            set { ChangeProperty(ref _observableOperator, value); }
+            set { ChangeProperty(ref observableOperator, value); }
         }
 
         public ObservableCollection<Process> ObservableProcess
         {
             get { return ProcessList.Processes; }
-            set { ChangeProperty(ref _observableProcess, value); }
+            set { ChangeProperty(ref observableProcess, value); }
         }
         
         public string Uuid

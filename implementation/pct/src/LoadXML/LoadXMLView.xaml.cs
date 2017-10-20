@@ -18,9 +18,9 @@ namespace Your
     /// <summary>
     /// Interaction logic for WorkstationsView.xaml
     /// </summary>
-    public partial class LoadXMLView : UserControl
+    public partial class LoadXmlView : UserControl
     {
-        public LoadXMLView()
+        public LoadXmlView()
         {
             InitializeComponent();
         }        

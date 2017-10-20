@@ -11,16 +11,16 @@ namespace Your
 {
     public class OperatorActivityList : ContentViewModel
     {
-        private static ObservableCollection<OperatorActivity> _operatorActivities;
+        private static ObservableCollection<OperatorActivity> operatorActivities;
         public static ObservableCollection<OperatorActivity> OperatorActivities
         {
             get
             {
-                return _operatorActivities;
+                return operatorActivities;
             }
             set
             {
-                _operatorActivities = value;
+                operatorActivities = value;
             }
         }
         public OperatorActivityList()
@@ -37,7 +37,7 @@ namespace Your
             //};
         }
 
-        public static void generateOperatorActivityes()
+        public static void GenerateOperatorActivityes()
         {
             //OperatorActivityes = new ObservableCollection<OperatorActivity>
             //{

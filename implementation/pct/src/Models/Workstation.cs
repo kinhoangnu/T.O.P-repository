@@ -13,25 +13,25 @@ namespace Your
     {
         private string uuid;
 
-        private string w_name;
-        private string w_description;
-        private string w_comID;
+        private string wName;
+        private string wDescription;
+        private string wComId;
         private WorkstationGroup workstationgroupRef;
         private WorkstationClass workstationclassRef;
-        private ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
-        private ObservableCollection<WorkstationClass> _observableWorkstationClass;
+        private ObservableCollection<WorkstationGroup> observableWorkstationGroup;
+        private ObservableCollection<WorkstationClass> observableWorkstationClass;
 
 
         public ObservableCollection<WorkstationClass> ObservableWorkstationClass
         {
             get { return WorkstationClassList.WorkstationClasses; }
-            set { ChangeProperty(ref _observableWorkstationClass, value); }
+            set { ChangeProperty(ref observableWorkstationClass, value); }
         }
 
         public ObservableCollection<WorkstationGroup> ObservableWorkstationGroup
         {
             get { return WorkstationGroupList.WorkstationGroups; }
-            set { ChangeProperty(ref _observableWorkstationGroup, value); }
+            set { ChangeProperty(ref observableWorkstationGroup, value); }
         }
 
         public string Uuid
@@ -52,37 +52,37 @@ namespace Your
         }
 
         
-        public string W_name
+        public string WName
         {
             get
             {
-                return w_name;
+                return wName;
             }
             set
             {
-                ChangeProperty(ref w_name, value);
+                ChangeProperty(ref wName, value);
             }
         }
-        public string W_description
+        public string WDescription
         {
             get
             {
-                return w_description;
+                return wDescription;
             }
             set
             {
-                ChangeProperty(ref w_description, value);
+                ChangeProperty(ref wDescription, value);
             }
         }
-        public string W_comID
+        public string WComId
         {
             get
             {
-                return w_comID;
+                return wComId;
             }
             set
             {
-                ChangeProperty(ref w_comID, value);
+                ChangeProperty(ref wComId, value);
             }
         }
 

@@ -10,17 +10,17 @@ namespace Your
 {
     public class ProdAreaList
     {
-        private static ObservableCollection<ProdArea> _prodareas;
+        private static ObservableCollection<ProdArea> prodareas;
         public static ObservableCollection<ProdArea> ProdAreas
         {
             get
             {
-                return _prodareas;
+                return prodareas;
             }
             set
             {
                 //ChangeProperty(ref _buffers, value);
-                _prodareas = value;
+                prodareas = value;
             }
         }
         public ProdAreaList()
@@ -38,7 +38,7 @@ namespace Your
             //};
         }
 
-        private static void generateAProdarea()
+        private static void GenerateAProdarea()
         {
             //ProdAreas = new ObservableCollection<ProdArea>
             //{
@@ -72,7 +72,7 @@ namespace Your
         {
             foreach (ProdArea p in ProdAreas)
             {
-                if (p.P_name == s)
+                if (p.PName == s)
                     return p;
             }
 

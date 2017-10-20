@@ -13,10 +13,10 @@ namespace Your
     {
         private string uuid;
 
-        private string wc_name;
-        private string wc_type;
-        private string wc_handlingType;
-        private ObservableCollection<Process> _observableProcess;
+        private string wcName;
+        private string wcType;
+        private string wcHandlingType;
+        private ObservableCollection<Process> observableProcess;
         //private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
         private Process processRef;
         private ObservableCollection<SecondaryActivity> secondaryactivityRef;
@@ -41,7 +41,7 @@ namespace Your
         public ObservableCollection<Process> ObservableProcess
         {
             get { return ProcessList.Processes; }
-            set { ChangeProperty(ref _observableProcess, value); }
+            set { ChangeProperty(ref observableProcess, value); }
         }
         public Process ProcessRef
         {
@@ -54,37 +54,37 @@ namespace Your
             set { ChangeProperty(ref secondaryactivityRef, value); }
         }
 
-        public string WC_type
+        public string WcType
         {
             get
             {
-                return wc_type;
+                return wcType;
             }
             set
             {
-                ChangeProperty(ref wc_type, value);
+                ChangeProperty(ref wcType, value);
             }
         }
-        public string WC_name
+        public string WcName
         {
             get
             {
-                return wc_name;
+                return wcName;
             }
             set
             {
-                ChangeProperty(ref wc_name, value);
+                ChangeProperty(ref wcName, value);
             }
         }
-        public string WC_handlingType
+        public string WcHandlingType
         {
             get
             {
-                return wc_handlingType;
+                return wcHandlingType;
             }
             set
             {
-                ChangeProperty(ref wc_handlingType, value);
+                ChangeProperty(ref wcHandlingType, value);
             }
         }
         

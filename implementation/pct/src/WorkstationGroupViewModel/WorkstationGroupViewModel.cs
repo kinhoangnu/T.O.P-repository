@@ -16,7 +16,7 @@ namespace Your
     {
         #region Fields and auto-implement properties
         private WorkstationGroup selectedWorkstationGroup;
-        private static ObservableCollection<WorkstationGroup> _observableWorkstationGroup;
+        private static ObservableCollection<WorkstationGroup> observableWorkstationGroup;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -49,7 +49,7 @@ namespace Your
         public static ObservableCollection<WorkstationGroup> ObservableWorkstationGroup
         {
             get { return WorkstationGroupList.WorkstationGroups; }
-            set { _observableWorkstationGroup = value; }
+            set { observableWorkstationGroup = value; }
         }
 
         #endregion
@@ -63,8 +63,8 @@ namespace Your
         {
             ObservableWorkstationGroup.Add(new WorkstationGroup()
             {
-                WG_name = "",
-                WG_description = "",                
+                WgName = "",
+                WgDescription = "",                
             });
         }
         
@@ -73,9 +73,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedWorkstationGroup() != null)
+            if (CheckMatchedWorkstationGroup() != null)
             {
-                MessageBox.Show("This Workstation group (" + checkMatchedWorkstationGroup().WorkstationgroupRef.WG_name + ") is currently attached to a Workstation (" + checkMatchedWorkstationGroup().W_name+ "). Please:" +
+                MessageBox.Show("This Workstation group (" + CheckMatchedWorkstationGroup().WorkstationgroupRef.WgName + ") is currently attached to a Workstation (" + CheckMatchedWorkstationGroup().WName+ "). Please:" +
                     " \n\nRemove the Workstation in \"Workstations\" tab first" +
                     "\n..Or.." +
                     "\nChange the attached Wrokstation class to another one");
@@ -90,11 +90,11 @@ namespace Your
         /// Return true if a matched WorkstationGroup is found being used in a item of Workstation list
         /// </summary>
         /// <returns></returns>
-        private Workstation checkMatchedWorkstationGroup()
+        private Workstation CheckMatchedWorkstationGroup()
         {
             foreach (Workstation w in WorkstationsViewModel.ObservableWorkstation)
             {
-                if (w.WorkstationgroupRef.WG_name == SelectedWorkstationGroup.WG_name)
+                if (w.WorkstationgroupRef.WgName == SelectedWorkstationGroup.WgName)
                 {                    
                     return w;
                 }

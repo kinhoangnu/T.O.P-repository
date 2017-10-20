@@ -14,37 +14,37 @@ namespace Your
 {
     class WarningsViewModel : ContentViewModel
     {
-        private bool _alarm = false;
+        private bool alarm = false;
         public bool Alarm
         {
-            get { return _alarm; }
+            get { return alarm; }
             set
             {
-                if (ChangeProperty(ref _alarm, value) == true)
+                if (ChangeProperty(ref alarm, value) == true)
                     UpdateStatusBar();
             }
         }
 
 
-        private bool _warning = false;
+        private bool warning = false;
         public bool Warning
         {
-            get { return _warning; }
+            get { return warning; }
             set
             {
-                if (ChangeProperty(ref _warning, value) == true)
+                if (ChangeProperty(ref warning, value) == true)
                     UpdateStatusBar();
             }
         }
 
 
-        private bool _info = false;
+        private bool info = false;
         public bool Info
         {
-            get { return _info; }
+            get { return info; }
             set
             {
-                if (ChangeProperty(ref _info, value) == true)
+                if (ChangeProperty(ref info, value) == true)
                     UpdateStatusBar();
             }
         }

@@ -1,45 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
-using com.vanderlande.wpf;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.ComponentModel;
 using System.Windows.Forms;
+using com.vanderlande.wpf;
 
 namespace Your
 {
-    class BuffersViewModel : ContentViewModel
+    internal class BuffersViewModel : ContentViewModel
     {
-        #region Fields and auto-implement properties
         private Buffer selectedBuffer;
-        private ObservableCollection<Buffer> _observableBuffer;
+        private ObservableCollection<Buffer> observableBuffer;
 
-        Validation validation = new Validation();
+        private Validation validation = new Validation();
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
 
-        #endregion
-
-        #region Constructor
-        public BuffersViewModel()
-        {
-            this.DeleteCommand = new RelayCommand((obj) => Delete());
-            this.AddCommand = new RelayCommand((obj) => Add());
-            BufferList.Buffers = new ObservableCollection<Buffer>();
-            ObservableBuffer = new ObservableCollection<Buffer>();
-        }
-        #endregion
-
-        #region properties
         public ObservableCollection<Buffer> ObservableBuffer
         {
             get { return BufferList.Buffers; }
-            set { ChangeProperty(ref _observableBuffer, value); }
+            set { ChangeProperty(ref observableBuffer, value); }
         }
 
         /// <summary>
@@ -48,44 +27,47 @@ namespace Your
         public Buffer SelectedBuffer
         {
             get { return selectedBuffer; }
-            set
-            {
-                ChangeProperty(ref selectedBuffer, value);
-            }
+            set { ChangeProperty(ref selectedBuffer, value); }
         }
-        #endregion
 
-        #region Add, Update and Delete
+        public BuffersViewModel()
+        {
+            DeleteCommand = new RelayCommand(obj => Delete());
+            AddCommand = new RelayCommand(obj => Add());
+            BufferList.Buffers = new ObservableCollection<Buffer>();
+            ObservableBuffer = new ObservableCollection<Buffer>();
+        }
 
         /// <summary>
         /// Add a new buffer to Buffer list
         /// </summary>
         public void Add()
         {
-            this.ObservableBuffer.Add(new Buffer()
+            ObservableBuffer.Add(new Buffer
             {
-                B_name = "",
-                B_description = "",
-                B_comID = "",
-                B_unit = ""
+                BName = "",
+                BDescription = "",
+                BComId = "",
+                BUnit = ""
             });
         }
-        
+
         /// <summary>
         /// Delete current selected Buffer
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedBuffer() != null)
+            if (CheckMatchedBuffer() != null)
             {
-                MessageBox.Show("This Buffer is currently attached to a Process ("+checkMatchedBuffer().PC_name+"). Please:" +
-                       " \n\nRemove the Process in \"Processes\" tab first" +
-                       "\n..Or.." +
-                       "\nChange the attached buffer to another one");
+                MessageBox.Show("This Buffer is currently attached to a Process (" + CheckMatchedBuffer().PcName +
+                                "). Please:" +
+                                " \n\nRemove the Process in \"Processes\" tab first" +
+                                "\n..Or.." +
+                                "\nChange the attached buffer to another one");
             }
             else
             {
-                this.ObservableBuffer.Remove(this.SelectedBuffer);
+                ObservableBuffer.Remove(SelectedBuffer);
             }
         }
 
@@ -93,26 +75,12 @@ namespace Your
         /// Return true if a matched Buffer is found being used in a item of Process list
         /// </summary>
         /// <returns></returns>
-        private Process checkMatchedBuffer()
+        private Process CheckMatchedBuffer()
         {
-            if (ProcessList.Processes != null)
-            {
-                foreach (Process p in ProcessesViewModel.ObservableProcess)
-                {
-                    if ((p.InbufferRef.B_name == SelectedBuffer.B_name) ||
-                        (p.OutbufferRef.B_name == SelectedBuffer.B_name))
-                    {
-                        return p;
-                    }
-                }
-                return null;
-            }
-            else
-            return null;
+            return ProcessList.Processes != null
+                ? ProcessesViewModel.ObservableProcess.FirstOrDefault(
+                    p => p.InbufferRef.BName == SelectedBuffer.BName || p.OutbufferRef.BName == SelectedBuffer.BName)
+                : null;
         }
-
-        #endregion
-
-
     }
 }

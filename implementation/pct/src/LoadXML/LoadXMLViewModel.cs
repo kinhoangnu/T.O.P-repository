@@ -1,46 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.ComponentModel;
-
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using System.IO;
-using System.Windows.Forms;
-
-using Configurations;
-
 using com.vanderlande.wpf;
+using Configurations;
 using FM.Top.TopIntModel;
-using FM.Top.TopIntTypes;
-
 
 namespace Your
 {
-    public class LoadXMLViewModel : ContentViewModel
+    public class LoadXmlViewModel : ContentViewModel
     {
+        private readonly XmlReaderSettings setting = new XmlReaderSettings();
+        private XmlDocument doc = new XmlDocument();
+        private ConfigurationService con = new ConfigurationService();
+        private string path = string.Empty;
+        private string xmlInputData = string.Empty;
+        private string xmlOutputData = string.Empty;
+        private List<string> stringlist;
+        private ObservableCollection<SecondaryActivity> tempSClist;
+        private ObservableCollection<Buffer> tempBlist;
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }
-        XmlDocument doc = new XmlDocument();
-        ConfigurationService con = new ConfigurationService();
-        XmlReaderSettings setting = new XmlReaderSettings();
-        string path = string.Empty;
-        string xmlInputData = string.Empty;
-        string xmlOutputData = string.Empty;
-        List<ObservableCollection<Object>> list;        
-        ObservableCollection<SecondaryActivity> tempSClist;
-        ObservableCollection<Buffer> tempBlist;
 
-        public LoadXMLViewModel()
+        public LoadXmlViewModel()
         {
-            this.LoadCommand = new RelayCommand((obj) => Load());
-            this.SaveCommand = new RelayCommand((obj) => Save());
+            LoadCommand = new RelayCommand(obj => Load());
+            SaveCommand = new RelayCommand(obj => Save());
         }
 
         /// <summary>
@@ -51,245 +41,273 @@ namespace Your
             Exception exception = null;
             ValidationEventHandler validationHandler = (sender, args) =>
             {
-                if (args.Severity == XmlSeverityType.Error)
+                if (args.Severity != XmlSeverityType.Error)
                 {
-                    if (exception == null)
-                    {
-                        exception = args.Exception;
-                    }
+                    return;
+                }
+                if (exception == null)
+                {
+                    exception = args.Exception;
                 }
             };
             setting.ValidationEventHandler += validationHandler;
             try
             {
-                var topConfigurationObject = new TopProjectModel();
-                OpenFileDialog openfiledialog = new OpenFileDialog();
+                var openfiledialog = new OpenFileDialog();
                 if (openfiledialog.ShowDialog() == DialogResult.OK)
                 {
                     var path = openfiledialog.FileName;
                     var serializer = new XmlSerializer(typeof(TopProjectModel));
-                    using (XmlReader reader = XmlReader.Create(path))
+                    TopProjectModel topConfigurationObject;
+                    using (var reader = XmlReader.Create(path))
                     {
-                        topConfigurationObject = (TopProjectModel)serializer.Deserialize(reader);
+                        topConfigurationObject = (TopProjectModel) serializer.Deserialize(reader);
                     }
                     if (topConfigurationObject == null)
                     {
                         //throw new ValidationException();
-                        throw new System.ArgumentException("something went wrong", "original");
+                        throw new ArgumentException("something went wrong", "original");
                     }
 
                     if (exception != null)
                     {
                         //throw new ValidationException();
-                        throw new System.ArgumentException("something went wrong", "original");
+                        throw new ArgumentException("something went wrong", "original");
                     }
+
                     #region Import Production Area
-                    foreach (FM.Top.TopIntTypes.ProductionArea p in topConfigurationObject.ProductionAreas)
+
+                    foreach (var p in topConfigurationObject.ProductionAreas)
                     {
-                        ProdAreaList.ProdAreas.Add(new ProdArea()
-                            {
-                                P_name = p.ObjectIdentification.Name,
-                                P_comID = p.CommunicationId,
-                                P_description = p.ObjectIdentification.Description,
-                                P_type = p.ProductionType.ToString(),
-                                Uuid = p.ObjectIdentification.UUID
-                            });
-                    }
-                    #endregion
-                    #region Import Buffer
-                    foreach (FM.Top.TopIntTypes.Buffer b in topConfigurationObject.Buffers)
-                    {
-                        BufferList.Buffers.Add(new Buffer()
+                        ProdAreaList.ProdAreas.Add(new ProdArea
                         {
-                            B_comID = b.CommunicationId,
-                            B_description = b.ObjectIdentification.Description,
-                            B_name = b.ObjectIdentification.Name,
-                            B_unit = b.Unit,
+                            PName = p.ObjectIdentification.Name,
+                            PComId = p.CommunicationId,
+                            PDescription = p.ObjectIdentification.Description,
+                            PType = p.ProductionType.ToString(),
+                            Uuid = p.ObjectIdentification.UUID
+                        });
+                    }
+
+                    #endregion
+
+                    #region Import Buffer
+
+                    foreach (var b in topConfigurationObject.Buffers)
+                    {
+                        BufferList.Buffers.Add(new Buffer
+                        {
+                            BComId = b.CommunicationId,
+                            BDescription = b.ObjectIdentification.Description,
+                            BName = b.ObjectIdentification.Name,
+                            BUnit = b.Unit,
                             Uuid = b.ObjectIdentification.UUID
                         });
                     }
+
                     #endregion
+
                     #region Import Process
-                    foreach (FM.Top.TopIntTypes.Process pc in topConfigurationObject.Processes)
+
+                    foreach (var pc in topConfigurationObject.Processes)
                     {
                         if (pc.OutBuffers != null && pc.OutBuffers.Count() > 0)
                         {
                             tempBlist = new ObservableCollection<Buffer>();
 
-                            for (int i = 0; i < pc.OutBuffers.Count(); i++)
+                            for (var i = 0; i < pc.OutBuffers.Count(); i++)
                             {
-                                tempBlist.Add(BufferList.GetABuffer(pc.OutBuffers[i].ToString()));
+                                tempBlist.Add(BufferList.GetABuffer(pc.OutBuffers[i]));
                             }
-                            foreach (Buffer b in BufferList.Buffers)
+                            foreach (var b in BufferList.Buffers)
                             {
                                 if (!tempBlist.Contains(b))
                                 {
-                                    foreach (Buffer b1 in tempBlist)
+                                    foreach (var b1 in tempBlist)
                                     {
-                                        if (b.B_name == b1.B_name)
+                                        if (b.BName == b1.BName)
                                         {
                                             goto Outer;
                                         }
                                     }
                                     //tempBlist.Add(b);
-                                    tempBlist.Add(BufferList.GetANotSelectedBuffer(b.Uuid.ToString()));
-                                Outer: continue;
+                                    tempBlist.Add(BufferList.GetANotSelectedBuffer(b.Uuid));
+                                    Outer:
+                                    ;
                                 }
                             }
-                            ProcessList.Processes.Add(new Process()
+                            ProcessList.Processes.Add(new Process
                             {
-                                PC_comID = pc.CommunicationId,
-                                PC_description = pc.ObjectIdentification.Description,
-                                PC_name = pc.ObjectIdentification.Name,
+                                PcComId = pc.CommunicationId,
+                                PcDescription = pc.ObjectIdentification.Description,
+                                PcName = pc.ObjectIdentification.Name,
                                 Uuid = pc.ObjectIdentification.UUID,
-                                ExclFromKPI = pc.ExcludeFromKPIs,
+                                ExclFromKpi = pc.ExcludeFromKPIs,
                                 IsReplenished = pc.IsReplenishment,
-                                ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
-                                InbufferRef = BufferList.GetABuffer(pc.InBuffer),                                
+                                ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef),
+                                InbufferRef = BufferList.GetABuffer(pc.InBuffer),
                                 ObservableOutBuffer = tempBlist
                             });
                         }
                         else
                         {
-                            ProcessList.Processes.Add(new Process()
+                            ProcessList.Processes.Add(new Process
                             {
-                                PC_comID = pc.CommunicationId,
-                                PC_description = pc.ObjectIdentification.Description,
-                                PC_name = pc.ObjectIdentification.Name,
+                                PcComId = pc.CommunicationId,
+                                PcDescription = pc.ObjectIdentification.Description,
+                                PcName = pc.ObjectIdentification.Name,
                                 Uuid = pc.ObjectIdentification.UUID,
-                                ExclFromKPI = pc.ExcludeFromKPIs,
+                                ExclFromKpi = pc.ExcludeFromKPIs,
                                 IsReplenished = pc.IsReplenishment,
-                                ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef.ToString()),
+                                ProdRef = ProdAreaList.GetAProdArea(pc.ProductionAreaRef),
                                 InbufferRef = BufferList.GetABuffer(pc.InBuffer),
                                 ObservableOutBuffer = BufferList.Buffers
                             });
                         }
                     }
+
                     #endregion
+
                     #region Import Secondary Activity
-                    foreach (FM.Top.TopIntTypes.SecondaryActivity s in topConfigurationObject.SecondaryActivities)
+
+                    foreach (var s in topConfigurationObject.SecondaryActivities)
                     {
-                        SecondaryActivityList.SecondaryActivities.Add(new SecondaryActivity()
+                        SecondaryActivityList.SecondaryActivities.Add(new SecondaryActivity
                         {
-                            SC_comID = s.CommunicationId,
-                            SC_description = s.ObjectIdentification.Description,
-                            SC_name = s.ObjectIdentification.Name,
+                            ScComId = s.CommunicationId,
+                            ScDescription = s.ObjectIdentification.Description,
+                            ScName = s.ObjectIdentification.Name,
                             Uuid = s.ObjectIdentification.UUID
                         });
                     }
+
                     #endregion
+
                     #region Import Workstation group
-                    foreach (FM.Top.TopIntTypes.WorkstationGroup wg in topConfigurationObject.WorkstationGroups)
+
+                    foreach (var wg in topConfigurationObject.WorkstationGroups)
                     {
-                        WorkstationGroupList.WorkstationGroups.Add(new WorkstationGroup()
+                        WorkstationGroupList.WorkstationGroups.Add(new WorkstationGroup
                         {
-                            WG_description = wg.ObjectIdentification.Description,
-                            WG_name = wg.ObjectIdentification.Name,
+                            WgDescription = wg.ObjectIdentification.Description,
+                            WgName = wg.ObjectIdentification.Name,
                             Uuid = wg.ObjectIdentification.UUID
                         });
                     }
+
                     #endregion
+
                     #region Import Workstation class
-                    foreach (FM.Top.TopIntTypes.WorkstationClass wc in topConfigurationObject.WorkstationClasses)
+
+                    foreach (var wc in topConfigurationObject.WorkstationClasses)
                     {
-                        if (wc.SecondaryActivities != null && wc.SecondaryActivities.Count() > 0)
+                        if (wc.SecondaryActivities != null && wc.SecondaryActivities.Any())
                         {
                             tempSClist = new ObservableCollection<SecondaryActivity>();
 
-                            for (int i = 0; i < wc.SecondaryActivities.Count(); i++)
+                            for (var i = 0; i < wc.SecondaryActivities.Count(); i++)
                             {
-                                tempSClist.Add(SecondaryActivityList.GetASecondaryActivity(wc.SecondaryActivities[i].ObjectRef.ToString()));
+                                tempSClist.Add(
+                                    SecondaryActivityList.GetASecondaryActivity(wc.SecondaryActivities[i].ObjectRef));
                             }
-                            foreach (SecondaryActivity s in SecondaryActivityList.SecondaryActivities)
+                            foreach (var s in SecondaryActivityList.SecondaryActivities)
                             {
                                 if (!tempSClist.Contains(s))
                                 {
-                                    foreach (SecondaryActivity s1 in tempSClist)
+                                    foreach (var s1 in tempSClist)
                                     {
-                                        if (s.SC_name == s1.SC_name)
+                                        if (s.ScName == s1.ScName)
                                         {
                                             goto Outer;
                                         }
                                     }
                                     //tempSClist.Add(s);
-                                    tempSClist.Add(SecondaryActivityList.GetANotSelectedSecondaryActivity(s.Uuid.ToString()));
-                                Outer: continue;
+                                    tempSClist.Add(SecondaryActivityList.GetANotSelectedSecondaryActivity(s.Uuid));
+                                    Outer:
+                                    ;
                                 }
                             }
-                            WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
+                            WorkstationClassList.WorkstationClasses.Add(new WorkstationClass
                             {
-                                WC_handlingType = wc.HandlingType.ToString(),
-                                WC_name = wc.ObjectIdentification.Name,
-                                WC_type = wc.WorkstationType,
-                                Uuid = wc.ObjectIdentification.UUID, 
-                                ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),
-                                SecondaryactivityRef = tempSClist,
+                                WcHandlingType = wc.HandlingType.ToString(),
+                                WcName = wc.ObjectIdentification.Name,
+                                WcType = wc.WorkstationType,
+                                Uuid = wc.ObjectIdentification.UUID,
+                                ProcessRef = ProcessList.GetAProcess(wc.ProcessRef),
+                                SecondaryactivityRef = tempSClist
                             });
                         }
                         else
                         {
-                            WorkstationClassList.WorkstationClasses.Add(new WorkstationClass()
+                            WorkstationClassList.WorkstationClasses.Add(new WorkstationClass
                             {
-                                WC_handlingType = wc.HandlingType.ToString(),
-                                WC_name = wc.ObjectIdentification.Name,
-                                WC_type = wc.WorkstationType,
+                                WcHandlingType = wc.HandlingType.ToString(),
+                                WcName = wc.ObjectIdentification.Name,
+                                WcType = wc.WorkstationType,
                                 Uuid = wc.ObjectIdentification.UUID,
-                                ProcessRef = ProcessList.GetAProcess(wc.ProcessRef.ToString()),
+                                ProcessRef = ProcessList.GetAProcess(wc.ProcessRef),
                                 SecondaryactivityRef = SecondaryActivityList.SecondaryActivities
                             });
                         }
                     }
+
                     #endregion
+
                     #region Import Workstation
-                    foreach (FM.Top.TopIntTypes.Workstation w in topConfigurationObject.Workstations)
+
+                    foreach (var w in topConfigurationObject.Workstations)
                     {
                         if (w.WorkstationGroupRef != null)
                         {
-                            WorkstationList.Workstations.Add(new Workstation()
-                                {
-                                    W_comID = w.CommunicationId,
-                                    W_description = w.ObjectIdentification.Description,
-                                    W_name = w.ObjectIdentification.Name,
-                                    Uuid = w.ObjectIdentification.UUID,
-                                    WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef.ToString()),
-                                    WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(w.WorkstationGroupRef.ToString())
-                                });
+                            WorkstationList.Workstations.Add(new Workstation
+                            {
+                                WComId = w.CommunicationId,
+                                WDescription = w.ObjectIdentification.Description,
+                                WName = w.ObjectIdentification.Name,
+                                Uuid = w.ObjectIdentification.UUID,
+                                WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef),
+                                WorkstationgroupRef = WorkstationGroupList.GetAWorkstationGroup(w.WorkstationGroupRef)
+                            });
                         }
                         else
                         {
-                            WorkstationList.Workstations.Add(new Workstation()
+                            WorkstationList.Workstations.Add(new Workstation
                             {
-                                W_comID = w.CommunicationId,
-                                W_description = w.ObjectIdentification.Description,
-                                W_name = w.ObjectIdentification.Name,
+                                WComId = w.CommunicationId,
+                                WDescription = w.ObjectIdentification.Description,
+                                WName = w.ObjectIdentification.Name,
                                 Uuid = w.ObjectIdentification.UUID,
-                                WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef.ToString())
+                                WorkstationclassRef = WorkstationClassList.GetAWorkstationClass(w.WorkstationClassRef)
                             });
                         }
                     }
+
                     #endregion
+
                     #region Import Operator
-                    foreach (FM.Top.TopIntTypes.Operator o in topConfigurationObject.Operators)
+
+                    foreach (var o in topConfigurationObject.Operators)
                     {
-                        OperatorList.Operators.Add(new Operator()
+                        OperatorList.Operators.Add(new Operator
                         {
-                            O_description = o.ObjectIdentification.Description,
-                            O_name = o.ObjectIdentification.Name,
-                            O_useCustomUpperLimit = o.UseCustomUpperLimit,
+                            ODescription = o.ObjectIdentification.Description,
+                            OName = o.ObjectIdentification.Name,
+                            OUseCustomUpperLimit = o.UseCustomUpperLimit,
                             Uuid = o.ObjectIdentification.UUID
                         });
                     }
+
                     #endregion
+
                     //ConfigurationService.DeserializeAndValidate<TopProjectModel>(reader, null);
                     //XmlSerializer ser = new XmlSerializer(typeof(Buffers));
                     //reader.ReadToDescendant("Buffers");
                     //object input = ser.Deserialize(reader);
                     //Buffers XmlData = (Buffers)input;
                     //reader.Close();  
-
                 }
             }
-            catch(Exception e)          
+            catch (Exception e)
             {
                 MessageBox.Show("Error details: " + e.Message);
             }
@@ -297,12 +315,11 @@ namespace Your
 
         public void Save()
         {
-            
             Exception exception = null;
             //try
             //{
             //    var topConfigurationObject = new TopProjectModel();
-                
+
             //    SaveFileDialog saveFileDialog = new SaveFileDialog();
             //    if(saveFileDialog.ShowDialog() == DialogResult.OK)
             //    {
@@ -314,45 +331,46 @@ namespace Your
             //}
             try
             {
-                XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(typeof(List<ObservableCollection<object>>));
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                var xmlDocument = new XmlDocument();
+                var serializer = new XmlSerializer(typeof(ObservableCollection<FM.Top.TopIntTypes.Buffer>));
+                var saveFileDialog = new SaveFileDialog();
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var path = saveFileDialog.FileName;
-                    using (MemoryStream stream = new MemoryStream())
+                    var savepath = saveFileDialog.FileName;
+                    using (var stream = new MemoryStream())
                     {
-                        serializer.Serialize(stream, list);
+                        serializer.Serialize(stream, BufferList.Buffers);
                         stream.Position = 0;
                         xmlDocument.Load(stream);
-                        xmlDocument.Save(path+".xml");
+                        xmlDocument.Save(savepath + ".xml");
                         stream.Close();
                     }
                 }
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 MessageBox.Show("Error details: " + e.Message);
             }
         }
 
-        //public void LoadValidation(TopProjectModel topProjectModel)
+        //    CreateParameters(topProjectModel.Parameters);
         //{
-        //    var loader = new top
-        //    loader.Load(topProjectModel);
-
-        //    var validationResult = inMemoryResourceDefinitions.Validate();
-        //    validationResult = validationResult.Validate();
-
-        //    if (validationResult.HasFailures())
-        //    {
-        //        throw new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
-        //    }
-        //}
 
         //public void Load(TopProjectModel topProjectModel)
+        //}
+        //    }
+        //        throw new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
+        //    {
+
+        //    if (validationResult.HasFailures())
+        //    validationResult = validationResult.Validate();
+
+        //    var validationResult = inMemoryResourceDefinitions.Validate();
+        //    loader.Load(topProjectModel);
+        //    var loader = new top
         //{
-        //    CreateParameters(topProjectModel.Parameters);
+
+        //public void LoadValidation(TopProjectModel topProjectModel)
         //    CreateActivities(topProjectModel.SecondaryActivities);
         //    CreateAreas(topProjectModel.ProductionAreas);
         //    CreateBuffers(topProjectModel.Buffers);
@@ -365,6 +383,5 @@ namespace Your
         //    CreateOperatorAlgorithms(topProjectModel.OperatorPresences);
         //    CreateExtensionUnits(topProjectModel.ExtensionUnits);
         //}
-
     }
 }

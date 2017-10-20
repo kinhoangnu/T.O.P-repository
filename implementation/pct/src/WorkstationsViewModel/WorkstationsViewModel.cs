@@ -16,7 +16,7 @@ namespace Your
         #region Fields and auto-implement properties
         private Workstation selectedWorkstation;
 
-        private static ObservableCollection<Workstation> _observableWorkstation;
+        private static ObservableCollection<Workstation> observableWorkstation;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -37,7 +37,7 @@ namespace Your
         public static ObservableCollection<Workstation> ObservableWorkstation
         {
             get { return WorkstationList.Workstations; }
-            set { _observableWorkstation = value; }
+            set { observableWorkstation = value; }
         }
 
 
@@ -64,9 +64,9 @@ namespace Your
         {
             ObservableWorkstation.Add(new Workstation()
             {
-                W_name = "",
-                W_description = "",
-                W_comID = ""
+                WName = "",
+                WDescription = "",
+                WComId = ""
             });
             SelectedWorkstation = ObservableWorkstation.ElementAt(ObservableWorkstation.Count - 1);
         }

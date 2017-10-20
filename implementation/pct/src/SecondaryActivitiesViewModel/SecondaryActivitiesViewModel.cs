@@ -16,7 +16,7 @@ namespace Your
     {
         #region Fields and auto-implement properties
         private SecondaryActivity selectedSecondaryActivity;
-        private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
+        private ObservableCollection<SecondaryActivity> observableSecondaryActivity;
 
         public SecondaryActivityList SClist;
         public RelayCommand DeleteCommand { get; set; }
@@ -38,7 +38,7 @@ namespace Your
         public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
         {
             get { return SecondaryActivityList.SecondaryActivities; }
-            set { ChangeProperty(ref _observableSecondaryActivity, value); }
+            set { ChangeProperty(ref observableSecondaryActivity, value); }
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Your
         {
             this.ObservableSecondaryActivity.Add(new SecondaryActivity()
             {
-                SC_name = "",
-                SC_description = "",
-                SC_comID = ""
+                ScName = "",
+                ScDescription = "",
+                ScComId = ""
             });
         }
 
@@ -74,9 +74,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedSecondaryActivity() != null)
+            if (CheckMatchedSecondaryActivity() != null)
             {
-                MessageBox.Show("This Secondary Activity is currently attached to a Workstation Class ("+checkMatchedSecondaryActivity().WC_name+"). Please:"+
+                MessageBox.Show("This Secondary Activity is currently attached to a Workstation Class ("+CheckMatchedSecondaryActivity().WcName+"). Please:"+
                     " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first"+
                     "\n..Or.."+
                     "\nChange the attached activity to another one");
@@ -91,7 +91,7 @@ namespace Your
         /// Return true if a matched Secondary Activity is found being used in a item of WorkstationClass list
         /// </summary>
         /// <returns></returns>
-        private WorkstationClass checkMatchedSecondaryActivity()
+        private WorkstationClass CheckMatchedSecondaryActivity()
         {
             foreach (WorkstationClass wc in WorkstationClassesViewModel.ObservableWorkstationClass)
             {

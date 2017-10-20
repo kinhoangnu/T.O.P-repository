@@ -12,48 +12,48 @@ namespace Your
     public class Process : ContentViewModel
     {
         private string uuid;
-        private string pc_name;
-        private string pc_comID;
-        private string pc_description;
+        private string pcName;
+        private string pcComId;
+        private string pcDescription;
         private Buffer inbufferRef;
         private Buffer outbufferRef;
         private ProdArea prodRef;
-        private ObservableCollection<ProdArea> _observableProdArea;
-        private ObservableCollection<Buffer> _observableBuffer;
-        private ObservableCollection<Buffer> _observableOutBuffer;
+        private ObservableCollection<ProdArea> observableProdArea;
+        private ObservableCollection<Buffer> observableBuffer;
+        private ObservableCollection<Buffer> observableOutBuffer;
 
         public ObservableCollection<Buffer> ObservableOutBuffer
         {
-            get { return _observableOutBuffer; }
-            set { ChangeProperty(ref _observableOutBuffer, value); }
+            get { return observableOutBuffer; }
+            set { ChangeProperty(ref observableOutBuffer, value); }
         }
 
         public ObservableCollection<Buffer> ObservableBuffer
         {
             get { return BufferList.Buffers; }
-            set { ChangeProperty(ref _observableBuffer, value); }
+            set { ChangeProperty(ref observableBuffer, value); }
         }
 
         public ObservableCollection<ProdArea> ObservableProdArea
         {
             get { return ProdAreaList.ProdAreas; }
-            set { ChangeProperty(ref _observableProdArea, value); }
+            set { ChangeProperty(ref observableProdArea, value); }
         }
 
         private bool isReplenished;
-        private bool exclFromKPI;
+        private bool exclFromKpi;
 
         public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
         }
-        public bool ExclFromKPI
+        public bool ExclFromKpi
         {
-            get { return exclFromKPI; }
+            get { return exclFromKpi; }
             set 
             {
-                ChangeProperty(ref exclFromKPI, value);
+                ChangeProperty(ref exclFromKpi, value);
             }
         }
         public bool IsReplenished
@@ -78,37 +78,37 @@ namespace Your
             set { ChangeProperty(ref inbufferRef, value); }
         }
 
-        public string PC_description
+        public string PcDescription
         {
             get
             {
-                return pc_description;
+                return pcDescription;
             }
             set
             {
-                ChangeProperty(ref pc_description, value);
+                ChangeProperty(ref pcDescription, value);
             }
         }
-        public string PC_name
+        public string PcName
         {
             get
             {
-                return pc_name;
+                return pcName;
             }
             set
             {
-                ChangeProperty(ref pc_name, value);
+                ChangeProperty(ref pcName, value);
             }
         }
-        public string PC_comID
+        public string PcComId
         {
             get
             {
-                return pc_comID;
+                return pcComId;
             }
             set
             {
-                ChangeProperty(ref pc_comID, value);
+                ChangeProperty(ref pcComId, value);
             }
         }
 

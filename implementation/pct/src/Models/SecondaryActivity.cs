@@ -10,9 +10,9 @@ namespace Your
     public class SecondaryActivity : ContentViewModel
     {
         private string uuid;
-        private string sc_name;
-        private string sc_comID;
-        private string sc_description;
+        private string scName;
+        private string scComId;
+        private string scDescription;
         private bool isSelected = false;
 
         public bool IsSelected 
@@ -26,37 +26,37 @@ namespace Your
             get { return uuid; }
             set { uuid = value; }
         }
-        public string SC_description
+        public string ScDescription
         {
             get
             {
-                return sc_description;
+                return scDescription;
             }
             set
             {
-                ChangeProperty(ref sc_description, value);
+                ChangeProperty(ref scDescription, value);
             }
         }
-        public string SC_name
+        public string ScName
         {
             get
             {
-                return sc_name;
+                return scName;
             }
             set
             {
-                ChangeProperty(ref sc_name, value);
+                ChangeProperty(ref scName, value);
             }
         }
-        public string SC_comID
+        public string ScComId
         {
             get
             {
-                return sc_comID;
+                return scComId;
             }
             set
             {
-                ChangeProperty(ref sc_comID, value);
+                ChangeProperty(ref scComId, value);
             }
         }
 

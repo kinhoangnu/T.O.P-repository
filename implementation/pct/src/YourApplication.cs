@@ -57,7 +57,7 @@ namespace Your
             mainWnd.RegisterContent(typeof(WorkstationsViewModel));
             mainWnd.RegisterContent(typeof(OperatorsViewModel));
 
-            mainWnd.RegisterContent(typeof(LoadXMLViewModel));
+            mainWnd.RegisterContent(typeof(LoadXmlViewModel));
             mainWnd.RegisterContent(typeof(WarningsViewModel));
             
             return mainWnd;

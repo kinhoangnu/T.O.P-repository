@@ -12,17 +12,17 @@ namespace Your
 {
     public class BufferList : ContentViewModel
     {
-        private static ObservableCollection<Buffer> _buffers;
+        private static ObservableCollection<Buffer> buffers;
 
         public static ObservableCollection<Buffer> Buffers
         {
             get
             {
-                return _buffers;
+                return buffers;
             }
             set
             {
-                _buffers = value;
+                buffers = value;
             }
         }
         public BufferList()
@@ -40,7 +40,7 @@ namespace Your
             };
         }
 
-        private static void generateBuffers()
+        private static void GenerateBuffers()
         {
             Buffers = new ObservableCollection<Buffer>
             {
@@ -68,10 +68,10 @@ namespace Your
                 if (b.Uuid == s)
                 {
                     Buffer tempb = new Buffer();
-                    tempb.B_name = b.B_name;
-                    tempb.B_description = b.B_description;
-                    tempb.B_comID = b.B_comID;
-                    tempb.B_unit = b.B_unit;
+                    tempb.BName = b.BName;
+                    tempb.BDescription = b.BDescription;
+                    tempb.BComId = b.BComId;
+                    tempb.BUnit = b.BUnit;
                     tempb.IsSelected = true;
                     return tempb;
                 }
@@ -87,10 +87,10 @@ namespace Your
                 if (b.Uuid == s)
                 {
                     Buffer tempb = new Buffer();
-                    tempb.B_name = b.B_name;
-                    tempb.B_description = b.B_description;
-                    tempb.B_comID = b.B_comID;
-                    tempb.B_unit = b.B_unit;
+                    tempb.BName = b.BName;
+                    tempb.BDescription = b.BDescription;
+                    tempb.BComId = b.BComId;
+                    tempb.BUnit = b.BUnit;
                     tempb.IsSelected = false;
                     return tempb;
                 }

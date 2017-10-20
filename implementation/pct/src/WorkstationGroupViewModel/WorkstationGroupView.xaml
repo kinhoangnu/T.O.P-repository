@@ -22,8 +22,8 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding WG_name}" Width="*"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding WG_description}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding WgName}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding WgDescription}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

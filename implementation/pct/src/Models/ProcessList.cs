@@ -11,16 +11,16 @@ namespace Your
 {
     public class ProcessList : ContentViewModel
     {
-        private static ObservableCollection<Process> _processes;
+        private static ObservableCollection<Process> processes;
         public static ObservableCollection<Process> Processes
         {
             get
             {
-                return _processes;
+                return processes;
             }
             set
             {
-                _processes = value;
+                processes = value;
             }
         }
         public ProcessList()
@@ -37,7 +37,7 @@ namespace Your
             //};
         }
 
-        public static void generateProcesses()
+        public static void GenerateProcesses()
         {
             //Processes = new ObservableCollection<Process>
             //{

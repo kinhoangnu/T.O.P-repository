@@ -17,7 +17,7 @@ namespace Your
         #region Fields and auto-implement properties
         private Process selectedProcess;
 
-        private static ObservableCollection<Process> _observableProcess;
+        private static ObservableCollection<Process> observableProcess;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -39,7 +39,7 @@ namespace Your
         public static ObservableCollection<Process> ObservableProcess
         {
             get { return ProcessList.Processes; }
-            set { _observableProcess = value; }
+            set { observableProcess = value; }
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace Your
         {
             ObservableProcess.Add(new Process()
             {
-                PC_name = "",
-                PC_description = "",
-                PC_comID = "",
+                PcName = "",
+                PcDescription = "",
+                PcComId = "",
                 ObservableOutBuffer = BufferList.Buffers
             });
             SelectedProcess = ObservableProcess.ElementAt(ObservableProcess.Count - 1);
@@ -92,9 +92,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedProcess() != null)
+            if (CheckMatchedProcess() != null)
             {
-                MessageBox.Show("This Process is currently in attached to a Workstation Class ("+checkMatchedProcess().WC_name+"). Please:" +
+                MessageBox.Show("This Process is currently in attached to a Workstation Class ("+CheckMatchedProcess().WcName+"). Please:" +
                        " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first" +
                        "\n..Or.." +
                        "\nChange the attached process to another one");
@@ -109,11 +109,11 @@ namespace Your
         /// Return true if a matched Process is found being used in a item of Workstation Class list
         /// </summary>
         /// <returns></returns>
-        private WorkstationClass checkMatchedProcess()
+        private WorkstationClass CheckMatchedProcess()
         {
             foreach (WorkstationClass wc in WorkstationClassesViewModel.ObservableWorkstationClass)
             {
-                if (wc.ProcessRef.PC_name == SelectedProcess.PC_name)
+                if (wc.ProcessRef.PcName == SelectedProcess.PcName)
                 {
                     return wc;
                 }

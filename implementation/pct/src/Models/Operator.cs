@@ -11,15 +11,15 @@ namespace Your
     public class Operator
     {
         private string uuid;
-        private string o_name;
-        private string o_description;
-        private bool o_useCustomUpperLimit;
+        private string oName;
+        private string oDescription;
+        private bool oUseCustomUpperLimit;
         private bool isSelected;
 
-        public bool O_useCustomUpperLimit
+        public bool OUseCustomUpperLimit
         {
-            get { return o_useCustomUpperLimit; }
-            set { o_useCustomUpperLimit = value; }
+            get { return oUseCustomUpperLimit; }
+            set { oUseCustomUpperLimit = value; }
         }
 
         public bool IsSelected
@@ -33,26 +33,26 @@ namespace Your
             get { return uuid; }
             set { uuid = value; }
         }
-        public string O_description
+        public string ODescription
         {
             get
             {
-                return o_description;
+                return oDescription;
             }
             set
             {
-                o_description = value;
+                oDescription = value;
             }
         }
-        public string O_name
+        public string OName
         {
             get
             {
-                return o_name;
+                return oName;
             }
             set
             {
-                o_name = value;
+                oName = value;
             }
         }
 

@@ -17,9 +17,9 @@ namespace Your
         #region Fields and auto-implement properties
         private static WorkstationClass selectedWorkstationClass;
 
-        private static ObservableCollection<ObservableCollection<SecondaryActivity>> _slist;
+        private static ObservableCollection<ObservableCollection<SecondaryActivity>> slist;
 
-        private static ObservableCollection<WorkstationClass> _observableWorkstationClass;
+        private static ObservableCollection<WorkstationClass> observableWorkstationClass;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -39,14 +39,14 @@ namespace Your
         #region Properties
         public static ObservableCollection<ObservableCollection<SecondaryActivity>> Slist
         {
-            get { return _slist; }
-            set { _slist = value; }
+            get { return slist; }
+            set { slist = value; }
         }
 
         public static ObservableCollection<WorkstationClass> ObservableWorkstationClass
         {
             get { return WorkstationClassList.WorkstationClasses; }
-            set { _observableWorkstationClass = value; }
+            set { observableWorkstationClass = value; }
         }
 
 
@@ -86,9 +86,9 @@ namespace Your
         {
             ObservableWorkstationClass.Add(new WorkstationClass()
             {
-                WC_name = "",
-                WC_type = "",
-                WC_handlingType = "",
+                WcName = "",
+                WcType = "",
+                WcHandlingType = "",
                 SecondaryactivityRef = SecondaryActivityList.SecondaryActivities
             });
             SelectedWorkstationClass = ObservableWorkstationClass.ElementAt(ObservableWorkstationClass.Count - 1);
@@ -99,9 +99,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedWorkstationClass() != null)
+            if (CheckMatchedWorkstationClass() != null)
             {
-                MessageBox.Show("This Workstation class is currently attached to a Workstation ("+checkMatchedWorkstationClass().W_name+"). Please:" +
+                MessageBox.Show("This Workstation class is currently attached to a Workstation ("+CheckMatchedWorkstationClass().WName+"). Please:" +
                     " \n\nRemove the Workstation in \"Workstations\" tab first" +
                     "\n..Or.." +
                     "\nChange the attached Wrokstation class to another one");
@@ -116,11 +116,11 @@ namespace Your
         /// Return true if a matched WorkstationClass is found being used in a item of Workstation list
         /// </summary>
         /// <returns></returns>
-        private Workstation checkMatchedWorkstationClass()
+        private Workstation CheckMatchedWorkstationClass()
         {
             foreach (Workstation w in WorkstationsViewModel.ObservableWorkstation)
             {
-                if (w.WorkstationclassRef.WC_name == SelectedWorkstationClass.WC_name)
+                if (w.WorkstationclassRef.WcName == SelectedWorkstationClass.WcName)
                 {
                     return w;
                 }

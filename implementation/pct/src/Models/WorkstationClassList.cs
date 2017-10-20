@@ -11,16 +11,16 @@ namespace Your
 {
     public class WorkstationClassList : ContentViewModel
     {
-        private static ObservableCollection<WorkstationClass> _workstationClasses;
+        private static ObservableCollection<WorkstationClass> workstationClasses;
         public static ObservableCollection<WorkstationClass> WorkstationClasses
         {
             get
             {
-                return _workstationClasses;
+                return workstationClasses;
             }
             set
             {
-                _workstationClasses = value;
+                workstationClasses = value;
             }
         }
         public WorkstationClassList()
@@ -37,7 +37,7 @@ namespace Your
             //};
         }
 
-        private static void generateWorkstationClasses()
+        private static void GenerateWorkstationClasses()
         {
             //WorkstationClasses = new ObservableCollection<WorkstationClass>
             //{

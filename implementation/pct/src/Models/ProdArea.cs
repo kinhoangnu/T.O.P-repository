@@ -10,52 +10,52 @@ namespace Your
     public class ProdArea : ContentViewModel
     {
         private string uuid;
-        private string p_name;
-        private string p_comID;        
-        private string p_description;
-        private string p_type;
+        private string pName;
+        private string pComId;        
+        private string pDescription;
+        private string pType;
 
-        public string P_type
+        public string PType
         {
-            get { return p_type; }
-            set { p_type = value; }
+            get { return pType; }
+            set { pType = value; }
         }
         public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
         }
-        public string P_description
+        public string PDescription
         {
             get
             {
-                return p_description;
+                return pDescription;
             }
             set
             {
-                ChangeProperty(ref p_description, value);
+                ChangeProperty(ref pDescription, value);
             }
         }
-        public string P_name
+        public string PName
         {
             get
             {
-                return p_name;
+                return pName;
             }
             set
             {
-                ChangeProperty(ref p_name, value);
+                ChangeProperty(ref pName, value);
             }
         }
-        public string P_comID
+        public string PComId
         {
             get
             {
-                return p_comID;
+                return pComId;
             }
             set
             {
-                ChangeProperty(ref p_comID, value);
+                ChangeProperty(ref pComId, value);
             }
         }
         public ProdArea()

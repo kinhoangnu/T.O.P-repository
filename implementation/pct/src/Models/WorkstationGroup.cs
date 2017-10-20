@@ -10,34 +10,34 @@ namespace Your
     public class WorkstationGroup : ContentViewModel
     {
         private string uuid;
-        private string wg_name;
-        private string wg_description;
+        private string wgName;
+        private string wgDescription;
 
         public string Uuid
         {
             get { return uuid; }
             set { uuid = value; }
         }
-        public string WG_name
+        public string WgName
         {
             get
             {
-                return wg_name;
+                return wgName;
             }
             set
             {
-                ChangeProperty(ref wg_name, value);
+                ChangeProperty(ref wgName, value);
             }
         }
-        public string WG_description
+        public string WgDescription
         {
             get
             {
-                return wg_description;
+                return wgDescription;
             }
             set
             {
-                ChangeProperty(ref wg_description, value);
+                ChangeProperty(ref wgDescription, value);
             }
         }
 

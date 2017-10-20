@@ -16,7 +16,7 @@ namespace Your
     {
         #region Fields and auto-implement properties
         private Operator selectedOperator;
-        private ObservableCollection<Operator> _observableOperator;
+        private ObservableCollection<Operator> observableOperator;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -37,7 +37,7 @@ namespace Your
         public ObservableCollection<Operator> ObservableOperator
         {
             get { return OperatorList.Operators; }
-            set { ChangeProperty(ref _observableOperator, value); }
+            set { ChangeProperty(ref observableOperator, value); }
         }
 
         /// <summary>
@@ -70,9 +70,9 @@ namespace Your
         /// </summary>
         public void Delete()
         {
-            if (checkMatchedOperator() != null)
+            if (CheckMatchedOperator() != null)
             {
-                MessageBox.Show("This Operator is currently attached to a Process ("+checkMatchedOperator().PC_name+"). Please:" +
+                MessageBox.Show("This Operator is currently attached to a Process ("+CheckMatchedOperator().PcName+"). Please:" +
                        " \n\nRemove the Process in \"Processes\" tab first" +
                        "\n..Or.." +
                        "\nChange the attached buffer to another one");
@@ -87,7 +87,7 @@ namespace Your
         /// Return true if a matched Operator is found being used in a item of Process list
         /// </summary>
         /// <returns></returns>
-        private Process checkMatchedOperator()
+        private Process CheckMatchedOperator()
         {
             //if (ProcessList.Processes != null)
             //{

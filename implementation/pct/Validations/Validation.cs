@@ -10,22 +10,22 @@ namespace Your
 {
     class Validation : ContentViewModel
     {
-        private string _textBlock1;
+        private string textBlock1;
         public string TextBlock1
         {
-            get { return _textBlock1; }
+            get { return textBlock1; }
             set
             {
-                if (ChangeProperty(ref _textBlock1, value) == true)
+                if (ChangeProperty(ref textBlock1, value) == true)
                     IsValid = IsPropertyValid() ? "valid" : "invalid";
             }
         }
 
-        private string _isValid;
+        private string isValid;
         public string IsValid
         {
-            get { return _isValid; }
-            set { ChangeProperty(ref _isValid, value); }
+            get { return isValid; }
+            set { ChangeProperty(ref isValid, value); }
         }
 
         public Validation()

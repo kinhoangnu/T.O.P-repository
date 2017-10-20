@@ -1,20 +1,20 @@
 ﻿<UserControl x:Class="Your.ProcessesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Height="auto"  Width="auto">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" Height="auto" Width="auto">
     <Grid Margin="10,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <DataGrid x:Name="lstNames" Margin="5,5,35,5" 
+        <DataGrid x:Name="lstNames" Margin="5,5,35,5"
                   ItemsSource="{Binding ObservableProcess}" SelectedItem="{Binding SelectedProcess, Mode=TwoWay}"
                   AutoGenerateColumns="False">
             <DataGrid.InputBindings>
-                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" CommandParameter="Delete"/>
-                <KeyBinding Key="Enter" Command="{Binding AddCommand}" CommandParameter="Add"/>
+                <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" CommandParameter="Delete" />
+                <KeyBinding Key="Enter" Command="{Binding AddCommand}" CommandParameter="Add" />
             </DataGrid.InputBindings>
             <DataGrid.Resources>
                 <Style TargetType="GridViewColumnHeader">
@@ -22,58 +22,62 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding PC_name}" Width="*"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding PC_description}" Width="*"/>
-                <DataGridTextColumn Header="Communication ID" Binding="{Binding PC_comID}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding PcName}" Width="*" />
+                <DataGridTextColumn Header="Description" Binding="{Binding PcDescription}" Width="*" />
+                <DataGridTextColumn Header="Communication ID" Binding="{Binding PcComID}" Width="*" />
                 <DataGridTemplateColumn Header="Production Area Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                      ItemsSource="{Binding Path=ObservableProdArea}" Text="{Binding Path=ProdRef.P_name}" DisplayMemberPath="P_name"/>
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      ItemsSource="{Binding Path=ObservableProdArea}"
+                                      Text="{Binding Path=ProdRef.PName}" DisplayMemberPath="PName" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="In-Buffer Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                      ItemsSource="{Binding Path=ObservableBuffer}"
-                      Text="{Binding Path=InbufferRef.B_name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                      DisplayMemberPath="B_name"/>
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      ItemsSource="{Binding Path=ObservableBuffer}"
+                                      Text="{Binding Path=InbufferRef.BName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                      DisplayMemberPath="BName" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Out-Buffer Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                              ItemsSource="{Binding ObservableOutBuffer}"                                          
-                              SnapsToDevicePixels="True" OverridesDefaultStyle="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                              AllowDrop="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" 
-                              IsSynchronizedWithCurrentItem="True">
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      ItemsSource="{Binding ObservableOutBuffer}"
+                                      SnapsToDevicePixels="True" OverridesDefaultStyle="True"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AllowDrop="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.CanContentScroll="True"
+                                      IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                            <CheckBox x:Name="cbox" Content="{Binding B_name}"  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}" 
-                                                  Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}"/>
-                                    </DataTemplate>                                    
+                                        <CheckBox x:Name="cbox" Content="{Binding BName}"
+                                                  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}"
+                                                  Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}" />
+                                    </DataTemplate>
                                 </ComboBox.ItemTemplate>
-                            </ComboBox>                            
+                            </ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Replenishment">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Width="auto" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                      IsChecked="{Binding Path=IsReplenished}"/>
+                            <CheckBox Width="auto" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      IsChecked="{Binding Path=IsReplenished}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Excluded From KPIs">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Width="auto" HorizontalAlignment="Right" Margin="8,0,0,0" 
-                      IsChecked="{Binding Path=ExclFromKPI}"/>
+                            <CheckBox Width="auto" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      IsChecked="{Binding Path=ExclFromKpi}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -81,8 +85,10 @@
         </DataGrid>
 
         <StackPanel Grid.Row="1" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#fafafa" Width="auto">
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnAdd" Command="{Binding AddCommand}" Content="Add a new Process"/>
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnDelete" Command="{Binding DeleteCommand}" Content="Delete selected Item"/>
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnAdd"
+                    Command="{Binding AddCommand}" Content="Add a new Process" />
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnDelete"
+                    Command="{Binding DeleteCommand}" Content="Delete selected Item" />
         </StackPanel>
 
 
