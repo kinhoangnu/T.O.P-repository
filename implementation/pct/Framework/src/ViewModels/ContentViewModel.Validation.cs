@@ -10,30 +10,27 @@
 *  
 */
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using MvvmValidation;
 
-
 namespace com.vanderlande.wpf
 {
     // Properties and methods of Validation in the ContentViewModel
-    public partial class ContentViewModel 
+    public partial class ContentViewModel
     {
         // Override Error property to process validation in a Composite ContentViewModel (Parent/Child)
         public override string Error
         {
-            get
-            {
-                return GetValidationResult().ToString();
-            }
+            get { return GetValidationResult().ToString(); }
             protected set
             {
                 RaisePropertyChanged();
                 if (Parent != null)
+                {
                     Parent.Error = value;
+                }
             }
         }
 
@@ -42,31 +39,33 @@ namespace com.vanderlande.wpf
         {
             get
             {
-                if (base.HasErrors == true)
+                if (base.HasErrors)
+                {
                     return true;
+                }
                 return _childViewModels.Any(cv => cv.HasErrors);
             }
             protected set
             {
                 RaisePropertyChanged();
                 if (Parent != null)
+                {
                     Parent.HasErrors = value;
+                }
             }
         }
 
         // Expose each error seperately
         public ObservableCollection<ValidationError> ErrorList { get; private set; }
-        
 
         private void ValidateAll()
         {
-            foreach (ContentViewModel cv in _childViewModels)
+            foreach (var cv in _childViewModels)
             {
                 cv.Validator.ValidateAll();
             }
             Validator.ValidateAll();
         }
-
 
         private void InitializeValidation()
         {
@@ -74,30 +73,34 @@ namespace com.vanderlande.wpf
             ErrorsChanged += UpdateErrorList;
         }
 
-
         private void UpdateErrorList(object sender, DataErrorsChangedEventArgs e)
         {
-            ValidationResult result = GetValidationResult();
-            List<ValidationError> errList = result.ErrorList.ToList();
-            foreach (ValidationError ve in ErrorList.ToList())
+            var result = GetValidationResult();
+            var errList = result.ErrorList.ToList();
+            foreach (var ve in ErrorList.ToList())
             {
                 if (errList.Contains(ve) == false)
+                {
                     ErrorList.Remove(ve);
+                }
             }
-            foreach (ValidationError ve in errList)
+            foreach (var ve in errList)
             {
                 if (ErrorList.Contains(ve) == false)
+                {
                     ErrorList.Add(ve);
+                }
             }
             if (Parent != null)
+            {
                 Parent.UpdateErrorList(sender, e);
+            }
         }
-
 
         private ValidationResult GetValidationResult()
         {
-            ValidationResult result = Validator.GetResult();
-            foreach (ContentViewModel cv in _childViewModels)
+            var result = Validator.GetResult();
+            foreach (var cv in _childViewModels)
             {
                 result = result.Combine(cv.GetValidationResult());
             }

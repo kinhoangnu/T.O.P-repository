@@ -9,44 +9,57 @@
 *  program(s) have been supplied.
 *  
 */
+
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace com.vanderlande.wpf
 {
     /// <summary>
     /// Base class for the (singleton) application with some common default processing
     /// like: Startup/Exit/Exception handling (virtual methods),
-    ///       Idle processing (virtual method and as event),
-    ///       Initialize the default Mediator.
+    /// Idle processing (virtual method and as event),
+    /// Initialize the default Mediator.
     /// </summary>
     public abstract class ViApplication
     {
-        #region Fields
+        // Can ConcentViewModel pages be closed ?
+        public bool CanClosePages = true;
 
-        private bool _isMessageBoxVisible = false;
-        private Mutex _instanceMutex = null;            // The created mutex exist as long as the application exists
+        // Is the application designed to be used on tablets?
+        public bool DesignedForTablet = false;
 
-        protected bool SingleInstance = false;          // Can there be only one instance of this application?
+        // If running on a tablet, should it be full screen?
+        public bool FullScreenOnTablet = true;
+
+        // If not running on a tablet, what size should be used for "full screen".
+        public int FullScreenOnTabletWidth = 1366;
+        public int FullScreenOnTabletHeight = 700;
+        public EventHandler OnIdleHandler;
+
+        protected bool SingleInstance = false; // Can there be only one instance of this application?
+
+        private readonly List<FunctionalModule> _functionalModules;
+
+        private bool _isMessageBoxVisible;
+        private Mutex _instanceMutex; // The created mutex exist as long as the application exists
 
         private InitAssemblies _initAssemblies;
 
-        #endregion
+        private string _language;
 
-        #region Properties
         /// <summary>
         /// Get the one and only VI MVVM Application instance.
         /// </summary>
         public static ViApplication Instance { get; private set; }
-
 
         /// <summary>
         /// Get the WPF Application instance.
@@ -55,7 +68,6 @@ namespace com.vanderlande.wpf
         {
             get { return Application.Current; }
         }
-
 
         /// <summary>
         /// Get the Project the application belongs to.
@@ -67,12 +79,11 @@ namespace com.vanderlande.wpf
         /// </summary>
         public string Name { get; protected set; }
 
-
         public string ApplicationDataFolder
         {
             get
             {
-                string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 folder = Path.Combine(folder, "Vanderlande");
                 if (Directory.Exists(folder) == false)
                 {
@@ -87,59 +98,13 @@ namespace com.vanderlande.wpf
             }
         }
 
-
-        private string _language;
         public string Language
         {
-            get { return _language;  }
-            set
-            {
-                SetLanguage(value);
-            }
+            get { return _language; }
+            set { SetLanguage(value); }
         }
-
-
-        // Can ConcentViewModel pages be closed ?
-        public bool CanClosePages = true;
 
         public MainWindowViewModel MainWindowViewModel { get; private set; }
-
-        // Is the application designed to be used on tablets?
-        public bool DesignedForTablet = false;
-
-        // If running on a tablet, should it be full screen?
-        public bool FullScreenOnTablet = true;
-
-        // If not running on a tablet, what size should be used for "full screen".
-        public int FullScreenOnTabletWidth = 1366;
-        public int FullScreenOnTabletHeight = 700;
-
-        private readonly List<FunctionalModule> _functionalModules;
-        #endregion
-
-        #region Events
-        public EventHandler OnIdleHandler;
-        #endregion
-
-        #region Methods
-
-        public virtual void OnIdle()
-        {
-            InActivityManager.Step();
-            Mediator.HandlePostedEvents();
-            foreach (FunctionalModule fm in _functionalModules)
-            {
-                fm.DoOnIdle();
-            }
-            if (OnIdleHandler != null)
-            {
-                OnIdleHandler(this, null);
-            }
-        }
-
-        #endregion
-
-        #region Protected Methods
 
         protected ViApplication(string name, string project)
         {
@@ -150,23 +115,30 @@ namespace com.vanderlande.wpf
             InitializeEvents();
         }
 
-
-        protected void AddFunctionalModule(FunctionalModule fm)
+        public virtual void OnIdle()
         {
-            _functionalModules.Add(fm);
+            InActivityManager.Step();
+            Mediator.HandlePostedEvents();
+            foreach (var fm in _functionalModules)
+            {
+                fm.DoOnIdle();
+            }
+            if (OnIdleHandler != null)
+            {
+                OnIdleHandler(this, null);
+            }
         }
-
 
         public bool ActivateFunctionalModule(FunctionalModule mod)
         {
-            if (mod.IsActive == true)
+            if (mod.IsActive)
             {
                 return true;
             }
-            foreach (FunctionalModule fm in _functionalModules.Where(x => x.IsActive))
+            foreach (var fm in _functionalModules.Where(x => x.IsActive))
             {
                 if (DeActivateFunctionalModule(fm) == false)
-                { 
+                {
                     return false;
                 }
             }
@@ -176,7 +148,6 @@ namespace com.vanderlande.wpf
             }
             return mod.DoActivate();
         }
-
 
         public bool DeActivateFunctionalModule(FunctionalModule mod)
         {
@@ -189,6 +160,11 @@ namespace com.vanderlande.wpf
                 return false;
             }
             return mod.DoDeActivate();
+        }
+
+        protected void AddFunctionalModule(FunctionalModule fm)
+        {
+            _functionalModules.Add(fm);
         }
 
         protected virtual void OnStartup(object sender, StartupEventArgs args)
@@ -210,16 +186,15 @@ namespace com.vanderlande.wpf
 
             InActivityManager.Add(new ScreenSaver());
 
-            foreach (FunctionalModule fm in _functionalModules)
+            foreach (var fm in _functionalModules)
             {
                 fm.DoInitialize();
             }
         }
 
-
         protected virtual void OnExit(object sender, ExitEventArgs args)
         {
-            foreach (FunctionalModule fm in _functionalModules)
+            foreach (var fm in _functionalModules)
             {
                 fm.DoDispose();
             }
@@ -230,13 +205,12 @@ namespace com.vanderlande.wpf
             Mediator.Default.Clear();
         }
 
-
         protected virtual bool OnUnhandledException(Exception ex)
         {
-            if (_isMessageBoxVisible == false)          // Prevent a cascade of messageboxes.
+            if (_isMessageBoxVisible == false) // Prevent a cascade of messageboxes.
             {
                 _isMessageBoxVisible = true;
-                string message = "Unhandled exception:";
+                var message = "Unhandled exception:";
                 while (ex != null)
                 {
                     message += "\n\t-" + ex.Message;
@@ -246,18 +220,25 @@ namespace com.vanderlande.wpf
                 MessageBox.Show(message, Name);
                 _isMessageBoxVisible = false;
             }
-            return true;                        // Consider the exception as handled.
+            return true; // Consider the exception as handled.
         }
-
 
         protected virtual MainWindowViewModel CreateMainWindowViewModel()
         {
             return new MainWindowViewModel();
         }
 
-        #endregion
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
 
-        #region Private methods
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern bool IsIconic(IntPtr hWnd);
 
         private void InitializeProperties(string name, string project)
         {
@@ -266,7 +247,6 @@ namespace com.vanderlande.wpf
             Project = project;
             MainWindowViewModel = null;
         }
-
 
         private void InitializeEvents()
         {
@@ -287,16 +267,14 @@ namespace com.vanderlande.wpf
         */
         }
 
-
         // Create the (default) mediator, attach an exception handler and register commands.
         private void InitializeMediator()
         {
-            Mediator mediator = Mediator.Default;
+            var mediator = Mediator.Default;
             mediator.OnException += (a, b) => OnUnhandledException(b);
 
             mediator.Register<CommandBase>(this, OnCommandBase);
         }
-
 
         private void OnCommandBase(CommandBase cmd)
         {
@@ -310,7 +288,6 @@ namespace com.vanderlande.wpf
             }
         }
 
-
         private void DoStartupEvent(object sender, StartupEventArgs e)
         {
             if (CanRunThisInstance() == false)
@@ -321,12 +298,10 @@ namespace com.vanderlande.wpf
             OnStartup(sender, e);
         }
 
-
         private void DoUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
         {
             args.Handled = OnUnhandledException(args.Exception);
         }
-
 
         private void DoIdle(object sender, EventArgs args)
         {
@@ -340,15 +315,14 @@ namespace com.vanderlande.wpf
             }
         }
 
-
         private void SetLanguage(string value)
         {
-            string path = (new FileInfo(System.Reflection.Assembly.GetEntryAssembly().Location)).DirectoryName;
+            var path = new FileInfo(Assembly.GetEntryAssembly().Location).DirectoryName;
             path += "\\resources\\Languages\\" + value + ".xaml";
             var uriObj = new Uri(path, UriKind.Absolute);
             var resourceDictionary = new ResourceDictionary { Source = uriObj };
 
-            Collection<ResourceDictionary> dict = WPFApplication.Resources.MergedDictionaries;
+            var dict = WPFApplication.Resources.MergedDictionaries;
             if (_language == null)
             {
                 dict.Add(resourceDictionary);
@@ -360,8 +334,6 @@ namespace com.vanderlande.wpf
             }
             _language = value;
         }
-
-
 
         /// Check if given application is allowed to start.
         /// returns false if not.
@@ -383,53 +355,41 @@ namespace com.vanderlande.wpf
             return false;
         }
 
-
         // Search for running instance and make that window topmost
         private void ShowOtherProcess()
         {
-            Process thisProcess = Process.GetCurrentProcess();
-            Process otherProcess = Process.GetProcessesByName(thisProcess.ProcessName).FirstOrDefault(x => x.Id != thisProcess.Id);
+            var thisProcess = Process.GetCurrentProcess();
+            var otherProcess =
+                Process.GetProcessesByName(thisProcess.ProcessName).FirstOrDefault(x => x.Id != thisProcess.Id);
             if (otherProcess != null)
             {
                 if (IsIconic(otherProcess.MainWindowHandle))
                 {
                     const int SW_RESTORE = 9;
                     ShowWindow(otherProcess.MainWindowHandle, SW_RESTORE);
-                } 
+                }
                 SetForegroundWindow(otherProcess.MainWindowHandle);
             }
         }
 
-
         private void ResizeForTablet()
         {
-            if ((DesignedForTablet == false) || (FullScreenOnTablet == false))
+            if (DesignedForTablet == false || FullScreenOnTablet == false)
             {
-                return;                 // The application is not designed for tablets or it should not run full screen by default.
+                return; // The application is not designed for tablets or it should not run full screen by default.
             }
 
             const int SM_TABLETPC = 86;
             if (GetSystemMetrics(SM_TABLETPC) != 0)
-            {                           // The application is running on a tablet.
+            {
+                // The application is running on a tablet.
                 MainWindowViewModel.Window.WindowState = WindowState.Maximized;
             }
-            else                        // The tablet application is not running on a tablet; use predefined size.
+            else // The tablet application is not running on a tablet; use predefined size.
             {
                 MainWindowViewModel.Window.Width = FullScreenOnTabletWidth;
                 MainWindowViewModel.Window.Height = FullScreenOnTabletHeight;
-             }
+            }
         }
-
-        [DllImport("user32.dll")]
-        private static extern int GetSystemMetrics(int nIndex);
-        [DllImport("user32.dll")]
-        private static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
-        [DllImport("user32.dll")]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
-        [DllImport("user32.dll")]
-        private static extern bool IsIconic(IntPtr hWnd);
-
-        #endregion
     }
-
 }

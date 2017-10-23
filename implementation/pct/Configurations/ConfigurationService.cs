@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -12,8 +8,9 @@ namespace Configurations
 {
     public class ConfigurationService
     {
-        XmlReaderSettings setting = new XmlReaderSettings();
-         public static T DeserializeAndValidate<T>(XmlElement xmlStream, XmlReaderSettings settings)
+        private readonly XmlReaderSettings setting = new XmlReaderSettings();
+
+        public static T DeserializeAndValidate<T>(XmlElement xmlStream, XmlReaderSettings settings)
         {
             Exception exception = null;
             ValidationEventHandler validationHandler = (sender, args) =>
@@ -34,19 +31,19 @@ namespace Configurations
                 var serializer = new XmlSerializer(typeof(T));
                 using (var reader = XmlReader.Create(new XmlNodeReader(xmlStream), settings))
                 {
-                    topConfigurationObject = (T)serializer.Deserialize(reader);
+                    topConfigurationObject = (T) serializer.Deserialize(reader);
                 }
 
                 if (topConfigurationObject == null)
                 {
                     //throw new ValidationException();
-                    throw new System.ArgumentException("something went wrong", "original");
+                    throw new ArgumentException("something went wrong", "original");
                 }
 
                 if (exception != null)
                 {
                     //throw new ValidationException();
-                    throw new System.ArgumentException("something went wrong", "original");
+                    throw new ArgumentException("something went wrong", "original");
                 }
                 return topConfigurationObject;
             }
@@ -56,9 +53,9 @@ namespace Configurations
             }
         }
 
-         public void LoadShiftSettings(XmlElement xmlStream)
-         {
-             DeserializeAndValidate<TopShiftSettings>(xmlStream, setting);
-         }
+        public void LoadShiftSettings(XmlElement xmlStream)
+        {
+            DeserializeAndValidate<TopShiftSettings>(xmlStream, setting);
+        }
     }
 }

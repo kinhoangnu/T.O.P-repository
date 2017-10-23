@@ -9,6 +9,7 @@
 *  program(s) have been supplied.
 *  
 */
+
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -22,30 +23,27 @@ namespace com.vanderlande.wpf
             return RuleResult.Valid();
         }
 
-
         public static RuleResult Invalid(Enum key, params object[] args)
         {
-            string str = key.GetType().Name + "." + key;
+            var str = key.GetType().Name + "." + key;
             return Invalid(str, args);
         }
 
-
         public static RuleResult Invalid(string key, params object[] args)
         {
-            int cnt = args.Length;
+            var cnt = args.Length;
             Debug.Assert(cnt % 2 == 0, string.Format("{0} must have a key-value pair", key));
 
-            string str = ("Validator." + key).ToResourceString();
-            for (int i = 1; i < cnt; i += 2)
+            var str = ("Validator." + key).ToResourceString();
+            for (var i = 1; i < cnt; i += 2)
             {
-                string arg = "{" + args[i-1] + "}";
-                string value = Translate(args[i].ToString());
+                var arg = "{" + args[i - 1] + "}";
+                var value = Translate(args[i].ToString());
                 str = str.Replace(arg, value);
             }
 
             return RuleResult.Invalid(str);
         }
-
 
         private static string Translate(string key)
         {
@@ -56,8 +54,5 @@ namespace com.vanderlande.wpf
             }
             return key;
         }
-
-
     }
-
 }

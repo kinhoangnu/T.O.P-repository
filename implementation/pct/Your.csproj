@@ -35,6 +35,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Com.Vanderlande.Top.Common">
+      <HintPath>..\..\..\..\..\Downloads\top-fmc-bin-0.6.5.0\Com.Vanderlande.Top.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.Vanderlande.Top.Configuration">
+      <HintPath>..\..\..\..\..\Downloads\top-fmc-bin-0.6.5.0\Com.Vanderlande.Top.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.Vanderlande.Top.HumanResource">
+      <HintPath>..\..\..\..\..\Downloads\top-fmc-bin-0.6.5.0\Com.Vanderlande.Top.HumanResource.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.Vanderlande.Top.Resource">
+      <HintPath>..\..\..\..\..\Downloads\top-fmc-bin-0.6.5.0\Com.Vanderlande.Top.Resource.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.Vanderlande.Top.ResourcePlan">
+      <HintPath>..\..\..\..\..\Downloads\top-fmc-bin-0.6.5.0\Com.Vanderlande.Top.ResourcePlan.dll</HintPath>
+    </Reference>
     <Reference Include="FmCommonContract">
       <HintPath>packages\FmCommonContract.1.8.4\lib\net452\FmCommonContract.dll</HintPath>
     </Reference>
@@ -129,7 +144,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Validations\Validation.cs" />
     <Resource Include="Resources\Images\False.png" />
     <Resource Include="Resources\Images\True.png" />
     <Content Include="MvvmValidation.dll" />

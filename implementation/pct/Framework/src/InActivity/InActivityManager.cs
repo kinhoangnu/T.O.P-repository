@@ -9,6 +9,7 @@
 *  program(s) have been supplied.
 *  
 */
+
 using System.Collections.Generic;
 
 namespace com.vanderlande.wpf
@@ -33,7 +34,7 @@ namespace com.vanderlande.wpf
         internal static void Step()
         {
             var idleTime = InActivityDetector.GetIdleTimeInfo();
-            foreach (InActivityProcess iap in _processes)
+            foreach (var iap in _processes)
             {
                 if (idleTime.IdleTime < iap.IdleTime)
                 {
@@ -45,7 +46,5 @@ namespace com.vanderlande.wpf
                 }
             }
         }
-
     }
-
 }

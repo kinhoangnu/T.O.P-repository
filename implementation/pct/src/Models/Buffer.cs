@@ -54,8 +54,9 @@ namespace Your
             }
             set
             {
-                if (ChangeProperty(ref bName, value) == true)
-                    IsValid = IsPropertyValid() ? "valid" : "invalid";
+                ChangeProperty(ref bName, value);
+                //if (ChangeProperty(ref bName, value) == true)
+                //    IsValid = IsPropertyValid() ? "valid" : "invalid";
             }
         }
         public string BComId
@@ -84,39 +85,39 @@ namespace Your
         public Buffer()
         {
             // Add property validators in the constructor.
-            Validator.AddRule(ValidateTextBlock1, () => BName);
-            Validator.AddRule(() => ValidateTextBlock2(BName), () => BName);
+            //Validator.AddRule(ValidateTextBlock1, () => BName);
+            //Validator.AddRule(() => ValidateTextBlock2(BName), () => BName);
 
-            // Initialize the property here so ChangeProperty is raised and IsPropertyValid is determined.
-            BName = "";
+            //// Initialize the property here so ChangeProperty is raised and IsPropertyValid is determined.
+            //BName = "";
         }
 
-        private RuleResult ValidateTextBlock1()
-        {
-            int value;
-            return RuleResult.Assert(!(int.TryParse(BName, out value)), "*Number is not allowed");
-        }
+        //private RuleResult ValidateTextBlock1()
+        //{
+        //    int value;
+        //    return RuleResult.Assert(!(int.TryParse(BName, out value)), "*Number is not allowed");
+        //}
 
-        // This check is only executed when the first one succeeds.
-        private RuleResult ValidateTextBlock2(string str)
-        {
-            return RuleResult.Assert(CheckDuplicateName(BName), string.Format("Duplicated name!"));
-        }
+        //// This check is only executed when the first one succeeds.
+        //private RuleResult ValidateTextBlock2(string str)
+        //{
+        //    return RuleResult.Assert(CheckDuplicateName(BName), string.Format("Duplicated name!"));
+        //}
 
-        bool CheckDuplicateName(string s)
-        {
-            int i = 0;
-            foreach (Buffer b in BufferList.Buffers)
-            {
-                if (s == b.BName)
-                    i++;
-            }
-            if (i > 1)
-            {
-                return false;
-            }
-            return true;
-        }
+        //bool CheckDuplicateName(string s)
+        //{
+        //    int i = 0;
+        //    foreach (Buffer b in BufferList.Buffers)
+        //    {
+        //        if (s == b.BName)
+        //            i++;
+        //    }
+        //    if (i > 1)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
     }
 
 }
