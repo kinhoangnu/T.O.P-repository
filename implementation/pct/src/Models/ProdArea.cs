@@ -1,4 +1,5 @@
-﻿using com.vanderlande.wpf;
+﻿using System;
+using com.vanderlande.wpf;
 
 namespace Your
 {
@@ -28,6 +29,11 @@ namespace Your
         {
             get { return pComId; }
             set { ChangeProperty(ref pComId, value); }
+        }
+
+        public ProdArea()
+        {
+            Uuid = Guid.NewGuid().ToString();
         }
     }
 }

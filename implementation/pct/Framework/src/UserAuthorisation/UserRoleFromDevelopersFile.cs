@@ -19,7 +19,7 @@ namespace com.vanderlande.wpf
         public override UserRole Create()
         {
             Developers devs = new Developers();
-            if ((!devs.Load()) ||
+            if ((!devs.Import()) ||
                 (!devs.ContainsCurrentUser))
             {
                 return base.Create();

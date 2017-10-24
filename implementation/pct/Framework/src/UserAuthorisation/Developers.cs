@@ -59,7 +59,7 @@ namespace com.vanderlande.wpf
         }
 
 
-        internal bool Load()
+        internal bool Import()
         {
             string fname = GetFileName();
             if (fname == null)
@@ -72,7 +72,7 @@ namespace com.vanderlande.wpf
         }
 
 
-        internal bool Save()
+        internal bool Export()
         {
             string fname = GetFileName();
             if (fname == null)

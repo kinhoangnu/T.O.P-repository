@@ -24,7 +24,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding PcName}" Width="*" />
                 <DataGridTextColumn Header="Description" Binding="{Binding PcDescription}" Width="*" />
-                <DataGridTextColumn Header="Communication ID" Binding="{Binding PcComID}" Width="*" />
+                <DataGridTextColumn Header="Communication ID" Binding="{Binding PcComId}" Width="*" />
                 <DataGridTemplateColumn Header="Production Area Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

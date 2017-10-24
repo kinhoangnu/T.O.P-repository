@@ -108,14 +108,14 @@ namespace com.vanderlande.wpf
             _rootElement = depObj;
         }
 
-        internal void Save()
+        internal void Export()
         {
             int index = 1;
             SaveLayout(ref index, 1, _rootElement);
         }
 
 
-        internal void Load()
+        internal void Import()
         {
             int index = 1;
             _layoutCommands = new List<LayoutCommand>();

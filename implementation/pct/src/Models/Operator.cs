@@ -58,6 +58,7 @@ namespace Your
 
         public Operator()
         {
+            Uuid = Guid.NewGuid().ToString();
         }
 
     }

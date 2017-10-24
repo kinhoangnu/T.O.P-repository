@@ -19,6 +19,8 @@ using Com.Vanderlande.Top.Resource.Fmc.BusinessService;
 using Com.Vanderlande.Top.Resource.Fmc.Model.Entities;
 using Configurations;
 using FM.Top.TopIntModel;
+using FM.Top.TopIntTypes;
+using Parameters = Com.Vanderlande.Top.Common.Fmc.BusinessService.Parameters;
 
 namespace Your
 {
@@ -33,19 +35,20 @@ namespace Your
         private string xmlOutputData = string.Empty;
         private List<string> stringlist;
         private ObservableCollection<SecondaryActivity> tempSClist;
+        private TopProjectModel topConfigurationObject;
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand SaveCommand { get; set; }
 
         public LoadXmlViewModel()
         {
-            LoadCommand = new RelayCommand(obj => Load());
-            SaveCommand = new RelayCommand(obj => Save());
+            LoadCommand = new RelayCommand(obj => Import());
+            SaveCommand = new RelayCommand(obj => Export());
         }
 
         /// <summary>
         /// Load the XML file
         /// </summary>
-        public void Load()
+        public void Import()
         {
             Exception exception = null;
             ValidationEventHandler validationHandler = (sender, args) =>
@@ -67,15 +70,85 @@ namespace Your
             }
             var loadpath = openfiledialog.FileName;
             var serializer = new XmlSerializer(typeof(TopProjectModel));
-            TopProjectModel topConfigurationObject;
             using (var reader = XmlReader.Create(loadpath))
             {
                 topConfigurationObject = (TopProjectModel) serializer.Deserialize(reader);
                 Load(topConfigurationObject);
             }
+            ImportProdArea();
+            ImportBuffer();
+            ImportProcess();
+            ImportSecondaryActivity();
+            ImportWorkstationClass();
+            ImportWorkstationGroup();
+            ImportWorkstation();
+            ImportOperator();
+        }
 
-            #region Import Production Area
+        public void Export()
+        {
+            var serializer = new XmlSerializer(typeof(TopProjectModel));
+            var i = -1;
+            ExportBuffer(i);
+            ExportProdArea(i);
+            ExportWorkstationGroup(i);
+            ExportSecondaryActivity(i);
 
+            var xmlDocument = new XmlDocument();
+            var saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            var savepath = saveFileDialog.FileName;
+            using (var stream = new MemoryStream())
+            {
+                Load(topConfigurationObject);
+                serializer.Serialize(stream, topConfigurationObject);
+                stream.Position = 0;
+                xmlDocument.Load(stream);
+                xmlDocument.Save(savepath);
+                stream.Close();
+            }
+        }
+
+        public string Productiontype(ProdArea p)
+        {
+            return p.PType;
+        }
+
+        public void Load(TopProjectModel topProjectModel)
+        {
+            var database = new MemoryDb();
+            var inMemoryParameters = new Parameters(new ParameterMemoryDao(database));
+            var inMemoryResourceDefinitions = new ResourceDefinitions(new AreaMemoryDao(database),
+                new WorkstationMemoryDao(database),
+                new ProcessMemoryDao(database), new BufferMemoryDao(database), new WorkstationClassMemoryDao(database),
+                new ResourceDefinitionMemoryDao<WorkstationGroupEntity>(database), new ActivityMemoryDao(database),
+                new PlannableActivityMemoryDao(database));
+            var inMemoryHumanResources = new HumanResources(inMemoryResourceDefinitions, null, null,
+                new OperatorDefinitionMemoryDao(database), new OperatorAlgorithmMemoryDao(database), inMemoryParameters);
+            var inMemoryExtensibleEnumerations = new ExtensibleEnumerations(new ExtensibleEnumerationMemoryDao(database));
+            var loader = new TopProjectConfigurationLoader(inMemoryResourceDefinitions, inMemoryHumanResources,
+                inMemoryParameters, inMemoryExtensibleEnumerations);
+            IParameterEditor inMemoryParameterEditor = new ParameterEditor(inMemoryParameters,
+                new ConfigurationElementMemoryDao(database));
+
+            loader.Load(topProjectModel);
+
+            var validationResult = inMemoryResourceDefinitions.Validate();
+            validationResult = validationResult.Concat(inMemoryHumanResources.Validate());
+            validationResult = validationResult.Concat(inMemoryParameterEditor.Validate());
+
+            if (validationResult.HasFailures())
+            {
+                throw new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
+            }
+            ConfigurationEvents.Instance.RaiseStartedLoadingConfiguration();
+        }
+
+        public void ImportProdArea()
+        {
             foreach (var p in topConfigurationObject.ProductionAreas)
             {
                 ProdAreaList.ProdAreas.Add(new ProdArea
@@ -87,11 +160,50 @@ namespace Your
                     Uuid = p.ObjectIdentification.UUID
                 });
             }
+        }
 
-            #endregion
+        public void ExportProdArea(int i)
+        {
+            topConfigurationObject.ProductionAreas = new ProductionArea[ProdAreaList.ProdAreas.Count];
+            foreach (var prod in ProdAreaList.ProdAreas)
+            {
+                if (prod.PType == "Inbound")
+                {
+                    i += 1;
+                    topConfigurationObject.ProductionAreas[i] =
+                        new ProductionArea
+                        {
+                            CommunicationId = prod.PComId,
+                            ProductionType = ProductionType.Inbound,
+                            ObjectIdentification = new ObjectIdentification
+                            {
+                                UUID = prod.Uuid,
+                                Description = prod.PDescription,
+                                Name = prod.PName
+                            }
+                        };
+                }
+                else if (prod.PType == "Outbound")
+                {
+                    i += 1;
+                    topConfigurationObject.ProductionAreas[i] =
+                        new ProductionArea
+                        {
+                            CommunicationId = prod.PComId,
+                            ProductionType = ProductionType.Outbound,
+                            ObjectIdentification = new ObjectIdentification
+                            {
+                                UUID = prod.Uuid,
+                                Description = prod.PDescription,
+                                Name = prod.PName
+                            }
+                        };
+                }
+            }
+        }
 
-            #region Import Buffer
-
+        public void ImportBuffer()
+        {
             foreach (var b in topConfigurationObject.Buffers)
             {
                 BufferList.Buffers.Add(new Buffer
@@ -103,11 +215,31 @@ namespace Your
                     Uuid = b.ObjectIdentification.UUID
                 });
             }
+        }
 
-            #endregion
+        public void ExportBuffer(int i)
+        {
+            topConfigurationObject.Buffers = new FM.Top.TopIntTypes.Buffer[BufferList.Buffers.Count];
+            foreach (var b in BufferList.Buffers)
+            {
+                i += 1;
+                topConfigurationObject.Buffers[i] =
+                    new FM.Top.TopIntTypes.Buffer
+                    {
+                        CommunicationId = b.BComId,
+                        Unit = b.BUnit,
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = b.Uuid,
+                            Description = b.BDescription,
+                            Name = b.BName
+                        }
+                    };
+            }
+        }
 
-            #region Import Process
-
+        public void ImportProcess()
+        {
             foreach (var pc in topConfigurationObject.Processes)
             {
                 if (pc.OutBuffers != null && pc.OutBuffers.Any())
@@ -165,11 +297,10 @@ namespace Your
                     });
                 }
             }
+        }
 
-            #endregion
-
-            #region Import Secondary Activity
-
+        public void ImportSecondaryActivity()
+        {
             foreach (var s in topConfigurationObject.SecondaryActivities)
             {
                 SecondaryActivityList.SecondaryActivities.Add(new SecondaryActivity
@@ -180,11 +311,31 @@ namespace Your
                     Uuid = s.ObjectIdentification.UUID
                 });
             }
+        }
 
-            #endregion
+        public void ExportSecondaryActivity(int i)
+        {
+            topConfigurationObject.SecondaryActivities =
+                new FM.Top.TopIntTypes.SecondaryActivity[SecondaryActivityList.SecondaryActivities.Count];
+            foreach (var sc in SecondaryActivityList.SecondaryActivities)
+            {
+                i += 1;
+                topConfigurationObject.SecondaryActivities[i] =
+                    new FM.Top.TopIntTypes.SecondaryActivity
+                    {
+                        CommunicationId = sc.ScComId,
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = sc.Uuid,
+                            Description = sc.ScDescription,
+                            Name = sc.ScName
+                        }
+                    };
+            }
+        }
 
-            #region Import Workstation group
-
+        public void ImportWorkstationGroup()
+        {
             foreach (var wg in topConfigurationObject.WorkstationGroups)
             {
                 WorkstationGroupList.WorkstationGroups.Add(new WorkstationGroup
@@ -194,11 +345,30 @@ namespace Your
                     Uuid = wg.ObjectIdentification.UUID
                 });
             }
+        }
 
-            #endregion
+        public void ExportWorkstationGroup(int i)
+        {
+            topConfigurationObject.WorkstationGroups =
+                new FM.Top.TopIntTypes.WorkstationGroup[WorkstationGroupList.WorkstationGroups.Count];
+            foreach (var wg in WorkstationGroupList.WorkstationGroups)
+            {
+                i += 1;
+                topConfigurationObject.WorkstationGroups[i] =
+                    new FM.Top.TopIntTypes.WorkstationGroup
+                    {
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = wg.Uuid,
+                            Description = wg.WgDescription,
+                            Name = wg.WgName
+                        }
+                    };
+            }
+        }
 
-            #region Import Workstation class
-
+        public void ImportWorkstationClass()
+        {
             foreach (var wc in topConfigurationObject.WorkstationClasses)
             {
                 if (wc.SecondaryActivities != null && wc.SecondaryActivities.Any())
@@ -251,11 +421,10 @@ namespace Your
                     });
                 }
             }
+        }
 
-            #endregion
-
-            #region Import Workstation
-
+        public void ImportWorkstation()
+        {
             foreach (var w in topConfigurationObject.Workstations)
             {
                 if (w.WorkstationGroupRef != null)
@@ -282,11 +451,10 @@ namespace Your
                     });
                 }
             }
+        }
 
-            #endregion
-
-            #region Import Operator
-
+        public void ImportOperator()
+        {
             foreach (var o in topConfigurationObject.Operators)
             {
                 OperatorList.Operators.Add(new Operator
@@ -297,59 +465,6 @@ namespace Your
                     Uuid = o.ObjectIdentification.UUID
                 });
             }
-
-            #endregion
-        }
-
-        public void Save()
-        {
-            var serializer = new XmlSerializer(typeof(TopProjectModel));
-            TopProjectModel topConfigurationObject;
-            var xmlDocument = new XmlDocument();
-            var saveFileDialog = new SaveFileDialog();
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-            var savepath = saveFileDialog.FileName;
-            using (var stream = new MemoryStream())
-            {
-                serializer.Serialize(stream, BufferList.Buffers);
-                stream.Position = 0;
-                xmlDocument.Load(stream);
-                xmlDocument.Save(savepath + ".xml");
-                stream.Close();
-            }
-        }
-
-        public void Load(TopProjectModel topProjectModel)
-        {
-            var database = new MemoryDb();
-            var inMemoryParameters = new Parameters(new ParameterMemoryDao(database));
-            var inMemoryResourceDefinitions = new ResourceDefinitions(new AreaMemoryDao(database),
-                new WorkstationMemoryDao(database),
-                new ProcessMemoryDao(database), new BufferMemoryDao(database), new WorkstationClassMemoryDao(database),
-                new ResourceDefinitionMemoryDao<WorkstationGroupEntity>(database), new ActivityMemoryDao(database),
-                new PlannableActivityMemoryDao(database));
-            var inMemoryHumanResources = new HumanResources(inMemoryResourceDefinitions, null, null,
-                new OperatorDefinitionMemoryDao(database), new OperatorAlgorithmMemoryDao(database), inMemoryParameters);
-            var inMemoryExtensibleEnumerations = new ExtensibleEnumerations(new ExtensibleEnumerationMemoryDao(database));
-            var loader = new TopProjectConfigurationLoader(inMemoryResourceDefinitions, inMemoryHumanResources,
-                inMemoryParameters, inMemoryExtensibleEnumerations);
-            IParameterEditor inMemoryParameterEditor = new ParameterEditor(inMemoryParameters,
-                new ConfigurationElementMemoryDao(database));
-
-            loader.Load(topProjectModel);
-
-            var validationResult = inMemoryResourceDefinitions.Validate();
-            validationResult = validationResult.Concat(inMemoryHumanResources.Validate());
-            validationResult = validationResult.Concat(inMemoryParameterEditor.Validate());
-
-            if (validationResult.HasFailures())
-            {
-                throw new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
-            }
-            ConfigurationEvents.Instance.RaiseStartedLoadingConfiguration();
         }
     }
 }

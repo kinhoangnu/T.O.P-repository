@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using com.vanderlande.wpf;
 
 namespace Your
 {
     public class Process : ContentViewModel
     {
-        private string uuid;
         private string pcName;
         private string pcComId;
         private string pcDescription;
@@ -21,6 +15,9 @@ namespace Your
         private ObservableCollection<ProdArea> observableProdArea;
         private ObservableCollection<Buffer> observableBuffer;
         private ObservableCollection<Buffer> observableOutBuffer;
+
+        private bool isReplenished;
+        private bool exclFromKpi;
 
         public ObservableCollection<Buffer> ObservableOutBuffer
         {
@@ -40,32 +37,26 @@ namespace Your
             set { ChangeProperty(ref observableProdArea, value); }
         }
 
-        private bool isReplenished;
-        private bool exclFromKpi;
+        public string Uuid { get; set; }
 
-        public string Uuid
-        {
-            get { return uuid; }
-            set { uuid = value; }
-        }
         public bool ExclFromKpi
         {
             get { return exclFromKpi; }
-            set 
-            {
-                ChangeProperty(ref exclFromKpi, value);
-            }
+            set { ChangeProperty(ref exclFromKpi, value); }
         }
+
         public bool IsReplenished
         {
             get { return isReplenished; }
             set { ChangeProperty(ref isReplenished, value); }
         }
+
         public ProdArea ProdRef
         {
             get { return prodRef; }
             set { ChangeProperty(ref prodRef, value); }
         }
+
         public Buffer OutbufferRef
         {
             get { return outbufferRef; }
@@ -80,41 +71,25 @@ namespace Your
 
         public string PcDescription
         {
-            get
-            {
-                return pcDescription;
-            }
-            set
-            {
-                ChangeProperty(ref pcDescription, value);
-            }
+            get { return pcDescription; }
+            set { ChangeProperty(ref pcDescription, value); }
         }
+
         public string PcName
         {
-            get
-            {
-                return pcName;
-            }
-            set
-            {
-                ChangeProperty(ref pcName, value);
-            }
+            get { return pcName; }
+            set { ChangeProperty(ref pcName, value); }
         }
+
         public string PcComId
         {
-            get
-            {
-                return pcComId;
-            }
-            set
-            {
-                ChangeProperty(ref pcComId, value);
-            }
+            get { return pcComId; }
+            set { ChangeProperty(ref pcComId, value); }
         }
 
         public Process()
         {
+            Uuid = Guid.NewGuid().ToString();
         }
     }
 }
-

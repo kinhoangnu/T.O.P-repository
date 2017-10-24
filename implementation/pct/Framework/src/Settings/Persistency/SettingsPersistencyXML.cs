@@ -40,7 +40,7 @@ namespace com.vanderlande.wpf
             {
                 if (File.Exists(_fileName) == true)
                 {
-                    Load();
+                    Import();
                 }
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace com.vanderlande.wpf
             {
                 try
                 {
-                    Save();
+                    Export();
                     break;
                 }
                 catch (Exception)
@@ -212,7 +212,7 @@ namespace com.vanderlande.wpf
         }
 
 
-        private void Load()
+        private void Import()
         {
             if (_encryption == true)
             {
@@ -225,7 +225,7 @@ namespace com.vanderlande.wpf
         }
 
 
-        private void Save()
+        private void Export()
         {
             if (_encryption == true)
             {

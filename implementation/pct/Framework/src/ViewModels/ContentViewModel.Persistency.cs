@@ -20,7 +20,7 @@ namespace com.vanderlande.wpf
         protected virtual void SaveCurrentSession(ISettingsPersistency sp)
         {
             LayoutPersistency lp = new LayoutPersistency(sp, Element);
-            lp.Save();
+            lp.Export();
             for (int i = 0; i < _childViewModels.Count; ++i)
             {
                 using (new SettingsPersistencyGroup(sp, "ChildViewModel" + i))
@@ -32,7 +32,7 @@ namespace com.vanderlande.wpf
         protected virtual void LoadPreviousSession(ISettingsPersistency sp)
         {
             LayoutPersistency lp = new LayoutPersistency(sp, Element);
-            lp.Load();
+            lp.Import();
             for (int i = 0; i < _childViewModels.Count; ++i)
             {
                 using (new SettingsPersistencyGroup(sp, "ChildViewModel" + i))
