@@ -29,8 +29,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
-                                      ItemsSource="{Binding Path=ObservableProdArea}"
-                                      Text="{Binding Path=ProdRef.PName}" DisplayMemberPath="PName" />
+                                      ItemsSource="{Binding Path=ObservableProdArea,UpdateSourceTrigger=LostFocus}"
+                                      Text="{Binding Path=ProdRef.PName}"
+                                      DisplayMemberPath="PName" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

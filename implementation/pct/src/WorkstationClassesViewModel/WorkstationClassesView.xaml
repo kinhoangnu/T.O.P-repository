@@ -38,7 +38,7 @@
                 <DataGridTemplateColumn Header="Secondary Activity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
+                            <ComboBox Width="300" HorizontalAlignment="Right" Margin="8,0,0,0"
                                       ItemsSource="{Binding SecondaryactivityRef, Mode=TwoWay}"
                                       SnapsToDevicePixels="True" OverridesDefaultStyle="True"
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -47,9 +47,16 @@
                                       IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox x:Name="cbox" Content="{Binding ScName}"
-                                                  IsChecked="{Binding Path=IsSelected, Mode=TwoWay}"
-                                                  Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox x:Name="cbox" Content="{Binding ScName}"
+                                                      IsChecked="{Binding Path=IsSelected, Mode=TwoWay}"
+                                                      Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}" />
+                                            <CheckBox Name="CheckBox" Width="auto" HorizontalAlignment="Right"
+                                                      Margin="8,0,0,0"
+                                                      IsChecked="{Binding Path=MaxAllowedSpecified}"
+                                                      Content="Max Allow?" />
+                                            <ComboBox IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked}" />
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>

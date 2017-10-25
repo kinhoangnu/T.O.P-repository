@@ -9,6 +9,7 @@ namespace Your
         private string wcName;
         private string wcType;
         private string wcHandlingType;
+
         private ObservableCollection<Process> observableProcess;
         //private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
         private Process processRef;

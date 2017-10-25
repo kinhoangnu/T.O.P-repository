@@ -17,7 +17,6 @@ using Com.Vanderlande.Top.Configuration.Fmc.Model.DataAccess;
 using Com.Vanderlande.Top.HumanResource.Fmc.BusinessService;
 using Com.Vanderlande.Top.Resource.Fmc.BusinessService;
 using Com.Vanderlande.Top.Resource.Fmc.Model.Entities;
-using Configurations;
 using FM.Top.TopIntModel;
 using FM.Top.TopIntTypes;
 using Parameters = Com.Vanderlande.Top.Common.Fmc.BusinessService.Parameters;
@@ -28,11 +27,6 @@ namespace Your
     {
         private readonly XmlReaderSettings setting = new XmlReaderSettings();
         private ObservableCollection<Buffer> tempBlist = new ObservableCollection<Buffer>();
-        private XmlDocument doc = new XmlDocument();
-        private ConfigurationService con = new ConfigurationService();
-        private string path = string.Empty;
-        private string xmlInputData = string.Empty;
-        private string xmlOutputData = string.Empty;
         private List<string> stringlist;
         private ObservableCollection<SecondaryActivity> tempSClist;
         private TopProjectModel topConfigurationObject;
@@ -93,6 +87,8 @@ namespace Your
             ExportProdArea(i);
             ExportWorkstationGroup(i);
             ExportSecondaryActivity(i);
+            ExportProcess(i);
+            //ExportWorkstationClass(i);
 
             var xmlDocument = new XmlDocument();
             var saveFileDialog = new SaveFileDialog();
@@ -299,6 +295,47 @@ namespace Your
             }
         }
 
+        public void ExportProcess(int i)
+        {
+            var count = -1;
+            topConfigurationObject.Processes = new FM.Top.TopIntTypes.Process[ProcessList.Processes.Count];
+            foreach (var p in ProcessList.Processes)
+            {
+                var tempOutBufferStrings = new List<string>();
+                foreach (var buffer in p.ObservableOutBuffer)
+                {
+                    if (buffer.IsSelected)
+                    {
+                        tempOutBufferStrings.Add(buffer.Uuid);
+                    }
+                }
+                var tempOutBufferArray = new string[tempOutBufferStrings.Count];
+                foreach (var s in tempOutBufferStrings)
+                {
+                    count += 1;
+                    tempOutBufferArray[count] = s;
+                }
+                count = -1;
+                i += 1;
+                topConfigurationObject.Processes[i] =
+                    new FM.Top.TopIntTypes.Process
+                    {
+                        CommunicationId = p.PcComId,
+                        IsReplenishment = p.IsReplenished,
+                        ExcludeFromKPIs = p.ExclFromKpi,
+                        InBuffer = p.InbufferRef.Uuid,
+                        OutBuffers = tempOutBufferArray,
+                        ProductionAreaRef = p.ProdRef.Uuid,
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = p.Uuid,
+                            Description = p.PcDescription,
+                            Name = p.PcName
+                        }
+                    };
+            }
+        }
+
         public void ImportSecondaryActivity()
         {
             foreach (var s in topConfigurationObject.SecondaryActivities)
@@ -377,8 +414,18 @@ namespace Your
 
                     for (var i = 0; i < wc.SecondaryActivities.Count(); i++)
                     {
-                        tempSClist.Add(
-                            SecondaryActivityList.GetASecondaryActivity(wc.SecondaryActivities[i].ObjectRef));
+                        if (wc.SecondaryActivities[i].MaxAllowedSpecified)
+                        {
+                            tempSClist.Add(
+                                SecondaryActivityList.GetASecondaryActivitywithMaxAllow(
+                                    wc.SecondaryActivities[i].ObjectRef, wc.SecondaryActivities[i].MaxAllowed));
+                        }
+                        else if (!wc.SecondaryActivities[i].MaxAllowedSpecified)
+                        {
+                            tempSClist.Add(
+                                SecondaryActivityList.GetASecondaryActivitywithoutMaxAllow(
+                                    wc.SecondaryActivities[i].ObjectRef));
+                        }
                     }
                     foreach (var s in SecondaryActivityList.SecondaryActivities)
                     {
@@ -393,7 +440,6 @@ namespace Your
                                 goto Outer;
                             }
                         }
-                        //tempSClist.Add(s);
                         tempSClist.Add(SecondaryActivityList.GetANotSelectedSecondaryActivity(s.Uuid));
                         Outer:
                         ;
@@ -419,6 +465,88 @@ namespace Your
                         ProcessRef = ProcessList.GetAProcess(wc.ProcessRef),
                         SecondaryactivityRef = SecondaryActivityList.SecondaryActivities
                     });
+                }
+            }
+        }
+
+        public void ExportWorkstationClass(int i)
+        {
+            var count = -1;
+            topConfigurationObject.WorkstationClasses =
+                new FM.Top.TopIntTypes.WorkstationClass[WorkstationClassList.WorkstationClasses.Count];
+            foreach (var wc in WorkstationClassList.WorkstationClasses)
+            {
+                var tempSecondaryActivityStrings = new List<string>();
+                var tempMaxAllow = new List<long>();
+                foreach (var secondaryactivity in wc.SecondaryactivityRef)
+                {
+                    if (secondaryactivity.IsSelected)
+                    {
+                        tempSecondaryActivityStrings.Add(secondaryactivity.Uuid);
+                        if (secondaryactivity.MaxAllowedSpecified)
+                        {
+                            tempMaxAllow.Add(secondaryactivity.MaxAllowed);
+                        }
+                    }
+                }
+                var tempSecondaryActivityArray = new WCSecondaryActivity[tempSecondaryActivityStrings.Count];
+                foreach (var s in tempSecondaryActivityStrings)
+                {
+                    count += 1;
+                    tempSecondaryActivityArray[count].ObjectRef = s;
+                    if (tempMaxAllow.ElementAt(tempSecondaryActivityStrings.IndexOf(s)) > 0)
+                    {
+                        tempSecondaryActivityArray[count].MaxAllowed =
+                            tempMaxAllow.ElementAt(tempSecondaryActivityStrings.IndexOf(s));
+                    }
+                }
+                count = -1;
+                i += 1;
+                if (wc.WcHandlingType == "Automatic")
+                {
+                    i += 1;
+                    topConfigurationObject.WorkstationClasses[i] =
+                        new FM.Top.TopIntTypes.WorkstationClass
+                        {
+                            SecondaryActivities = tempSecondaryActivityArray,
+                            WorkstationType = wc.WcType,
+                            HandlingType = HandlingType.Automatic,
+                            ObjectIdentification = new ObjectIdentification
+                            {
+                                UUID = wc.Uuid,
+                                Name = wc.WcName
+                            }
+                        };
+                }
+                else if (wc.WcHandlingType == "Manual")
+                {
+                    i += 1;
+                    topConfigurationObject.WorkstationClasses[i] =
+                        new FM.Top.TopIntTypes.WorkstationClass
+                        {
+                            WorkstationType = wc.WcType,
+                            HandlingType = HandlingType.Automatic,
+                            ObjectIdentification = new ObjectIdentification
+                            {
+                                UUID = wc.Uuid,
+                                Name = wc.WcName
+                            }
+                        };
+                }
+                else if (wc.WcHandlingType == "SemiAutomatic")
+                {
+                    i += 1;
+                    topConfigurationObject.WorkstationClasses[i] =
+                        new FM.Top.TopIntTypes.WorkstationClass
+                        {
+                            WorkstationType = wc.WcType,
+                            HandlingType = HandlingType.Automatic,
+                            ObjectIdentification = new ObjectIdentification
+                            {
+                                UUID = wc.Uuid,
+                                Name = wc.WcName
+                            }
+                        };
                 }
             }
         }
@@ -451,6 +579,10 @@ namespace Your
                     });
                 }
             }
+        }
+
+        public void ExportWorkstation()
+        {
         }
 
         public void ImportOperator()
