@@ -19,28 +19,66 @@ using Com.Vanderlande.Top.Resource.Fmc.BusinessService;
 using Com.Vanderlande.Top.Resource.Fmc.Model.Entities;
 using FM.Top.TopIntModel;
 using FM.Top.TopIntTypes;
+using Your.LoadXML;
 using Parameters = Com.Vanderlande.Top.Common.Fmc.BusinessService.Parameters;
 
 namespace Your
 {
     public class LoadXmlViewModel : ContentViewModel
     {
+        //Fields
         private readonly XmlReaderSettings setting = new XmlReaderSettings();
         private ObservableCollection<Buffer> tempBlist = new ObservableCollection<Buffer>();
-        private List<string> stringlist;
         private ObservableCollection<SecondaryActivity> tempSClist;
         private TopProjectModel topConfigurationObject;
-        public RelayCommand LoadCommand { get; set; }
-        public RelayCommand SaveCommand { get; set; }
+
+        //Commands
+        public RelayCommand ExportCommand { get; set; }
+        public RelayCommand ImportCommand { get; set; }
+        public RelayCommand DirectImportCommand { get; set; }
+        public RelayCommand DirectExportCommand { get; set; }
+
+        public FileInfo[] Files { get; set; }
+
+        public List<xmlFile> FileStrings { get; set; }
 
         public LoadXmlViewModel()
         {
-            LoadCommand = new RelayCommand(obj => Import());
-            SaveCommand = new RelayCommand(obj => Export());
+            LoadFiles();
+            ExportCommand = new RelayCommand(obj => Export());
+            ImportCommand = new RelayCommand(obj => Import());
+            DirectExportCommand = new RelayCommand(obj => DirrectExport());
+            DirectImportCommand = new RelayCommand(obj => DirrectImport());
+        }
+
+        public void DirrectExport()
+        {
+        }
+
+        public void DirrectImport()
+        {
         }
 
         /// <summary>
-        /// Load the XML file
+        /// Load available XML files from project location
+        /// </summary>
+        public void LoadFiles()
+        {
+            FileStrings = new List<xmlFile>();
+            var di = new DirectoryInfo(@"XML_Files");
+            Files = di.GetFiles();
+            foreach (var f in Files)
+            {
+                FileStrings.Add(new xmlFile
+                {
+                    Filename = f.Name,
+                    Filenumber = 1
+                });
+            }
+        }
+
+        /// <summary>
+        /// Import the XML file to the UI
         /// </summary>
         public void Import()
         {
@@ -79,6 +117,9 @@ namespace Your
             ImportOperator();
         }
 
+        /// <summary>
+        /// Export data to XML file
+        /// </summary>
         public void Export()
         {
             var serializer = new XmlSerializer(typeof(TopProjectModel));
@@ -93,6 +134,7 @@ namespace Your
 
             var xmlDocument = new XmlDocument();
             var saveFileDialog = new SaveFileDialog();
+
             if (saveFileDialog.ShowDialog() != DialogResult.OK)
             {
                 return;
@@ -114,6 +156,10 @@ namespace Your
             return p.PType;
         }
 
+        /// <summary>
+        /// Validate the given "top project model"
+        /// </summary>
+        /// <param name="topProjectModel"></param>
         public void Load(TopProjectModel topProjectModel)
         {
             var database = new MemoryDb();
@@ -260,7 +306,6 @@ namespace Your
                                 goto Outer;
                             }
                         }
-                        //tempBlist.Add(b);
                         tempBlist.Add(BufferList.GetANotSelectedBuffer(b.Uuid));
                         Outer:
                         ;
@@ -302,14 +347,8 @@ namespace Your
             topConfigurationObject.Processes = new FM.Top.TopIntTypes.Process[ProcessList.Processes.Count];
             foreach (var p in ProcessList.Processes)
             {
-                var tempOutBufferStrings = new List<string>();
-                foreach (var buffer in p.ObservableOutBuffer)
-                {
-                    if (buffer.IsSelected)
-                    {
-                        tempOutBufferStrings.Add(buffer.Uuid);
-                    }
-                }
+                var tempOutBufferStrings =
+                    (from buffer in p.ObservableOutBuffer where buffer.IsSelected select buffer.Uuid).ToList();
                 var tempOutBufferArray = new string[tempOutBufferStrings.Count];
                 foreach (var s in tempOutBufferStrings)
                 {
@@ -482,15 +521,17 @@ namespace Your
                 var tempMaxAllow = new List<long>();
                 foreach (var secondaryactivity in wc.SecondaryactivityRef)
                 {
-                    if (secondaryactivity.IsSelected)
+                    if (!secondaryactivity.IsSelected)
                     {
-                        tempSecondaryActivityStrings.Add(secondaryactivity.Uuid);
-                        if (secondaryactivity.MaxAllowedSpecified)
-                        {
-                            tempMaxAllow.Add(secondaryactivity.MaxAllowed);
-                            countForMax += 1;
-                        }
+                        continue;
                     }
+                    tempSecondaryActivityStrings.Add(secondaryactivity.Uuid);
+                    if (!secondaryactivity.MaxAllowedSpecified)
+                    {
+                        continue;
+                    }
+                    tempMaxAllow.Add(secondaryactivity.MaxAllowed);
+                    countForMax += 1;
                 }
 
                 #region Has Max Allow
@@ -771,6 +812,25 @@ namespace Your
                     Uuid = o.ObjectIdentification.UUID
                 });
             }
+        }
+
+        private List<string> DirSearch(string sDir)
+        {
+            var files = new List<string>();
+            try
+            {
+                files.AddRange(Directory.GetFiles(sDir));
+                foreach (var d in Directory.GetDirectories(sDir))
+                {
+                    files.AddRange(DirSearch(d));
+                }
+            }
+            catch (Exception excpt)
+            {
+                MessageBox.Show(excpt.Message);
+            }
+
+            return files;
         }
     }
 }

@@ -47,16 +47,19 @@
                                       IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <DockPanel>
                                             <CheckBox x:Name="cbox" Content="{Binding ScName}"
                                                       IsChecked="{Binding Path=IsSelected, Mode=TwoWay}"
-                                                      Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}" />
-                                            <CheckBox Name="CheckBox" Width="auto" HorizontalAlignment="Right"
+                                                      Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}"
+                                                      DockPanel.Dock="Left" />
+                                            <ComboBox IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked}"
+                                                      FlowDirection="RightToLeft" DockPanel.Dock="Right" Width="60"/>
+                                            <CheckBox Name="CheckBox" Width="auto" HorizontalAlignment="Left"
                                                       Margin="8,0,0,0"
                                                       IsChecked="{Binding Path=MaxAllowedSpecified}"
-                                                      Content="Max Allow?" />
-                                            <ComboBox IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked}" />
-                                        </StackPanel>
+                                                      Content="Max Allow?" DockPanel.Dock="Right" />
+
+                                        </DockPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>

@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\LoadXML\xmlFile.cs" />
     <Compile Include="src\Models\Operator.cs" />
     <Compile Include="src\Models\OperatorList.cs" />
     <Compile Include="src\Models\OperatorActivity.cs" />
