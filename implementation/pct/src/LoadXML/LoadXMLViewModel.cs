@@ -88,7 +88,8 @@ namespace Your
             ExportWorkstationGroup(i);
             ExportSecondaryActivity(i);
             ExportProcess(i);
-            //ExportWorkstationClass(i);
+            ExportWorkstation(i);
+            ExportWorkstationClass(i);
 
             var xmlDocument = new XmlDocument();
             var saveFileDialog = new SaveFileDialog();
@@ -471,11 +472,12 @@ namespace Your
 
         public void ExportWorkstationClass(int i)
         {
-            var count = -1;
             topConfigurationObject.WorkstationClasses =
                 new FM.Top.TopIntTypes.WorkstationClass[WorkstationClassList.WorkstationClasses.Count];
             foreach (var wc in WorkstationClassList.WorkstationClasses)
             {
+                var count = -1;
+                var countForMax = -1;
                 var tempSecondaryActivityStrings = new List<string>();
                 var tempMaxAllow = new List<long>();
                 foreach (var secondaryactivity in wc.SecondaryactivityRef)
@@ -486,68 +488,206 @@ namespace Your
                         if (secondaryactivity.MaxAllowedSpecified)
                         {
                             tempMaxAllow.Add(secondaryactivity.MaxAllowed);
+                            countForMax += 1;
                         }
                     }
                 }
-                var tempSecondaryActivityArray = new WCSecondaryActivity[tempSecondaryActivityStrings.Count];
-                foreach (var s in tempSecondaryActivityStrings)
+
+                #region Has Max Allow
+
+                if (countForMax >= 0)
                 {
-                    count += 1;
-                    tempSecondaryActivityArray[count].ObjectRef = s;
-                    if (tempMaxAllow.ElementAt(tempSecondaryActivityStrings.IndexOf(s)) > 0)
+                    var tempSecondaryActivityArray = new WCSecondaryActivity[tempSecondaryActivityStrings.Count];
+                    foreach (var s in tempSecondaryActivityStrings)
                     {
-                        tempSecondaryActivityArray[count].MaxAllowed =
-                            tempMaxAllow.ElementAt(tempSecondaryActivityStrings.IndexOf(s));
+                        count += 1;
+                        if (tempMaxAllow.Count > countForMax)
+                        {
+                            countForMax += 1;
+                            tempSecondaryActivityArray[count] = new WCSecondaryActivity
+                            {
+                                MaxAllowedSpecified = true,
+                                MaxAllowed = tempMaxAllow.ElementAt(tempSecondaryActivityStrings.IndexOf(s)),
+                                ObjectRef = s
+                            };
+                        }
+                        else
+                        {
+                            tempSecondaryActivityArray[count] = new WCSecondaryActivity
+                            {
+                                ObjectRef = s
+                            };
+                        }
+                    }
+                    i += 1;
+                    if (wc.WcHandlingType == "Automatic")
+                    {
+                        topConfigurationObject.WorkstationClasses[i] =
+                            new FM.Top.TopIntTypes.WorkstationClass
+                            {
+                                ProcessRef = wc.ProcessRef.Uuid,
+                                SecondaryActivities = tempSecondaryActivityArray,
+                                WorkstationType = wc.WcType,
+                                HandlingType = HandlingType.Automatic,
+                                ObjectIdentification = new ObjectIdentification
+                                {
+                                    UUID = wc.Uuid,
+                                    Name = wc.WcName
+                                }
+                            };
+                    }
+                    else if (wc.WcHandlingType == "Manual")
+                    {
+                        topConfigurationObject.WorkstationClasses[i] =
+                            new FM.Top.TopIntTypes.WorkstationClass
+                            {
+                                ProcessRef = wc.ProcessRef.Uuid,
+                                SecondaryActivities = tempSecondaryActivityArray,
+                                WorkstationType = wc.WcType,
+                                HandlingType = HandlingType.Manual,
+                                ObjectIdentification = new ObjectIdentification
+                                {
+                                    UUID = wc.Uuid,
+                                    Name = wc.WcName
+                                }
+                            };
+                    }
+                    else if (wc.WcHandlingType == "SemiAutomatic")
+                    {
+                        topConfigurationObject.WorkstationClasses[i] =
+                            new FM.Top.TopIntTypes.WorkstationClass
+                            {
+                                ProcessRef = wc.ProcessRef.Uuid,
+                                SecondaryActivities = tempSecondaryActivityArray,
+                                WorkstationType = wc.WcType,
+                                HandlingType = HandlingType.SemiAutomatic,
+                                ObjectIdentification = new ObjectIdentification
+                                {
+                                    UUID = wc.Uuid,
+                                    Name = wc.WcName
+                                }
+                            };
                     }
                 }
-                count = -1;
-                i += 1;
-                if (wc.WcHandlingType == "Automatic")
+                    #endregion
+
+                    #region Doesn't have Max Allow
+
+                else
                 {
-                    i += 1;
-                    topConfigurationObject.WorkstationClasses[i] =
-                        new FM.Top.TopIntTypes.WorkstationClass
+                    if (tempSecondaryActivityStrings.Count > 0)
+                    {
+                        var tempSecondaryActivityArray = new WCSecondaryActivity[tempSecondaryActivityStrings.Count];
+                        foreach (var s in tempSecondaryActivityStrings)
                         {
-                            SecondaryActivities = tempSecondaryActivityArray,
-                            WorkstationType = wc.WcType,
-                            HandlingType = HandlingType.Automatic,
-                            ObjectIdentification = new ObjectIdentification
+                            count += 1;
+                            tempSecondaryActivityArray[count] = new WCSecondaryActivity
                             {
-                                UUID = wc.Uuid,
-                                Name = wc.WcName
-                            }
-                        };
-                }
-                else if (wc.WcHandlingType == "Manual")
-                {
-                    i += 1;
-                    topConfigurationObject.WorkstationClasses[i] =
-                        new FM.Top.TopIntTypes.WorkstationClass
+                                ObjectRef = s
+                            };
+                        }
+                        i += 1;
+                        if (wc.WcHandlingType == "Automatic")
                         {
-                            WorkstationType = wc.WcType,
-                            HandlingType = HandlingType.Automatic,
-                            ObjectIdentification = new ObjectIdentification
-                            {
-                                UUID = wc.Uuid,
-                                Name = wc.WcName
-                            }
-                        };
-                }
-                else if (wc.WcHandlingType == "SemiAutomatic")
-                {
-                    i += 1;
-                    topConfigurationObject.WorkstationClasses[i] =
-                        new FM.Top.TopIntTypes.WorkstationClass
+                            topConfigurationObject.WorkstationClasses[i] =
+                                new FM.Top.TopIntTypes.WorkstationClass
+                                {
+                                    ProcessRef = wc.ProcessRef.Uuid,
+                                    SecondaryActivities = tempSecondaryActivityArray,
+                                    WorkstationType = wc.WcType,
+                                    HandlingType = HandlingType.Automatic,
+                                    ObjectIdentification = new ObjectIdentification
+                                    {
+                                        UUID = wc.Uuid,
+                                        Name = wc.WcName
+                                    }
+                                };
+                        }
+                        else if (wc.WcHandlingType == "Manual")
                         {
-                            WorkstationType = wc.WcType,
-                            HandlingType = HandlingType.Automatic,
-                            ObjectIdentification = new ObjectIdentification
-                            {
-                                UUID = wc.Uuid,
-                                Name = wc.WcName
-                            }
-                        };
+                            topConfigurationObject.WorkstationClasses[i] =
+                                new FM.Top.TopIntTypes.WorkstationClass
+                                {
+                                    ProcessRef = wc.ProcessRef.Uuid,
+                                    SecondaryActivities = tempSecondaryActivityArray,
+                                    WorkstationType = wc.WcType,
+                                    HandlingType = HandlingType.Manual,
+                                    ObjectIdentification = new ObjectIdentification
+                                    {
+                                        UUID = wc.Uuid,
+                                        Name = wc.WcName
+                                    }
+                                };
+                        }
+                        else if (wc.WcHandlingType == "SemiAutomatic")
+                        {
+                            topConfigurationObject.WorkstationClasses[i] =
+                                new FM.Top.TopIntTypes.WorkstationClass
+                                {
+                                    ProcessRef = wc.ProcessRef.Uuid,
+                                    SecondaryActivities = tempSecondaryActivityArray,
+                                    WorkstationType = wc.WcType,
+                                    HandlingType = HandlingType.SemiAutomatic,
+                                    ObjectIdentification = new ObjectIdentification
+                                    {
+                                        UUID = wc.Uuid,
+                                        Name = wc.WcName
+                                    }
+                                };
+                        }
+                    }
+                    else
+                    {
+                        i += 1;
+                        if (wc.WcHandlingType == "Automatic")
+                        {
+                            topConfigurationObject.WorkstationClasses[i] =
+                                new FM.Top.TopIntTypes.WorkstationClass
+                                {
+                                    ProcessRef = wc.ProcessRef.Uuid,
+                                    WorkstationType = wc.WcType,
+                                    HandlingType = HandlingType.Automatic,
+                                    ObjectIdentification = new ObjectIdentification
+                                    {
+                                        UUID = wc.Uuid,
+                                        Name = wc.WcName
+                                    }
+                                };
+                        }
+                        else if (wc.WcHandlingType == "Manual")
+                        {
+                            topConfigurationObject.WorkstationClasses[i] =
+                                new FM.Top.TopIntTypes.WorkstationClass
+                                {
+                                    ProcessRef = wc.ProcessRef.Uuid,
+                                    WorkstationType = wc.WcType,
+                                    HandlingType = HandlingType.Manual,
+                                    ObjectIdentification = new ObjectIdentification
+                                    {
+                                        UUID = wc.Uuid,
+                                        Name = wc.WcName
+                                    }
+                                };
+                        }
+                        else if (wc.WcHandlingType == "SemiAutomatic")
+                        {
+                            topConfigurationObject.WorkstationClasses[i] =
+                                new FM.Top.TopIntTypes.WorkstationClass
+                                {
+                                    ProcessRef = wc.ProcessRef.Uuid,
+                                    WorkstationType = wc.WcType,
+                                    HandlingType = HandlingType.SemiAutomatic,
+                                    ObjectIdentification = new ObjectIdentification
+                                    {
+                                        UUID = wc.Uuid,
+                                        Name = wc.WcName
+                                    }
+                                };
+                        }
+                    }
                 }
+
+                #endregion
             }
         }
 
@@ -581,8 +721,42 @@ namespace Your
             }
         }
 
-        public void ExportWorkstation()
+        public void ExportWorkstation(int i)
         {
+            topConfigurationObject.Workstations = new FM.Top.TopIntTypes.Workstation[WorkstationList.Workstations.Count];
+            foreach (var workstation in WorkstationList.Workstations)
+            {
+                i += 1;
+                if (workstation.WorkstationgroupRef != null)
+                {
+                    topConfigurationObject.Workstations[i] = new FM.Top.TopIntTypes.Workstation
+                    {
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = workstation.Uuid,
+                            Name = workstation.WName,
+                            Description = workstation.WDescription
+                        },
+                        CommunicationId = workstation.WComId,
+                        WorkstationClassRef = workstation.WorkstationclassRef.Uuid,
+                        WorkstationGroupRef = workstation.WorkstationgroupRef.Uuid
+                    };
+                }
+                else if (workstation.WorkstationgroupRef == null)
+                {
+                    topConfigurationObject.Workstations[i] = new FM.Top.TopIntTypes.Workstation
+                    {
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = workstation.Uuid,
+                            Name = workstation.WName,
+                            Description = workstation.WDescription
+                        },
+                        CommunicationId = workstation.WComId,
+                        WorkstationClassRef = workstation.WorkstationclassRef.Uuid
+                    };
+                }
+            }
         }
 
         public void ImportOperator()

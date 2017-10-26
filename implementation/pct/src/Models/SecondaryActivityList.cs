@@ -18,14 +18,17 @@ namespace Your
             {
                 if (sc.Uuid == s)
                 {
-                    var tempsc = new SecondaryActivity();
-                    tempsc.ScName = sc.ScName;
-                    tempsc.Uuid = sc.Uuid;
-                    tempsc.ScComId = sc.ScComId;
-                    tempsc.ScDescription = sc.ScDescription;
-                    tempsc.IsSelected = true;
-                    tempsc.MaxAllowedSpecified = true;
-                    tempsc.MaxAllowed = i;
+                    var tempsc = new SecondaryActivity
+                    {
+                        ScName = sc.ScName,
+                        Uuid = sc.Uuid,
+                        ScComId = sc.ScComId,
+                        ScDescription = sc.ScDescription,
+                        IsSelected = true,
+                        MaxAllowedSpecified = true,
+                        MaxAllowed = i
+                    };
+                    tempsc.Uuid = s;
                     return tempsc;
                 }
             }
@@ -38,13 +41,16 @@ namespace Your
             {
                 if (sc.Uuid == s)
                 {
-                    var tempsc = new SecondaryActivity();
-                    tempsc.ScName = sc.ScName;
-                    tempsc.Uuid = sc.Uuid;
-                    tempsc.ScComId = sc.ScComId;
-                    tempsc.ScDescription = sc.ScDescription;
-                    tempsc.IsSelected = true;
-                    tempsc.MaxAllowedSpecified = false;
+                    var tempsc = new SecondaryActivity
+                    {
+                        ScName = sc.ScName,
+                        Uuid = sc.Uuid,
+                        ScComId = sc.ScComId,
+                        ScDescription = sc.ScDescription,
+                        IsSelected = true,
+                        MaxAllowedSpecified = false
+                    };
+                    tempsc.Uuid = s;
                     return tempsc;
                 }
             }
@@ -57,12 +63,15 @@ namespace Your
             {
                 if (sc.Uuid == s)
                 {
-                    var tempsc = new SecondaryActivity();
-                    tempsc.ScName = sc.ScName;
-                    tempsc.Uuid = sc.Uuid;
-                    tempsc.ScComId = sc.ScComId;
-                    tempsc.ScDescription = sc.ScDescription;
-                    tempsc.IsSelected = false;
+                    var tempsc = new SecondaryActivity
+                    {
+                        ScName = sc.ScName,
+                        Uuid = sc.Uuid,
+                        ScComId = sc.ScComId,
+                        ScDescription = sc.ScDescription,
+                        IsSelected = false
+                    };
+                    tempsc.Uuid = s;
                     return tempsc;
                 }
             }

@@ -38,7 +38,7 @@
                 <DataGridTemplateColumn Header="Secondary Activity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox Width="300" HorizontalAlignment="Right" Margin="8,0,0,0"
+                            <ComboBox Width="500" HorizontalAlignment="Right" Margin="8,0,0,0"
                                       ItemsSource="{Binding SecondaryactivityRef, Mode=TwoWay}"
                                       SnapsToDevicePixels="True" OverridesDefaultStyle="True"
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
