@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using com.vanderlande.wpf;
 
@@ -6,22 +7,24 @@ namespace Your
 {
     public class WorkstationClass : ContentViewModel
     {
+        //Fields
         private string wcName;
         private string wcType;
         private string wcHandlingType;
+        private List<string> wcHandlingTypeList;
 
         private ObservableCollection<Process> observableProcess;
-        //private ObservableCollection<SecondaryActivity> _observableSecondaryActivity;
         private Process processRef;
         private ObservableCollection<SecondaryActivity> secondaryactivityRef;
 
-        public SecondaryActivity ScRef { get; set; }
+        public List<string> WcHandlingTypeList
+        {
+            get { return new List<string> { "Manual", "Automatic", "SemiAutomatic" }; }
+            set { ChangeProperty(ref wcHandlingTypeList, value); }
+        }
 
-        //public ObservableCollection<SecondaryActivity> ObservableSecondaryActivity
-        //{
-        //    get { return SecondaryActivityList.SecondaryActivities; }
-        //    set { ChangeProperty(ref _observableSecondaryActivity, value); }
-        //}
+        //Properties
+        public SecondaryActivity ScRef { get; set; }
 
         public string Uuid { get; set; }
 
@@ -61,6 +64,7 @@ namespace Your
             set { ChangeProperty(ref wcHandlingType, value); }
         }
 
+        //Constructor
         public WorkstationClass()
         {
             Uuid = Guid.NewGuid().ToString();

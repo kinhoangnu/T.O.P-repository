@@ -1,17 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using com.vanderlande.wpf;
 
 namespace Your
 {
     public class ProdArea : ContentViewModel
     {
+        //private ProductionType pType;
+        private string pType;
         private string pName;
         private string pComId;
         private string pDescription;
+        private List<string> pTypeList;
 
-        public string PType { get; set; }
+        public List<string> PTypeList
+        {
+            get { return new List<string> { "Inbound", "Outbound" }; }
+            set { ChangeProperty(ref pTypeList, value); }
+        }
 
         public string Uuid { get; set; }
+
+        //public ProductionType PType
+        //{
+        //    get { return pType; }
+        //    set { ChangeProperty(ref pType, value); }
+        //}
+
+        public string PType
+        {
+            get { return pType; }
+            set { ChangeProperty(ref pType, value); }
+        }
 
         public string PDescription
         {
@@ -31,9 +51,20 @@ namespace Your
             set { ChangeProperty(ref pComId, value); }
         }
 
+        //public IList<ProductionType> ProdTypes
+        //{
+        //    get { return Enum.GetValues(typeof(ProductionType)).Cast<ProductionType>().ToList(); }
+        //}
+
         public ProdArea()
         {
             Uuid = Guid.NewGuid().ToString();
         }
     }
+
+    //public enum ProductionType
+    //{
+    //    Inbound,
+    //    Outbound
+    //}
 }

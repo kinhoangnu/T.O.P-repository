@@ -23,12 +23,7 @@ namespace Your
         public string BName
         {
             get { return bName; }
-            set
-            {
-                ChangeProperty(ref bName, value);
-                //if (ChangeProperty(ref bName, value) == true)
-                //    IsValid = IsPropertyValid() ? "valid" : "invalid";
-            }
+            set { ChangeProperty(ref bName, value); }
         }
 
         public string BComId { get; set; }

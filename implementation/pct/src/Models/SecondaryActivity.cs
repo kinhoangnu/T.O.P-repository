@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using com.vanderlande.wpf;
 
 namespace Your
@@ -9,7 +10,14 @@ namespace Your
         private string scComId;
         private string scDescription;
         private bool maxAllowedSpecified;
-        private long maxAllowed;
+        private int maxAllowed;
+        private List<int> maxAllowList;
+
+        public List<int> MaxAllowList
+        {
+            get { return new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; }
+            set { ChangeProperty(ref maxAllowList, value); }
+        }
 
         public bool IsSelected { get; set; }
 
@@ -21,7 +29,7 @@ namespace Your
             set { ChangeProperty(ref maxAllowedSpecified, value); }
         }
 
-        public long MaxAllowed
+        public int MaxAllowed
         {
             get { return maxAllowed; }
             set { ChangeProperty(ref maxAllowed, value); }

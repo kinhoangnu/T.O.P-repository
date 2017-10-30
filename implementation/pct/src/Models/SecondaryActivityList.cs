@@ -12,7 +12,7 @@ namespace Your
             return SecondaryActivities;
         }
 
-        public static SecondaryActivity GetASecondaryActivitywithMaxAllow(string s, long i)
+        public static SecondaryActivity GetASecondaryActivitywithMaxAllow(string s, int i)
         {
             foreach (var sc in SecondaryActivities)
             {

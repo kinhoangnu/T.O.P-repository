@@ -25,7 +25,15 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding WcName}" Width="*" />
                 <DataGridTextColumn Header="Type" Binding="{Binding WcType}" Width="*" />
-                <DataGridTextColumn Header="Handling type" Binding="{Binding WcHandlingType}" Width="*" />
+                <DataGridTemplateColumn Header="Handling type">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      ItemsSource="{Binding Path=WcHandlingTypeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding WcHandlingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Process Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -53,7 +61,9 @@
                                                       Tag="{RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}"
                                                       DockPanel.Dock="Left" />
                                             <ComboBox IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked}"
-                                                      FlowDirection="RightToLeft" DockPanel.Dock="Right" Width="60"/>
+                                                      FlowDirection="RightToLeft" DockPanel.Dock="Right" Width="60"
+                                                      ItemsSource="{Binding Path=MaxAllowList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding Path=MaxAllowed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                             <CheckBox Name="CheckBox" Width="auto" HorizontalAlignment="Left"
                                                       Margin="8,0,0,0"
                                                       IsChecked="{Binding Path=MaxAllowedSpecified}"

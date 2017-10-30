@@ -1,72 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
-using com.vanderlande.wpf;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.ComponentModel;
 using System.Windows.Forms;
+using com.vanderlande.wpf;
 
 namespace Your
 {
-    class ProductionAreasViewModel : ContentViewModel
+    internal class ProductionAreasViewModel : ContentViewModel
     {
-        #region Fields and auto-implement properties
         private ProdArea selectedProdArea;
         private ObservableCollection<ProdArea> observableProdArea;
-        private ProdArea tobeEditedItem;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand UpdateCommand { get; set; }
-        #endregion
 
-        #region contructor
-        public ProductionAreasViewModel()
-        {
-            this.DeleteCommand = new RelayCommand((obj) => Delete());
-            this.AddCommand = new RelayCommand((obj) => Add());
-            ProdAreaList.ProdAreas = new ObservableCollection<ProdArea>();
-            ObservableProdArea = new ObservableCollection<ProdArea>();
-        }
-        #endregion
-
-        #region Properties
         /// <summary>
-        /// Item that is being selected on the list 
+        /// Item that is being selected on the list
         /// </summary>
         public ProdArea SelectedProdArea
         {
             get { return selectedProdArea; }
-            set
-            {
-                ChangeProperty(ref selectedProdArea, value);
-                if (SelectedProdArea != null)
-                {
-                    TobeEditedItem = new ProdArea()
-                    {
-                        PName = SelectedProdArea.PName,
-                        PComId = SelectedProdArea.PComId,
-                        PDescription = SelectedProdArea.PDescription,
-                        PType = SelectedProdArea.PType,
-                    };
-                }
-            }
-        }
-
-        /// <summary>
-        /// Item that is being filled on the input controls
-        /// </summary>
-        public ProdArea TobeEditedItem
-        {
-            get { return tobeEditedItem; }
-            set
-            {
-                ChangeProperty(ref tobeEditedItem, value);
-            }
+            set { ChangeProperty(ref selectedProdArea, value); }
         }
 
         public ObservableCollection<ProdArea> ObservableProdArea
@@ -75,21 +29,25 @@ namespace Your
             set { ChangeProperty(ref observableProdArea, value); }
         }
 
-        #endregion
-
-        #region Methods
+        public ProductionAreasViewModel()
+        {
+            DeleteCommand = new RelayCommand(obj => Delete());
+            AddCommand = new RelayCommand(obj => Add());
+            ProdAreaList.ProdAreas = new ObservableCollection<ProdArea>();
+            ObservableProdArea = new ObservableCollection<ProdArea>();
+        }
 
         /// <summary>
         /// Add a new item with properties on the input controls
         /// </summary>
         public void Add()
         {
-            this.ObservableProdArea.Add(new ProdArea()
+            ObservableProdArea.Add(new ProdArea
             {
-                PName = this.TobeEditedItem.PName,
-                PDescription = this.TobeEditedItem.PDescription,
-                PComId = this.TobeEditedItem.PComId,
-                PType = this.TobeEditedItem.PType
+                PName = SelectedProdArea.PName,
+                PDescription = SelectedProdArea.PDescription,
+                PComId = SelectedProdArea.PComId,
+                PType = SelectedProdArea.PType
             });
             ProdAreaList.ProdAreas = ObservableProdArea;
             SelectedProdArea = ObservableProdArea.ElementAt(ObservableProdArea.Count - 1);
@@ -102,10 +60,10 @@ namespace Your
         {
             if (SelectedProdArea != null)
             {
-                SelectedProdArea.PName = TobeEditedItem.PName;
-                SelectedProdArea.PDescription = TobeEditedItem.PDescription;
-                SelectedProdArea.PComId = TobeEditedItem.PComId;
-                SelectedProdArea.PType = TobeEditedItem.PType;
+                SelectedProdArea.PName = SelectedProdArea.PName;
+                SelectedProdArea.PDescription = SelectedProdArea.PDescription;
+                SelectedProdArea.PComId = SelectedProdArea.PComId;
+                SelectedProdArea.PType = SelectedProdArea.PType;
             }
         }
 
@@ -116,14 +74,15 @@ namespace Your
         {
             if (CheckMatchedProdArea() != null)
             {
-                MessageBox.Show("This Production Area is currently attached to a Process ("+CheckMatchedProdArea().PcName+"). Please:" +
-                    " \n\nRemove the Process in \"Processes\" tab first" +
-                    "\n..Or.." +
-                    "\nChange the attached Production area to another one");
+                MessageBox.Show("This Production Area is currently attached to a Process (" +
+                                CheckMatchedProdArea().PcName + "). Please:" +
+                                " \n\nRemove the Process in \"Processes\" tab first" +
+                                "\n..Or.." +
+                                "\nChange the attached Production area to another one");
             }
             else
             {
-                this.ObservableProdArea.Remove(this.SelectedProdArea);
+                ObservableProdArea.Remove(SelectedProdArea);
             }
         }
 
@@ -133,17 +92,14 @@ namespace Your
         /// <returns></returns>
         private Process CheckMatchedProdArea()
         {
-            foreach (Process p in ProcessesViewModel.ObservableProcess)
+            foreach (var p in ProcessesViewModel.ObservableProcess)
             {
-                if (p.ProdRef.PName == SelectedProdArea.PName) 
+                if (p.ProdRef.PName == SelectedProdArea.PName)
                 {
                     return p;
                 }
             }
             return null;
         }
-        #endregion
-
-
     }
 }

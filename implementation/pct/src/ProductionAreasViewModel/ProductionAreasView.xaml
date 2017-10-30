@@ -25,7 +25,15 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding PName}" Width="*" />
                 <DataGridTextColumn Header="Description" Binding="{Binding PDescription}" Width="*" />
                 <DataGridTextColumn Header="Communication ID" Binding="{Binding PComId}" Width="*" />
-                <DataGridTextColumn Header="Type" Binding="{Binding PType}" Width="*" />
+                <DataGridTemplateColumn Header="Production Type">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
+                                      ItemsSource="{Binding Path=PTypeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding PType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

@@ -31,24 +31,34 @@ namespace Your
         private ObservableCollection<Buffer> tempBlist = new ObservableCollection<Buffer>();
         private ObservableCollection<SecondaryActivity> tempSClist;
         private TopProjectModel topConfigurationObject;
+        private xmlFile xml;
 
         //Commands
         public RelayCommand ExportCommand { get; set; }
         public RelayCommand ImportCommand { get; set; }
-        public RelayCommand DirectImportCommand { get; set; }
-        public RelayCommand DirectExportCommand { get; set; }
+        public RelayCommand DirrectImportCommand { get; set; }
+        public RelayCommand DirrectExportCommand { get; set; }
 
         public FileInfo[] Files { get; set; }
 
         public List<xmlFile> FileStrings { get; set; }
+
+        /// <summary>
+        /// File that is being selected on the list
+        /// </summary>
+        public xmlFile SelectedXmlFile
+        {
+            get { return xml; }
+            set { ChangeProperty(ref xml, value); }
+        }
 
         public LoadXmlViewModel()
         {
             LoadFiles();
             ExportCommand = new RelayCommand(obj => Export());
             ImportCommand = new RelayCommand(obj => Import());
-            DirectExportCommand = new RelayCommand(obj => DirrectExport());
-            DirectImportCommand = new RelayCommand(obj => DirrectImport());
+            DirrectExportCommand = new RelayCommand(obj => DirrectExport());
+            DirrectImportCommand = new RelayCommand(obj => DirrectImport());
         }
 
         public void DirrectExport()
@@ -57,6 +67,39 @@ namespace Your
 
         public void DirrectImport()
         {
+            Exception exception = null;
+            ValidationEventHandler validationHandler = (sender, args) =>
+            {
+                if (args.Severity != XmlSeverityType.Error)
+                {
+                    return;
+                }
+                if (exception == null)
+                {
+                    exception = args.Exception;
+                }
+            };
+            setting.ValidationEventHandler += validationHandler;
+            //var openfiledialog = new OpenFileDialog();
+            //if (openfiledialog.ShowDialog() != DialogResult.OK)
+            //{
+            //    return;
+            //}
+            var loadpath = SelectedXmlFile.FileDirectory;
+            var serializer = new XmlSerializer(typeof(TopProjectModel));
+            using (var reader = XmlReader.Create(loadpath))
+            {
+                topConfigurationObject = (TopProjectModel) serializer.Deserialize(reader);
+                Load(topConfigurationObject);
+            }
+            ImportProdArea();
+            ImportBuffer();
+            ImportProcess();
+            ImportSecondaryActivity();
+            ImportWorkstationClass();
+            ImportWorkstationGroup();
+            ImportWorkstation();
+            ImportOperator();
         }
 
         /// <summary>
@@ -72,7 +115,8 @@ namespace Your
                 FileStrings.Add(new xmlFile
                 {
                     Filename = f.Name,
-                    Filenumber = 1
+                    Filenumber = 1,
+                    FileDirectory = f.DirectoryName
                 });
             }
         }
@@ -162,16 +206,21 @@ namespace Your
         /// <param name="topProjectModel"></param>
         public void Load(TopProjectModel topProjectModel)
         {
+            //try
+            //{
             var database = new MemoryDb();
             var inMemoryParameters = new Parameters(new ParameterMemoryDao(database));
             var inMemoryResourceDefinitions = new ResourceDefinitions(new AreaMemoryDao(database),
                 new WorkstationMemoryDao(database),
-                new ProcessMemoryDao(database), new BufferMemoryDao(database), new WorkstationClassMemoryDao(database),
+                new ProcessMemoryDao(database), new BufferMemoryDao(database),
+                new WorkstationClassMemoryDao(database),
                 new ResourceDefinitionMemoryDao<WorkstationGroupEntity>(database), new ActivityMemoryDao(database),
                 new PlannableActivityMemoryDao(database));
             var inMemoryHumanResources = new HumanResources(inMemoryResourceDefinitions, null, null,
-                new OperatorDefinitionMemoryDao(database), new OperatorAlgorithmMemoryDao(database), inMemoryParameters);
-            var inMemoryExtensibleEnumerations = new ExtensibleEnumerations(new ExtensibleEnumerationMemoryDao(database));
+                new OperatorDefinitionMemoryDao(database), new OperatorAlgorithmMemoryDao(database),
+                inMemoryParameters);
+            var inMemoryExtensibleEnumerations =
+                new ExtensibleEnumerations(new ExtensibleEnumerationMemoryDao(database));
             var loader = new TopProjectConfigurationLoader(inMemoryResourceDefinitions, inMemoryHumanResources,
                 inMemoryParameters, inMemoryExtensibleEnumerations);
             IParameterEditor inMemoryParameterEditor = new ParameterEditor(inMemoryParameters,
@@ -185,8 +234,16 @@ namespace Your
 
             if (validationResult.HasFailures())
             {
-                throw new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
+                Exception e =
+                    new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
+                MessageBox.Show("There was an error. Details: " + e.Message);
             }
+
+            //}
+            //catch (Exception e)
+            //{
+            //    MessageBox.Show("There was an error. Details: " + e.Message);
+            //}
             ConfigurationEvents.Instance.RaiseStartedLoadingConfiguration();
         }
 
@@ -194,14 +251,31 @@ namespace Your
         {
             foreach (var p in topConfigurationObject.ProductionAreas)
             {
-                ProdAreaList.ProdAreas.Add(new ProdArea
+                switch (p.ProductionType)
                 {
-                    PName = p.ObjectIdentification.Name,
-                    PComId = p.CommunicationId,
-                    PDescription = p.ObjectIdentification.Description,
-                    PType = p.ProductionType.ToString(),
-                    Uuid = p.ObjectIdentification.UUID
-                });
+                    case ProductionType.Inbound:
+                        ProdAreaList.ProdAreas.Add(new ProdArea
+                        {
+                            PName = p.ObjectIdentification.Name,
+                            PComId = p.CommunicationId,
+                            PDescription = p.ObjectIdentification.Description,
+                            PType = "Inbound",
+                            Uuid = p.ObjectIdentification.UUID
+                        });
+                        break;
+                    case ProductionType.Outbound:
+                        ProdAreaList.ProdAreas.Add(new ProdArea
+                        {
+                            PName = p.ObjectIdentification.Name,
+                            PComId = p.CommunicationId,
+                            PDescription = p.ObjectIdentification.Description,
+                            PType = "Outbound",
+                            Uuid = p.ObjectIdentification.UUID
+                        });
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
@@ -458,7 +532,8 @@ namespace Your
                         {
                             tempSClist.Add(
                                 SecondaryActivityList.GetASecondaryActivitywithMaxAllow(
-                                    wc.SecondaryActivities[i].ObjectRef, wc.SecondaryActivities[i].MaxAllowed));
+                                    wc.SecondaryActivities[i].ObjectRef,
+                                    Convert.ToInt16(wc.SecondaryActivities[i].MaxAllowed)));
                         }
                         else if (!wc.SecondaryActivities[i].MaxAllowedSpecified)
                         {

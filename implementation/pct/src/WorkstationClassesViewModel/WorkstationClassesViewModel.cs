@@ -1,47 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
-using com.vanderlande.wpf;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.ComponentModel;
 using System.Windows.Forms;
+using com.vanderlande.wpf;
 
 namespace Your
 {
     public class WorkstationClassesViewModel : ContentViewModel
     {
-        #region Fields and auto-implement properties
-        private static WorkstationClass selectedWorkstationClass;
-
-        private static ObservableCollection<ObservableCollection<SecondaryActivity>> slist;
-
         private static ObservableCollection<WorkstationClass> observableWorkstationClass;
+        private WorkstationClass selectedWorkstationClass;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
-        #endregion
 
-        #region Constructor
-        public WorkstationClassesViewModel()
-        {
-            this.DeleteCommand = new RelayCommand((obj) => Delete());
-            this.AddCommand = new RelayCommand((obj) => Add());
-            WorkstationClassList.WorkstationClasses = new ObservableCollection<WorkstationClass>();
-            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();
-            SelectedWorkstationClass = new WorkstationClass();
-        }
-        #endregion
-
-        #region Properties
-        public static ObservableCollection<ObservableCollection<SecondaryActivity>> Slist
-        {
-            get { return slist; }
-            set { slist = value; }
-        }
+        public static ObservableCollection<ObservableCollection<SecondaryActivity>> Slist { get; set; }
 
         public static ObservableCollection<WorkstationClass> ObservableWorkstationClass
         {
@@ -49,42 +21,30 @@ namespace Your
             set { observableWorkstationClass = value; }
         }
 
-
         /// <summary>
         /// Item that is being selected on the list
         /// </summary>
-        public static WorkstationClass SelectedWorkstationClass
+        public WorkstationClass SelectedWorkstationClass
         {
-            get 
-            {
-                return selectedWorkstationClass;
-            }
-            set
-            {                
-                //ChangeProperty(ref selectedWorkstationClass, value);
-                selectedWorkstationClass = value;
-                if (SelectedWorkstationClass == null)
-                {
-                    SelectedWorkstationClass = new WorkstationClass();
-                } 
-                if (SelectedWorkstationClass != null)
-                {
-                    if (SelectedWorkstationClass.SecondaryactivityRef == null)
-                    {
-                        SelectedWorkstationClass.SecondaryactivityRef = SecondaryActivityList.SecondaryActivities;
-                    }
-                }
-            }
+            get { return selectedWorkstationClass; }
+            set { ChangeProperty(ref selectedWorkstationClass, value); }
         }
-        #endregion
 
-        #region Methods  
+        public WorkstationClassesViewModel()
+        {
+            DeleteCommand = new RelayCommand(obj => Delete());
+            AddCommand = new RelayCommand(obj => Add());
+            WorkstationClassList.WorkstationClasses = new ObservableCollection<WorkstationClass>();
+            ObservableWorkstationClass = new ObservableCollection<WorkstationClass>();
+            SelectedWorkstationClass = new WorkstationClass();
+        }
+
         /// <summary>
         /// Add a new item with properties filled by the input controls
         /// </summary>
         public void Add()
         {
-            ObservableWorkstationClass.Add(new WorkstationClass()
+            ObservableWorkstationClass.Add(new WorkstationClass
             {
                 WcName = "",
                 WcType = "",
@@ -101,14 +61,15 @@ namespace Your
         {
             if (CheckMatchedWorkstationClass() != null)
             {
-                MessageBox.Show("This Workstation class is currently attached to a Workstation ("+CheckMatchedWorkstationClass().WName+"). Please:" +
-                    " \n\nRemove the Workstation in \"Workstations\" tab first" +
-                    "\n..Or.." +
-                    "\nChange the attached Wrokstation class to another one");
+                MessageBox.Show("This Workstation class is currently attached to a Workstation (" +
+                                CheckMatchedWorkstationClass().WName + "). Please:" +
+                                " \n\nRemove the Workstation in \"Workstations\" tab first" +
+                                "\n..Or.." +
+                                "\nChange the attached Wrokstation class to another one");
             }
             else
             {
-                ObservableWorkstationClass.Remove(SelectedWorkstationClass); 
+                ObservableWorkstationClass.Remove(SelectedWorkstationClass);
             }
         }
 
@@ -118,7 +79,7 @@ namespace Your
         /// <returns></returns>
         private Workstation CheckMatchedWorkstationClass()
         {
-            foreach (Workstation w in WorkstationsViewModel.ObservableWorkstation)
+            foreach (var w in WorkstationsViewModel.ObservableWorkstation)
             {
                 if (w.WorkstationclassRef.WcName == SelectedWorkstationClass.WcName)
                 {
@@ -127,10 +88,5 @@ namespace Your
             }
             return null;
         }
-
-
-
-        #endregion
-
     }
 }

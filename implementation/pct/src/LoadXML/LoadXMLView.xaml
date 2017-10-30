@@ -11,27 +11,37 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Background="#fafafa" Width="auto">
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnImport"
-                    Command="{Binding ImportCommand}" Content="LOAD XML File" />
+                    Command="{Binding ImportCommand}" Content="Import XML File (Browse from computer...)" />
             <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnExport"
-                    Command="{Binding ExportCommand}" Content="SAVE XML File" />
-            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Grid.Row="1" x:Name="btnLoadFiles"
-                    Command="{Binding LoadCommand}" Content="Load Files from project" />
+                    Command="{Binding ExportCommand}" Content="Export XML File (Browse from computer...)" />
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding FileStrings}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Filename}" />
-                        <Button Content="Save" HorizontalAlignment="Right" Command="{Binding DirrectExportCommand}" />
-                        <Button Content="Load" HorizontalAlignment="Right" Command="{Binding DirrectImportCommand}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Background="#fafafa" Width="auto">
+            <ListBox Grid.Row="1" ItemsSource="{Binding FileStrings}"
+                     SelectedItem="{Binding SelectedXmlFile, Mode=OneWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Filename}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Background="#fafafa" Width="auto">
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Content="Save to this file"
+                    HorizontalAlignment="Right"
+                    Command="{Binding DirrectExportCommand}" />
+            <Button Width="auto" Height="auto" Margin="27,5,27.8,5" Content="Load from this file"
+                    HorizontalAlignment="Right"
+                    Command="{Binding DirrectImportCommand}" />
+        </StackPanel>
+
 
     </Grid>
 </UserControl>
