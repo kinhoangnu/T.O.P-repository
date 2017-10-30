@@ -22,7 +22,7 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Background="#fafafa" Width="auto">
             <ListBox Grid.Row="1" ItemsSource="{Binding FileStrings}"
-                     SelectedItem="{Binding SelectedXmlFile, Mode=OneWay}">
+                     SelectedItem="{Binding SelectedXmlFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

@@ -79,14 +79,9 @@ namespace Your
         /// <returns></returns>
         private Workstation CheckMatchedWorkstationClass()
         {
-            foreach (var w in WorkstationsViewModel.ObservableWorkstation)
-            {
-                if (w.WorkstationclassRef.WcName == SelectedWorkstationClass.WcName)
-                {
-                    return w;
-                }
-            }
-            return null;
+            return
+                WorkstationsViewModel.ObservableWorkstation.FirstOrDefault(
+                    w => w.WorkstationclassRef.WcName == SelectedWorkstationClass.WcName);
         }
     }
 }

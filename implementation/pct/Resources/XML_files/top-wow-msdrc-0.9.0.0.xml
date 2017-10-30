@@ -1,0 +1,1835 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:TopProjectModel xmlns:ns4="http://vanderlande.com/FM/Top/TopIntModel">
+	<Buffers>
+		<Buffer>
+			<ObjectIdentification>
+				<UUID>a9052056-45b8-43a9-b066-831421a34287</UUID>
+				<Name>Receiving</Name>
+				<Description>General Receiving Buffer</Description>
+			</ObjectIdentification>
+			<CommunicationId>ReceivingBuffer</CommunicationId>
+			<Unit>Pallet</Unit>
+		</Buffer>
+		<Buffer>
+			<ObjectIdentification>
+				<UUID>63720fc9-f871-4b60-8d5f-fa5823ed8845</UUID>
+				<Name>High bay</Name>
+				<Description>High Bay</Description>
+			</ObjectIdentification>
+			<CommunicationId>Highbay</CommunicationId>
+			<Unit>Pallet</Unit>
+		</Buffer>
+		<Buffer>
+			<ObjectIdentification>
+				<UUID>763ffc25-03da-4d83-8d53-d4c321ca7f3f</UUID>
+				<Name>Tray store</Name>
+				<Description>Tray Store</Description>
+			</ObjectIdentification>
+			<CommunicationId>Ams</CommunicationId>
+			<Unit>Tray</Unit>
+		</Buffer>
+		<Buffer>
+			<ObjectIdentification>
+				<UUID>d599f5df-1fc8-4164-9cab-f44f0455aae0</UUID>
+				<Name>Marshalling</Name>
+				<Description>Marshalling Area</Description>
+			</ObjectIdentification>
+			<CommunicationId>Marshalling</CommunicationId>
+			<Unit>LoadCarrierEquivalent</Unit>
+		</Buffer>
+		<Buffer>
+			<ObjectIdentification>
+				<UUID>459dd1e6-2b0d-433a-8067-0e416b315afc</UUID>
+				<Name>Tray store GtP</Name>
+				<Description>Tray Store GtP</Description>
+			</ObjectIdentification>
+			<CommunicationId>AmsGtp</CommunicationId>
+			<Unit>Tray</Unit>
+		</Buffer>
+		<Buffer>
+			<ObjectIdentification>
+				<UUID>9d56af36-cda4-4f0d-996d-e2fe009b96f5</UUID>
+				<Name>Xdock</Name>
+				<Description>Xdock</Description>
+			</ObjectIdentification>
+			<CommunicationId>Xdock</CommunicationId>
+			<Unit>Pallet</Unit>
+		</Buffer>
+	</Buffers>
+	<ProductionAreas>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>aee21921-7824-4b33-819b-a55f9be487bd</UUID>
+				<Name>Receiving Normal</Name>
+				<Description>Inbound Production Area Pallet Receiving Normal</Description>
+			</ObjectIdentification>
+			<CommunicationId>ACPReceiving</CommunicationId>
+			<ProductionType>Inbound</ProductionType>
+		</ProductionArea>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>2e3ae5b7-2ecd-4293-a500-c15785a9650a</UUID>
+				<Name>Receiving Xdock</Name>
+				<Description>Inbound Production Area Xdock Receiving</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceiving</CommunicationId>
+			<ProductionType>Inbound</ProductionType>
+		</ProductionArea>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>24b7d680-9c75-4b25-b5d6-3a27cfc02118</UUID>
+				<Name>ACP</Name>
+				<Description>Outbound Production Area ACP</Description>
+			</ObjectIdentification>
+			<CommunicationId>ACP</CommunicationId>
+			<ProductionType>Outbound</ProductionType>
+		</ProductionArea>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>9b957081-37ee-44eb-ab12-a24dc86ee000</UUID>
+				<Name>NC</Name>
+				<Description>Outbound Production Area NC Picking</Description>
+			</ObjectIdentification>
+			<CommunicationId>NC</CommunicationId>
+			<ProductionType>Outbound</ProductionType>
+		</ProductionArea>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>f874eb7b-4184-4914-b171-50b705b13698</UUID>
+				<Name>Bulk</Name>
+				<Description>Outbound Production Area Bulk Picking</Description>
+			</ObjectIdentification>
+			<CommunicationId>Bulk</CommunicationId>
+			<ProductionType>Outbound</ProductionType>
+		</ProductionArea>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>492d648f-664c-4f17-8976-836e70022225</UUID>
+				<Name>Full Pallet Picking</Name>
+				<Description>Outbound Production Area Full Pallet Picking</Description>
+			</ObjectIdentification>
+			<CommunicationId>FullPalletPicking</CommunicationId>
+			<ProductionType>Outbound</ProductionType>
+		</ProductionArea>
+		<ProductionArea>
+			<ObjectIdentification>
+				<UUID>b03082f4-2c37-4daa-991f-b0de41dd6ba4</UUID>
+				<Name>Xdock</Name>
+				<Description>Outbound Production Area Xdock</Description>
+			</ObjectIdentification>
+			<CommunicationId>Xdock</CommunicationId>
+			<ProductionType>Outbound</ProductionType>
+		</ProductionArea>
+	</ProductionAreas>
+	<Processes>
+		<Process>
+			<ObjectIdentification>
+				<UUID>e53ab792-71fe-4b6d-84e4-4473bd89dbc0</UUID>
+				<Name>Receiving Normal</Name>
+				<Description>Normal Pallet Receiving Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>Receiving</CommunicationId>
+			<ProductionAreaRef>aee21921-7824-4b33-819b-a55f9be487bd</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>a9052056-45b8-43a9-b066-831421a34287</InBuffer>
+			<OutBuffers>
+				<ObjectRef>63720fc9-f871-4b60-8d5f-fa5823ed8845</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>ff704e71-7d3d-4e81-9627-d98725f0198f</UUID>
+				<Name>Receiving Xdock</Name>
+				<Description>Xdock Receiving Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceiving</CommunicationId>
+			<ProductionAreaRef>2e3ae5b7-2ecd-4293-a500-c15785a9650a</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>a9052056-45b8-43a9-b066-831421a34287</InBuffer>
+			<OutBuffers>
+				<ObjectRef>9d56af36-cda4-4f0d-996d-e2fe009b96f5</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>f57a24f1-d005-46e7-9c92-92bdb3237975</UUID>
+				<Name>Depalletising</Name>
+				<Description>ACP Depalletising Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>AmsReplenishment</CommunicationId>
+			<ProductionAreaRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</ProductionAreaRef>
+			<IsReplenishment>true</IsReplenishment>
+			<InBuffer>63720fc9-f871-4b60-8d5f-fa5823ed8845</InBuffer>
+			<OutBuffers>
+				<ObjectRef>763ffc25-03da-4d83-8d53-d4c321ca7f3f</ObjectRef>
+				<ObjectRef>459dd1e6-2b0d-433a-8067-0e416b315afc</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>86dc2615-e9a0-4439-9fbd-4d930636dd02</UUID>
+				<Name>ACP Picking</Name>
+				<Description>ACP Palletising Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>Palletising</CommunicationId>
+			<ProductionAreaRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>763ffc25-03da-4d83-8d53-d4c321ca7f3f</InBuffer>
+			<OutBuffers>
+				<ObjectRef>d599f5df-1fc8-4164-9cab-f44f0455aae0</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</UUID>
+				<Name>NC Picking</Name>
+				<Description>NC Picking Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>NcPicking</CommunicationId>
+			<ProductionAreaRef>9b957081-37ee-44eb-ab12-a24dc86ee000</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>63720fc9-f871-4b60-8d5f-fa5823ed8845</InBuffer>
+			<OutBuffers>
+				<ObjectRef>d599f5df-1fc8-4164-9cab-f44f0455aae0</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>ac9caade-6a60-450f-b724-a5eedc65b65f</UUID>
+				<Name>Goods to Person</Name>
+				<Description>Goods to Person</Description>
+			</ObjectIdentification>
+			<CommunicationId>GoodsToPerson</CommunicationId>
+			<ProductionAreaRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</ProductionAreaRef>
+			<StreamId>GoodsToPerson</StreamId>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>459dd1e6-2b0d-433a-8067-0e416b315afc</InBuffer>
+			<OutBuffers>
+				<ObjectRef>763ffc25-03da-4d83-8d53-d4c321ca7f3f</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>1fd14356-430b-4028-aaad-b888138ed91d</UUID>
+				<Name>Bulk Picking</Name>
+				<Description>Bulk Picking Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>BulkPicking</CommunicationId>
+			<ProductionAreaRef>f874eb7b-4184-4914-b171-50b705b13698</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>63720fc9-f871-4b60-8d5f-fa5823ed8845</InBuffer>
+			<OutBuffers>
+				<ObjectRef>d599f5df-1fc8-4164-9cab-f44f0455aae0</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>39264593-7813-44e2-8752-283d21af2303</UUID>
+				<Name>Full Pallet Picking</Name>
+				<Description>Full Pallet Picking Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>FullPalletPicking</CommunicationId>
+			<ProductionAreaRef>492d648f-664c-4f17-8976-836e70022225</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>63720fc9-f871-4b60-8d5f-fa5823ed8845</InBuffer>
+			<OutBuffers>
+				<ObjectRef>d599f5df-1fc8-4164-9cab-f44f0455aae0</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>false</ExcludeFromKPIs>
+		</Process>
+		<Process>
+			<ObjectIdentification>
+				<UUID>576cc105-3ff0-4f9e-8a7d-805f3e3a2918</UUID>
+				<Name>Xdock</Name>
+				<Description>Xdock Process</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockDelivery</CommunicationId>
+			<ProductionAreaRef>b03082f4-2c37-4daa-991f-b0de41dd6ba4</ProductionAreaRef>
+			<IsReplenishment>false</IsReplenishment>
+			<InBuffer>9d56af36-cda4-4f0d-996d-e2fe009b96f5</InBuffer>
+			<OutBuffers>
+				<ObjectRef>d599f5df-1fc8-4164-9cab-f44f0455aae0</ObjectRef>
+			</OutBuffers>
+			<ExcludeFromKPIs>true</ExcludeFromKPIs>
+		</Process>
+	</Processes>
+	<SecondaryActivities>
+		<SecondaryActivity>
+			<ObjectIdentification>
+				<UUID>fffa7b79-86c1-4115-a48b-3d50cd6f96df</UUID>
+				<Name>Teaching</Name>
+				<Description>Depalletising teaching</Description>
+			</ObjectIdentification>
+			<CommunicationId>TEACHING</CommunicationId>
+		</SecondaryActivity>
+		<SecondaryActivity>
+			<ObjectIdentification>
+				<UUID>2937b0ab-7869-408b-a2b9-46a2eda5e3b1</UUID>
+				<Name>Return pallet building</Name>
+				<Description>Return pallet building</Description>
+			</ObjectIdentification>
+			<CommunicationId>RETURNS</CommunicationId>
+		</SecondaryActivity>
+		<SecondaryActivity>
+			<ObjectIdentification>
+				<UUID>2a23113c-b50a-4b04-af98-c100d9aa1d6e</UUID>
+				<Name>Maintenance</Name>
+				<Description>Workstation maintenance</Description>
+			</ObjectIdentification>
+			<CommunicationId>MAINTENANCE</CommunicationId>
+		</SecondaryActivity>
+		<SecondaryActivity>
+			<ObjectIdentification>
+				<UUID>be18c071-98d3-4dc1-bd95-40733ea53e03</UUID>
+				<Name>Extended maintenance</Name>
+				<Description>Workstation + aisle maintenance</Description>
+			</ObjectIdentification>
+			<CommunicationId>MAINTENANCE_MODULE</CommunicationId>
+		</SecondaryActivity>
+	</SecondaryActivities>
+	<WorkstationClasses>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>deb942a9-2ce5-46c1-967d-327482ab7a89</UUID>
+				<Name>SemiInfeedNormal</Name>
+			</ObjectIdentification>
+			<WorkstationType>InfeedStationNormal</WorkstationType>
+			<HandlingType>SemiAutomatic</HandlingType>
+			<ProcessRef>e53ab792-71fe-4b6d-84e4-4473bd89dbc0</ProcessRef>
+			<SecondaryActivities>
+				<WCSecondaryActivity>
+					<ObjectRef>2a23113c-b50a-4b04-af98-c100d9aa1d6e</ObjectRef>
+				</WCSecondaryActivity>
+			</SecondaryActivities>
+		</WorkstationClass>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>71d19fbb-3419-44f0-ba8d-e6492dbe812a</UUID>
+				<Name>Manual Xdock Receiving</Name>
+			</ObjectIdentification>
+			<WorkstationType>XdockReceiver</WorkstationType>
+			<HandlingType>Manual</HandlingType>
+			<ProcessRef>ff704e71-7d3d-4e81-9627-d98725f0198f</ProcessRef>
+		</WorkstationClass>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>c8affeed-7b87-441d-a9cc-038cdb712fbb</UUID>
+				<Name>Automatic Depalletising</Name>
+			</ObjectIdentification>
+			<WorkstationType>Depalletiser</WorkstationType>
+			<HandlingType>Automatic</HandlingType>
+			<ProcessRef>f57a24f1-d005-46e7-9c92-92bdb3237975</ProcessRef>
+			<SecondaryActivities>
+				<WCSecondaryActivity>
+					<ObjectRef>fffa7b79-86c1-4115-a48b-3d50cd6f96df</ObjectRef>
+					<MaxAllowed>1</MaxAllowed>
+				</WCSecondaryActivity>
+				<WCSecondaryActivity>
+					<ObjectRef>2a23113c-b50a-4b04-af98-c100d9aa1d6e</ObjectRef>
+				</WCSecondaryActivity>
+			</SecondaryActivities>
+		</WorkstationClass>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>470ffa6b-28d0-46a9-911b-f8e8d4737012</UUID>
+				<Name>Semi-automatic Depalletising</Name>
+			</ObjectIdentification>
+			<WorkstationType>Depalletiser</WorkstationType>
+			<HandlingType>SemiAutomatic</HandlingType>
+			<ProcessRef>f57a24f1-d005-46e7-9c92-92bdb3237975</ProcessRef>
+			<SecondaryActivities>
+				<WCSecondaryActivity>
+					<ObjectRef>2a23113c-b50a-4b04-af98-c100d9aa1d6e</ObjectRef>
+				</WCSecondaryActivity>
+			</SecondaryActivities>
+		</WorkstationClass>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>9c66260f-d15f-4931-b1bc-5f329edc2dcb</UUID>
+				<Name>Automatic Palletising</Name>
+			</ObjectIdentification>
+			<WorkstationType>Palletiser</WorkstationType>
+			<HandlingType>Automatic</HandlingType>
+			<ProcessRef>86dc2615-e9a0-4439-9fbd-4d930636dd02</ProcessRef>
+			<SecondaryActivities>
+				<WCSecondaryActivity>
+					<ObjectRef>2937b0ab-7869-408b-a2b9-46a2eda5e3b1</ObjectRef>
+					<MaxAllowed>1</MaxAllowed>
+				</WCSecondaryActivity>
+				<WCSecondaryActivity>
+					<ObjectRef>2a23113c-b50a-4b04-af98-c100d9aa1d6e</ObjectRef>
+				</WCSecondaryActivity>
+				<WCSecondaryActivity>
+					<ObjectRef>be18c071-98d3-4dc1-bd95-40733ea53e03</ObjectRef>
+				</WCSecondaryActivity>
+			</SecondaryActivities>
+		</WorkstationClass>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>f0f661ad-01f5-4fd7-a535-999d6bec61eb</UUID>
+				<Name>Manual Picking</Name>
+			</ObjectIdentification>
+			<WorkstationType>NCPicker</WorkstationType>
+			<HandlingType>Manual</HandlingType>
+			<ProcessRef>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</ProcessRef>
+		</WorkstationClass>
+		<WorkstationClass>
+			<ObjectIdentification>
+				<UUID>807612f6-931e-4e58-9ef6-1b07104245ce</UUID>
+				<Name>Semi-automatic Split Case Picking</Name>
+			</ObjectIdentification>
+			<WorkstationType>SplitCasePicker</WorkstationType>
+			<HandlingType>SemiAutomatic</HandlingType>
+			<ProcessRef>ac9caade-6a60-450f-b724-a5eedc65b65f</ProcessRef>
+			<SecondaryActivities>
+				<WCSecondaryActivity>
+					<ObjectRef>2a23113c-b50a-4b04-af98-c100d9aa1d6e</ObjectRef>
+				</WCSecondaryActivity>
+			</SecondaryActivities>
+		</WorkstationClass>
+	</WorkstationClasses>
+	<WorkstationGroups>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>b8c2f57d-da92-4992-b263-481a59aa484d</UUID>
+				<Name>Super Module 1</Name>
+				<Description>Super Module 1</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>406c771a-e2f5-49ee-afe1-36327d56ba89</UUID>
+				<Name>Super Module 2</Name>
+				<Description>Super Module 2</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>2824b7d4-3f9b-495d-ba24-0e2e507adc61</UUID>
+				<Name>Super Module 3</Name>
+				<Description>Super Module 3</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>23b6dd38-f950-42fb-8799-945a6cf2678f</UUID>
+				<Name>Super Module 4</Name>
+				<Description>Super Module 4</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>664ad1b3-9a89-49e9-a746-7023fce558ef</UUID>
+				<Name>Super Module 5</Name>
+				<Description>Super Module 5</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>00e37b1c-c322-4743-889c-fbd2ab5dcd59</UUID>
+				<Name>Super Module 6</Name>
+				<Description>Super Module 6</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>4c732fae-7c4e-442d-abef-e5d01e79753f</UUID>
+				<Name>Super Module 7</Name>
+				<Description>Super Module 7</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>5acf4a90-b164-4769-a0be-fd52308b3cc3</UUID>
+				<Name>Super Module 8</Name>
+				<Description>Super Module 8</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>6b5676a0-0c14-4e7d-acb6-d44ba793905d</UUID>
+				<Name>Super Module 9</Name>
+				<Description>Super Module 9</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+		<WorkstationGroup>
+			<ObjectIdentification>
+				<UUID>10fe8280-777e-46bf-8175-62df6840473a</UUID>
+				<Name>Super Module 10</Name>
+				<Description>Super Module 10</Description>
+			</ObjectIdentification>
+		</WorkstationGroup>
+	</WorkstationGroups>
+	<Workstations>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>de3fe8be-d285-476b-9a7d-13ca6e7c316d</UUID>
+				<Name>Pallet Infeed A1</Name>
+				<Description>Pallet Infeed A1 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryA1</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>e0ac0f38-f275-4dc6-a579-24c88215ef15</UUID>
+				<Name>Pallet Infeed A2</Name>
+				<Description>Pallet Infeed A2 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryA2</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>cf8d0b1a-b641-4d20-a5b2-e27407bd36bc</UUID>
+				<Name>Pallet Infeed A3</Name>
+				<Description>Pallet Infeed A3 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryA3</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>8487cc8d-66f2-44a7-9486-34120d05101b</UUID>
+				<Name>Pallet Infeed B1</Name>
+				<Description>Pallet Infeed B1 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryB1</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>58b16a38-4c42-4f8c-a33b-a7f4c00078e4</UUID>
+				<Name>Pallet Infeed B2</Name>
+				<Description>Pallet Infeed B2 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryB2</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>baa66bfd-eec1-41df-8968-3845bb5ebad4</UUID>
+				<Name>Pallet Infeed B3</Name>
+				<Description>Pallet Infeed B3 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryB3</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>f9102e02-d246-4e3a-b502-6fc36827a480</UUID>
+				<Name>Pallet Infeed C1</Name>
+				<Description>Pallet Infeed C1 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryC1</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>76b0393a-18f1-428e-b78f-ba639a8b22c1</UUID>
+				<Name>Pallet Infeed C2</Name>
+				<Description>Pallet Infeed C2 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryC2</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>621558f4-797d-482b-a802-f567c7d0711b</UUID>
+				<Name>Pallet Infeed C3</Name>
+				<Description>Pallet Infeed C3 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryC3</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ceac5456-680f-4b6e-b4f0-6560fb64b8bd</UUID>
+				<Name>Pallet Infeed C4</Name>
+				<Description>Pallet Infeed C4 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>RCV/Rcv/EntryC4</CommunicationId>
+			<WorkstationClassRef>deb942a9-2ce5-46c1-967d-327482ab7a89</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>4923de37-387a-4e28-b62d-6dded18f932b</UUID>
+				<Name>Xdock Receiver 1</Name>
+				<Description>Xdock Receiver 1</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceive1</CommunicationId>
+			<WorkstationClassRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>5a6c98a4-660a-48f4-a5f5-05296b020363</UUID>
+				<Name>Xdock Receiver 2</Name>
+				<Description>Xdock Receiver 2</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceive2</CommunicationId>
+			<WorkstationClassRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ac8e80ad-f9d5-49ea-bd9b-9a9242c727c1</UUID>
+				<Name>Xdock Receiver 3</Name>
+				<Description>Xdock Receiver 3</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceive3</CommunicationId>
+			<WorkstationClassRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>43920592-79e1-4952-a691-c663bb4964da</UUID>
+				<Name>Xdock Receiver 4</Name>
+				<Description>Xdock Receiver 4</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceive4</CommunicationId>
+			<WorkstationClassRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ef2ad54b-9ce2-4649-a4ee-ff3cc209d543</UUID>
+				<Name>Xdock Receiver 5</Name>
+				<Description>Xdock Receiver 5</Description>
+			</ObjectIdentification>
+			<CommunicationId>XdockReceive5</CommunicationId>
+			<WorkstationClassRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ccbd4949-1b4b-4f8e-938b-d1acb6465732</UUID>
+				<Name>Auto Depal 3</Name>
+				<Description>Depalletiser 3 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep03</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>cfdcf061-38af-4b38-9584-5a77ffc435a4</UUID>
+				<Name>Auto Depal 4</Name>
+				<Description>Depalletiser 4 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep04</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>1d2d3da4-dbaf-4686-b1fa-364bc4b21648</UUID>
+				<Name>Auto Depal 5</Name>
+				<Description>Depalletiser 5 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep05</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>09febdf3-ea8e-4015-a6a2-a06f0a5ee044</UUID>
+				<Name>Auto Depal 6</Name>
+				<Description>Depalletiser 6 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep06</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>d7766c73-4daf-4a4d-a12e-5544148d53c0</UUID>
+				<Name>Manual Depal 7</Name>
+				<Description>Depalletiser 7 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/ManDep07</CommunicationId>
+			<WorkstationClassRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>b77bdeed-b9fe-4836-8fd3-eb8c260fbb7e</UUID>
+				<Name>Manual Depal 8</Name>
+				<Description>Depalletiser 8 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/ManDep08</CommunicationId>
+			<WorkstationClassRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>cc4e851a-78c3-461f-b7cd-da0f240646aa</UUID>
+				<Name>Manual Depal 9</Name>
+				<Description>Depalletiser 9 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/ManDep09</CommunicationId>
+			<WorkstationClassRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>d2f9461c-3c10-4ff8-9b25-0e1878b42ec4</UUID>
+				<Name>Manual Depal 10</Name>
+				<Description>Depalletiser 10 (semi-automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/ManDep10</CommunicationId>
+			<WorkstationClassRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>24999663-7a4f-44b0-aa89-99885e6b5039</UUID>
+				<Name>Auto Depal 11</Name>
+				<Description>Depalletiser 11 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep11</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>84980068-cb89-473b-877f-0652bec3aea2</UUID>
+				<Name>Auto Depal 12</Name>
+				<Description>Depalletiser 12 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep12</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>9a27faed-5fab-41af-8f6e-89ed0f0a85d1</UUID>
+				<Name>Auto Depal 13</Name>
+				<Description>Depalletiser 13 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep13</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>bfa8a2b0-177f-4750-b6aa-e28e73527887</UUID>
+				<Name>Auto Depal 14</Name>
+				<Description>Depalletiser 14 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>DEP/AutoDep14</CommunicationId>
+			<WorkstationClassRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>5378a454-80c5-418e-8921-06633cc29703</UUID>
+				<Name>Auto Pal 6</Name>
+				<Description>Palletiser 6 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal06</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>b8c2f57d-da92-4992-b263-481a59aa484d</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>450c2281-270d-4394-b139-351eb6d3fe20</UUID>
+				<Name>Auto Pal 7</Name>
+				<Description>Palletiser 7 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal07</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>b8c2f57d-da92-4992-b263-481a59aa484d</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>a1527906-a034-4115-b3f2-562dfe3ce51c</UUID>
+				<Name>Auto Pal 8</Name>
+				<Description>Palletiser 8 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal08</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>406c771a-e2f5-49ee-afe1-36327d56ba89</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>6dfe8141-f661-45c8-8231-694832c0cdc4</UUID>
+				<Name>Auto Pal 9</Name>
+				<Description>Palletiser 9 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal09</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>406c771a-e2f5-49ee-afe1-36327d56ba89</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ad0f4309-d4c5-4b9f-b787-10a781fcf92c</UUID>
+				<Name>Auto Pal 10</Name>
+				<Description>Palletiser 10 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal10</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>406c771a-e2f5-49ee-afe1-36327d56ba89</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>3ee88aa2-e559-43a1-bdac-5152044db971</UUID>
+				<Name>Auto Pal 11</Name>
+				<Description>Palletiser 11 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal11</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>2824b7d4-3f9b-495d-ba24-0e2e507adc61</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ec96a50a-2fbf-4138-be6e-d869a7fa586a</UUID>
+				<Name>Auto Pal 12</Name>
+				<Description>Palletiser 12 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal12</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>2824b7d4-3f9b-495d-ba24-0e2e507adc61</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>4036a422-aa75-4588-a4a8-34ea06ecf043</UUID>
+				<Name>Auto Pal 13</Name>
+				<Description>Palletiser 13 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal13</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>2824b7d4-3f9b-495d-ba24-0e2e507adc61</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>96de7315-af46-4e3c-be4c-1d8ba78fe5ae</UUID>
+				<Name>Auto Pal 14</Name>
+				<Description>Palletiser 14 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal14</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>23b6dd38-f950-42fb-8799-945a6cf2678f</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>a1adb78f-6d28-4919-a0a6-c4557e2fa948</UUID>
+				<Name>Auto Pal 15</Name>
+				<Description>Palletiser 15 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal15</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>23b6dd38-f950-42fb-8799-945a6cf2678f</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>cf100811-42d8-4dbf-aeed-38e0de4126ec</UUID>
+				<Name>Auto Pal 16</Name>
+				<Description>Palletiser 16 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal16</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>664ad1b3-9a89-49e9-a746-7023fce558ef</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>7d960ea6-ebad-4f40-92bd-c184915022ee</UUID>
+				<Name>Auto Pal 17</Name>
+				<Description>Palletiser 17 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal17</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>664ad1b3-9a89-49e9-a746-7023fce558ef</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>27b6a769-7392-4a57-b8b1-94f1ceebbc68</UUID>
+				<Name>Auto Pal 18</Name>
+				<Description>Palletiser 18 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal18</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>00e37b1c-c322-4743-889c-fbd2ab5dcd59</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>5e6f436a-b57c-4937-adeb-83b8fc5442ae</UUID>
+				<Name>Auto Pal 19</Name>
+				<Description>Palletiser 19 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal19</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>00e37b1c-c322-4743-889c-fbd2ab5dcd59</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>49b01ae7-3e19-49c6-ab29-a86cdd9577bd</UUID>
+				<Name>Auto Pal 20</Name>
+				<Description>Palletiser 20 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal20</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>00e37b1c-c322-4743-889c-fbd2ab5dcd59</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>ac3a5943-d941-4d30-a56d-fb5be4f498c6</UUID>
+				<Name>Auto Pal 21</Name>
+				<Description>Palletiser 21 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal21</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>4c732fae-7c4e-442d-abef-e5d01e79753f</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>aadc17a1-0e7b-4d58-9107-d9d8280d5747</UUID>
+				<Name>Auto Pal 22</Name>
+				<Description>Palletiser 22 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal22</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>4c732fae-7c4e-442d-abef-e5d01e79753f</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>6d36edda-b05a-4961-a63f-e9c49cba4227</UUID>
+				<Name>Auto Pal 23</Name>
+				<Description>Palletiser 23 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal23</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>4c732fae-7c4e-442d-abef-e5d01e79753f</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>87fd59a0-f525-48b0-9380-8baf41f06c09</UUID>
+				<Name>Auto Pal 24</Name>
+				<Description>Palletiser 24 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal24</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>5acf4a90-b164-4769-a0be-fd52308b3cc3</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>9d8fb87d-8e9e-4971-bbf6-3ac6e2e2712f</UUID>
+				<Name>Auto Pal 25</Name>
+				<Description>Palletiser 25 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal25</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>5acf4a90-b164-4769-a0be-fd52308b3cc3</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>65eccd9c-2fdd-4b49-b56b-29d6d4629636</UUID>
+				<Name>Auto Pal 26</Name>
+				<Description>Palletiser 26 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal26</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>6b5676a0-0c14-4e7d-acb6-d44ba793905d</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>b226aa74-ed1a-44c9-909d-001facae3cd3</UUID>
+				<Name>Auto Pal 27</Name>
+				<Description>Palletiser 27 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal27</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>6b5676a0-0c14-4e7d-acb6-d44ba793905d</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>44cc9940-aae1-40b2-b815-c0c57dd94fb7</UUID>
+				<Name>Auto Pal 28</Name>
+				<Description>Palletiser 28 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal28</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>10fe8280-777e-46bf-8175-62df6840473a</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>c967e462-2b5b-43c8-a43f-de421ae7c2ca</UUID>
+				<Name>Auto Pal 29</Name>
+				<Description>Palletiser 29 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal29</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>10fe8280-777e-46bf-8175-62df6840473a</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>0a39db4f-0538-4913-9caf-35fad9d22ca4</UUID>
+				<Name>Auto Pal 30</Name>
+				<Description>Palletiser 30 (automatic)</Description>
+			</ObjectIdentification>
+			<CommunicationId>PAL/AutoPal30</CommunicationId>
+			<WorkstationClassRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</WorkstationClassRef>
+			<WorkstationGroupRef>10fe8280-777e-46bf-8175-62df6840473a</WorkstationGroupRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>00586f2d-34de-429c-b5fe-34d802fe4d81</UUID>
+				<Name>Non Conveyable 1</Name>
+				<Description>NC Picker 1</Description>
+			</ObjectIdentification>
+			<CommunicationId>NcPicker1</CommunicationId>
+			<WorkstationClassRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>927bb0c8-c479-41c9-a510-55b2e1fc5c6e</UUID>
+				<Name>Non Conveyable 2</Name>
+				<Description>NC Picker 2</Description>
+			</ObjectIdentification>
+			<CommunicationId>NcPicker2</CommunicationId>
+			<WorkstationClassRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>0e6769b8-d286-4196-9583-fff9449cb4a6</UUID>
+				<Name>Non Conveyable 3</Name>
+				<Description>NC Picker 3</Description>
+			</ObjectIdentification>
+			<CommunicationId>NcPicker3</CommunicationId>
+			<WorkstationClassRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>0a53e610-e596-4b84-915b-e1d922775ba3</UUID>
+				<Name>Non Conveyable 4</Name>
+				<Description>NC Picker 4</Description>
+			</ObjectIdentification>
+			<CommunicationId>NcPicker4</CommunicationId>
+			<WorkstationClassRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>48c928ce-badf-4757-8041-ba7ccba461b1</UUID>
+				<Name>Non Conveyable 5</Name>
+				<Description>NC Picker 5</Description>
+			</ObjectIdentification>
+			<CommunicationId>NcPicker5</CommunicationId>
+			<WorkstationClassRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>9ed361f9-794d-4554-8ce5-840240035985</UUID>
+				<Name>GTP 1</Name>
+				<Description>Goods to Person 1</Description>
+			</ObjectIdentification>
+			<CommunicationId>SCP/GtP01</CommunicationId>
+			<WorkstationClassRef>807612f6-931e-4e58-9ef6-1b07104245ce</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>73d08b1d-2df7-41e2-ac51-bedd0824ae19</UUID>
+				<Name>GTP 2</Name>
+				<Description>Goods to Person 2</Description>
+			</ObjectIdentification>
+			<CommunicationId>SCP/GtP02</CommunicationId>
+			<WorkstationClassRef>807612f6-931e-4e58-9ef6-1b07104245ce</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>e317920b-f2ab-4b8b-a85b-7b4bdddee32a</UUID>
+				<Name>GTP 3</Name>
+				<Description>Goods to Person 3</Description>
+			</ObjectIdentification>
+			<CommunicationId>SCP/GtP03</CommunicationId>
+			<WorkstationClassRef>807612f6-931e-4e58-9ef6-1b07104245ce</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>69a36642-8c99-4b56-a3c4-96e0a5fcc769</UUID>
+				<Name>GTP 4</Name>
+				<Description>Goods to Person 4</Description>
+			</ObjectIdentification>
+			<CommunicationId>SCP/GtP04</CommunicationId>
+			<WorkstationClassRef>807612f6-931e-4e58-9ef6-1b07104245ce</WorkstationClassRef>
+		</Workstation>
+		<Workstation>
+			<ObjectIdentification>
+				<UUID>09cbd333-f066-4148-ac08-fe44cb0e35df</UUID>
+				<Name>GTP 5</Name>
+				<Description>Goods to Person 5</Description>
+			</ObjectIdentification>
+			<CommunicationId>SCP/GtP05</CommunicationId>
+			<WorkstationClassRef>807612f6-931e-4e58-9ef6-1b07104245ce</WorkstationClassRef>
+		</Workstation>
+	</Workstations>
+	<Operators>
+		<Operator>
+			<ObjectIdentification>
+				<UUID>8669069b-f67b-4afb-b9b0-c84c3ab30d7b</UUID>
+				<Name>Defoiler</Name>
+				<Description>Defoiling operator</Description>
+			</ObjectIdentification>
+			<UseCustomUpperLimit>true</UseCustomUpperLimit>
+		</Operator>
+		<Operator>
+			<ObjectIdentification>
+				<UUID>3fcfaffe-9afd-4582-ba4f-abfd04f69dff</UUID>
+				<Name>Depalletiser</Name>
+				<Description>Depalletising operator</Description>
+			</ObjectIdentification>
+			<UseCustomUpperLimit>false</UseCustomUpperLimit>
+		</Operator>
+		<Operator>
+			<ObjectIdentification>
+				<UUID>916675cd-0400-4827-9105-112c646b77c4</UUID>
+				<Name>NC Replenisher</Name>
+				<Description>NC replenishment operator</Description>
+			</ObjectIdentification>
+			<UseCustomUpperLimit>false</UseCustomUpperLimit>
+		</Operator>
+		<Operator>
+			<ObjectIdentification>
+				<UUID>28e94377-f4e0-4763-8c98-2996c1519aa3</UUID>
+				<Name>GtP Picker</Name>
+				<Description>GtP operator</Description>
+			</ObjectIdentification>
+			<UseCustomUpperLimit>false</UseCustomUpperLimit>
+		</Operator>
+	</Operators>
+	<OperatorActivities>
+		<OperatorActivity>
+			<ObjectIdentification>
+				<UUID>4406e0ef-a0be-475f-b9d2-6c0b22ee59cd</UUID>
+			</ObjectIdentification>
+			<OperatorRef>8669069b-f67b-4afb-b9b0-c84c3ab30d7b</OperatorRef>
+			<ProcessRef>f57a24f1-d005-46e7-9c92-92bdb3237975</ProcessRef>
+			<Unit>Pallet</Unit>
+			<UseCustomFractional>false</UseCustomFractional>
+			<UseCustomOffset>false</UseCustomOffset>
+			<UseCustomBoundaries>true</UseCustomBoundaries>
+		</OperatorActivity>
+		<OperatorActivity>
+			<ObjectIdentification>
+				<UUID>aaa754f4-977a-4ead-8650-248c6946d48e</UUID>
+			</ObjectIdentification>
+			<OperatorRef>916675cd-0400-4827-9105-112c646b77c4</OperatorRef>
+			<ProcessRef>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</ProcessRef>
+			<Unit>Pallet</Unit>
+			<UseCustomFractional>false</UseCustomFractional>
+			<UseCustomOffset>false</UseCustomOffset>
+			<UseCustomBoundaries>true</UseCustomBoundaries>
+		</OperatorActivity>
+	</OperatorActivities>
+	<OperatorPresences>
+		<OperatorPresence>
+			<ObjectIdentification>
+				<UUID>7cf1d2fd-43a7-475c-ad4e-1ea0e3a52784</UUID>
+			</ObjectIdentification>
+			<OperatorRef>3fcfaffe-9afd-4582-ba4f-abfd04f69dff</OperatorRef>
+			<ProcessRef>f57a24f1-d005-46e7-9c92-92bdb3237975</ProcessRef>
+			<WorkstationClassRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</WorkstationClassRef>
+		</OperatorPresence>
+	</OperatorPresences>
+	<Parameters>
+		<Parameter>
+			<ParameterId>Capacity.Buffer</ParameterId>
+			<ParameterValue>10000.0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Buffer</ParameterId>
+			<ParameterValue>38400.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>459dd1e6-2b0d-433a-8067-0e416b315afc</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Buffer</ParameterId>
+			<ParameterValue>351400.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>763ffc25-03da-4d83-8d53-d4c321ca7f3f</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Buffer</ParameterId>
+			<ParameterValue>2050</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>d599f5df-1fc8-4164-9cab-f44f0455aae0</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>100.0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>1570.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>75.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>82.8</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>807612f6-931e-4e58-9ef6-1b07104245ce</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>633.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>1640.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>100.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>deb942a9-2ce5-46c1-967d-327482ab7a89</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Capacity.Workstation</ParameterId>
+			<ParameterValue>180.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Conversion</ParameterId>
+			<ParameterValue>1.0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Conversion</ParameterId>
+			<ParameterValue>88.5</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>LoadCarrierEquivalent</AttributeRef>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Conversion</ParameterId>
+			<ParameterValue>38.5</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>LoadCarrierEquivalent</AttributeRef>
+				<AttributeRef>9b957081-37ee-44eb-ab12-a24dc86ee000</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Conversion</ParameterId>
+			<ParameterValue>120.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>Pallet</AttributeRef>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Conversion</ParameterId>
+			<ParameterValue>76.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>Pallet</AttributeRef>
+				<AttributeRef>9b957081-37ee-44eb-ab12-a24dc86ee000</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Conversion</ParameterId>
+			<ParameterValue>1.83</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>Tray</AttributeRef>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>FmInstanceNameBpi</ParameterId>
+			<ParameterValue>BPI/Bpi</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>FmInstanceNameTop</ParameterId>
+			<ParameterValue>TOP/Top</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>FmInstanceNameWmc</ParameterId>
+			<ParameterValue>WMC/Wmc</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>InitialFill.Buffer</ParameterId>
+			<ParameterValue>0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>InitialFill.Buffer</ParameterId>
+			<ParameterValue>31500</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>459dd1e6-2b0d-433a-8067-0e416b315afc</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>InitialFill.Buffer</ParameterId>
+			<ParameterValue>289812</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>763ffc25-03da-4d83-8d53-d4c321ca7f3f</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>MaxNrOfInactivePlans</ParameterId>
+			<ParameterValue>20</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>MinCapacityRatio.Process</ParameterId>
+			<ParameterValue>0.0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>MinCapacityRatio.Process</ParameterId>
+			<ParameterValue>0.2</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>SemiAutomatic</AttributeRef>
+				<AttributeRef>Automatic</AttributeRef>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Area</ParameterId>
+			<ParameterValue>0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Area</ParameterId>
+			<ParameterValue>120</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Area</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>492d648f-664c-4f17-8976-836e70022225</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Area</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>9b957081-37ee-44eb-ab12-a24dc86ee000</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Area</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>b03082f4-2c37-4daa-991f-b0de41dd6ba4</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Area</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>f874eb7b-4184-4914-b171-50b705b13698</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>1fd14356-430b-4028-aaad-b888138ed91d</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>39264593-7813-44e2-8752-283d21af2303</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>576cc105-3ff0-4f9e-8a7d-805f3e3a2918</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>86dc2615-e9a0-4439-9fbd-4d930636dd02</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>ac9caade-6a60-450f-b724-a5eedc65b65f</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.In.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Area</ParameterId>
+			<ParameterValue>0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Area</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Area</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>492d648f-664c-4f17-8976-836e70022225</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Area</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>9b957081-37ee-44eb-ab12-a24dc86ee000</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Area</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>b03082f4-2c37-4daa-991f-b0de41dd6ba4</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Area</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>f874eb7b-4184-4914-b171-50b705b13698</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>1fd14356-430b-4028-aaad-b888138ed91d</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>39264593-7813-44e2-8752-283d21af2303</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>576cc105-3ff0-4f9e-8a7d-805f3e3a2918</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>86dc2615-e9a0-4439-9fbd-4d930636dd02</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>ac9caade-6a60-450f-b724-a5eedc65b65f</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>30</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Offset.Out.Process</ParameterId>
+			<ParameterValue>60</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperationalWindow.DaysInFuture</ParameterId>
+			<ParameterValue>5</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperationalWindow.DaysInPast</ParameterId>
+			<ParameterValue>1</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorActivity.HandlingFraction</ParameterId>
+			<ParameterValue>1.0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorActivity.HandlingOffset</ParameterId>
+			<ParameterValue>0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorActivity.OperatorCapacity</ParameterId>
+			<ParameterValue>100.0</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorActivity.OperatorCapacity</ParameterId>
+			<ParameterValue>75.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>8669069b-f67b-4afb-b9b0-c84c3ab30d7b</AttributeRef>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorActivity.OperatorCapacity</ParameterId>
+			<ParameterValue>30.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>916675cd-0400-4827-9105-112c646b77c4</AttributeRef>
+				<AttributeRef>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorPresence.PresenceFraction</ParameterId>
+			<ParameterValue>1</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorPresence.PresenceFraction</ParameterId>
+			<ParameterValue>1.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>28e94377-f4e0-4763-8c98-2996c1519aa3</AttributeRef>
+				<AttributeRef>ac9caade-6a60-450f-b724-a5eedc65b65f</AttributeRef>
+				<AttributeRef>807612f6-931e-4e58-9ef6-1b07104245ce</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OperatorPresence.PresenceFraction</ParameterId>
+			<ParameterValue>2.0</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>3fcfaffe-9afd-4582-ba4f-abfd04f69dff</AttributeRef>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+				<AttributeRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>OrderProgressEnabled</ParameterId>
+			<ParameterValue>true</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>TargetFillRatio.Buffer</ParameterId>
+			<ParameterValue>0.7</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>TargetFillRatio.Buffer</ParameterId>
+			<ParameterValue>0.82</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>459dd1e6-2b0d-433a-8067-0e416b315afc</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>TargetFillRatio.Buffer</ParameterId>
+			<ParameterValue>0.825</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>763ffc25-03da-4d83-8d53-d4c321ca7f3f</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>Timeslot</ParameterId>
+			<ParameterValue>10</ParameterValue>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.001, 2147483647]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.001, 2147483647]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Conversion</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 2147483647]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>InitialFill.Buffer</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 30]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>MaxNrOfInactivePlans</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.0, 1.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>MinCapacityRatio.Process</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 120]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Offset.In.Area</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 120]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Offset.In.Process</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 120]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Offset.Out.Area</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 120]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Offset.Out.Process</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.0, 10.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorActivity.HandlingFraction</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[-300, 300]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorActivity.HandlingOffset</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.001, 2147483647]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorActivity.OperatorCapacity</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 10]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorPresence.PresenceFraction</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.0, 1.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>TargetFillRatio.Buffer</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[1290.0, 1720.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[50.0, 100.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>71d19fbb-3419-44f0-ba8d-e6492dbe812a</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[55.0, 110.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>807612f6-931e-4e58-9ef6-1b07104245ce</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[585.0, 780.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>9c66260f-d15f-4931-b1bc-5f329edc2dcb</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[1354.0, 1805.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>c8affeed-7b87-441d-a9cc-038cdb712fbb</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[67.0, 133.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>deb942a9-2ce5-46c1-967d-327482ab7a89</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[120.0, 240.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Capacity.Workstation</AttributeRef>
+				<AttributeRef>f0f661ad-01f5-4fd7-a535-999d6bec61eb</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 38400.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>InitialFill.Buffer</AttributeRef>
+				<AttributeRef>459dd1e6-2b0d-433a-8067-0e416b315afc</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0, 351400.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>InitialFill.Buffer</AttributeRef>
+				<AttributeRef>763ffc25-03da-4d83-8d53-d4c321ca7f3f</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.0, 150.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorActivity.OperatorCapacity</AttributeRef>
+				<AttributeRef>8669069b-f67b-4afb-b9b0-c84c3ab30d7b</AttributeRef>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.0, 150.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorActivity.OperatorCapacity</AttributeRef>
+				<AttributeRef>916675cd-0400-4827-9105-112c646b77c4</AttributeRef>
+				<AttributeRef>e7ec49a2-8123-4b45-b5ce-4fd303d0a155</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[10.0, 100.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Conversion</AttributeRef>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>LoadCarrierEquivalent</AttributeRef>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[2.0, 100.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Conversion</AttributeRef>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>LoadCarrierEquivalent</AttributeRef>
+				<AttributeRef>9b957081-37ee-44eb-ab12-a24dc86ee000</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[10.0, 125.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Conversion</AttributeRef>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>Pallet</AttributeRef>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[10.0, 100.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Conversion</AttributeRef>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>Pallet</AttributeRef>
+				<AttributeRef>9b957081-37ee-44eb-ab12-a24dc86ee000</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[1.0, 4.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>Conversion</AttributeRef>
+				<AttributeRef>Case</AttributeRef>
+				<AttributeRef>Tray</AttributeRef>
+				<AttributeRef>24b7d680-9c75-4b25-b5d6-3a27cfc02118</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[0.0, 1.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>MinCapacityRatio.Process</AttributeRef>
+				<AttributeRef>SemiAutomatic</AttributeRef>
+				<AttributeRef>Automatic</AttributeRef>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[1.0, 4.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorPresence.PresenceFraction</AttributeRef>
+				<AttributeRef>28e94377-f4e0-4763-8c98-2996c1519aa3</AttributeRef>
+				<AttributeRef>ac9caade-6a60-450f-b724-a5eedc65b65f</AttributeRef>
+				<AttributeRef>807612f6-931e-4e58-9ef6-1b07104245ce</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+		<Parameter>
+			<ParameterId>ValidationRule</ParameterId>
+			<ParameterValue>BoundedValue[1.0, 4.0]</ParameterValue>
+			<AttributeRefs>
+				<AttributeRef>OperatorPresence.PresenceFraction</AttributeRef>
+				<AttributeRef>3fcfaffe-9afd-4582-ba4f-abfd04f69dff</AttributeRef>
+				<AttributeRef>f57a24f1-d005-46e7-9c92-92bdb3237975</AttributeRef>
+				<AttributeRef>470ffa6b-28d0-46a9-911b-f8e8d4737012</AttributeRef>
+			</AttributeRefs>
+		</Parameter>
+	</Parameters>
+</ns4:TopProjectModel>

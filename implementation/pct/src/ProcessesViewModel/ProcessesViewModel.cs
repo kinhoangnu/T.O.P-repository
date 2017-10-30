@@ -1,41 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
-using com.vanderlande.wpf;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.ComponentModel;
 using System.Windows.Forms;
+using com.vanderlande.wpf;
 
 namespace Your
 {
-    class ProcessesViewModel : ContentViewModel
+    internal class ProcessesViewModel : ContentViewModel
     {
-        #region Fields and auto-implement properties
-        private Process selectedProcess;
-
         private static ObservableCollection<Process> observableProcess;
+        private Process selectedProcess;
 
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
         public RelayCommand UpdateCommand { get; private set; }
-        #endregion
 
-        #region Constructor
-        public ProcessesViewModel()
-        {
-            this.DeleteCommand = new RelayCommand((obj) => Delete());
-            this.AddCommand = new RelayCommand((obj) => Add());
-            ProcessList.Processes = new ObservableCollection<Process>();
-            ObservableProcess = new ObservableCollection<Process>();
-            SelectedProcess = new Process();
-        }
-        #endregion
-
-        #region Properties
         public static ObservableCollection<Process> ObservableProcess
         {
             get { return ProcessList.Processes; }
@@ -47,37 +25,40 @@ namespace Your
         /// </summary>
         public Process SelectedProcess
         {
-            get 
-            { 
-
-                return selectedProcess; 
-            }
+            get { return selectedProcess; }
             set
-            {                
+            {
                 ChangeProperty(ref selectedProcess, value);
                 if (SelectedProcess == null)
                 {
                     SelectedProcess = new Process();
                 }
-                if (SelectedProcess != null)
+                if (SelectedProcess == null)
                 {
-                    if (SelectedProcess.ObservableOutBuffer == null)
-                    {
-                        SelectedProcess.ObservableOutBuffer = BufferList.Buffers;
-                    }
+                    return;
+                }
+                if (SelectedProcess.ObservableOutBuffer == null)
+                {
+                    SelectedProcess.ObservableOutBuffer = BufferList.Buffers;
                 }
             }
         }
-        #endregion
 
-        #region Methods
-        
+        public ProcessesViewModel()
+        {
+            DeleteCommand = new RelayCommand(obj => Delete());
+            AddCommand = new RelayCommand(obj => Add());
+            ProcessList.Processes = new ObservableCollection<Process>();
+            ObservableProcess = new ObservableCollection<Process>();
+            SelectedProcess = new Process();
+        }
+
         /// <summary>
         /// Add a new item with properties filled by the input controls
         /// </summary>
         public void Add()
         {
-            ObservableProcess.Add(new Process()
+            ObservableProcess.Add(new Process
             {
                 PcName = "",
                 PcDescription = "",
@@ -94,10 +75,11 @@ namespace Your
         {
             if (CheckMatchedProcess() != null)
             {
-                MessageBox.Show("This Process is currently in attached to a Workstation Class ("+CheckMatchedProcess().WcName+"). Please:" +
-                       " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first" +
-                       "\n..Or.." +
-                       "\nChange the attached process to another one");
+                MessageBox.Show("This Process is currently in attached to a Workstation Class (" +
+                                CheckMatchedProcess().WcName + "). Please:" +
+                                " \n\nRemove the Workstation Class in \"WorkstationClasses\" tab first" +
+                                "\n..Or.." +
+                                "\nChange the attached process to another one");
             }
             else
             {
@@ -111,17 +93,9 @@ namespace Your
         /// <returns></returns>
         private WorkstationClass CheckMatchedProcess()
         {
-            foreach (WorkstationClass wc in WorkstationClassesViewModel.ObservableWorkstationClass)
-            {
-                if (wc.ProcessRef.PcName == SelectedProcess.PcName)
-                {
-                    return wc;
-                }
-            }
-            return null;
+            return
+                WorkstationClassesViewModel.ObservableWorkstationClass.FirstOrDefault(
+                    wc => wc.ProcessRef.PcName == SelectedProcess.PcName);
         }
-
-        #endregion
-
     }
 }

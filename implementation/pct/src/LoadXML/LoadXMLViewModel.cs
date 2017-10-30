@@ -67,6 +67,10 @@ namespace Your
 
         public void DirrectImport()
         {
+            if (!RestartApp())
+            {
+                return;
+            }
             Exception exception = null;
             ValidationEventHandler validationHandler = (sender, args) =>
             {
@@ -80,14 +84,9 @@ namespace Your
                 }
             };
             setting.ValidationEventHandler += validationHandler;
-            //var openfiledialog = new OpenFileDialog();
-            //if (openfiledialog.ShowDialog() != DialogResult.OK)
-            //{
-            //    return;
-            //}
             var loadpath = SelectedXmlFile.FileDirectory;
             var serializer = new XmlSerializer(typeof(TopProjectModel));
-            using (var reader = XmlReader.Create(loadpath))
+            using (var reader = XmlReader.Create(loadpath + "\\" + SelectedXmlFile.Filename))
             {
                 topConfigurationObject = (TopProjectModel) serializer.Deserialize(reader);
                 Load(topConfigurationObject);
@@ -108,7 +107,9 @@ namespace Your
         public void LoadFiles()
         {
             FileStrings = new List<xmlFile>();
-            var di = new DirectoryInfo(@"XML_Files");
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            var path2 = path.Replace("\\bin\\Debug", "");
+            var di = new DirectoryInfo(path2 + "\\Resources\\XML_files");
             Files = di.GetFiles();
             foreach (var f in Files)
             {
@@ -126,39 +127,42 @@ namespace Your
         /// </summary>
         public void Import()
         {
-            Exception exception = null;
-            ValidationEventHandler validationHandler = (sender, args) =>
+            if (RestartApp())
             {
-                if (args.Severity != XmlSeverityType.Error)
+                Exception exception = null;
+                ValidationEventHandler validationHandler = (sender, args) =>
+                {
+                    if (args.Severity != XmlSeverityType.Error)
+                    {
+                        return;
+                    }
+                    if (exception == null)
+                    {
+                        exception = args.Exception;
+                    }
+                };
+                setting.ValidationEventHandler += validationHandler;
+                var openfiledialog = new OpenFileDialog();
+                if (openfiledialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
-                if (exception == null)
+                var loadpath = openfiledialog.FileName;
+                var serializer = new XmlSerializer(typeof(TopProjectModel));
+                using (var reader = XmlReader.Create(loadpath))
                 {
-                    exception = args.Exception;
+                    topConfigurationObject = (TopProjectModel) serializer.Deserialize(reader);
+                    Load(topConfigurationObject);
                 }
-            };
-            setting.ValidationEventHandler += validationHandler;
-            var openfiledialog = new OpenFileDialog();
-            if (openfiledialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
+                ImportProdArea();
+                ImportBuffer();
+                ImportProcess();
+                ImportSecondaryActivity();
+                ImportWorkstationClass();
+                ImportWorkstationGroup();
+                ImportWorkstation();
+                ImportOperator();
             }
-            var loadpath = openfiledialog.FileName;
-            var serializer = new XmlSerializer(typeof(TopProjectModel));
-            using (var reader = XmlReader.Create(loadpath))
-            {
-                topConfigurationObject = (TopProjectModel) serializer.Deserialize(reader);
-                Load(topConfigurationObject);
-            }
-            ImportProdArea();
-            ImportBuffer();
-            ImportProcess();
-            ImportSecondaryActivity();
-            ImportWorkstationClass();
-            ImportWorkstationGroup();
-            ImportWorkstation();
-            ImportOperator();
         }
 
         /// <summary>
@@ -206,44 +210,43 @@ namespace Your
         /// <param name="topProjectModel"></param>
         public void Load(TopProjectModel topProjectModel)
         {
-            //try
-            //{
-            var database = new MemoryDb();
-            var inMemoryParameters = new Parameters(new ParameterMemoryDao(database));
-            var inMemoryResourceDefinitions = new ResourceDefinitions(new AreaMemoryDao(database),
-                new WorkstationMemoryDao(database),
-                new ProcessMemoryDao(database), new BufferMemoryDao(database),
-                new WorkstationClassMemoryDao(database),
-                new ResourceDefinitionMemoryDao<WorkstationGroupEntity>(database), new ActivityMemoryDao(database),
-                new PlannableActivityMemoryDao(database));
-            var inMemoryHumanResources = new HumanResources(inMemoryResourceDefinitions, null, null,
-                new OperatorDefinitionMemoryDao(database), new OperatorAlgorithmMemoryDao(database),
-                inMemoryParameters);
-            var inMemoryExtensibleEnumerations =
-                new ExtensibleEnumerations(new ExtensibleEnumerationMemoryDao(database));
-            var loader = new TopProjectConfigurationLoader(inMemoryResourceDefinitions, inMemoryHumanResources,
-                inMemoryParameters, inMemoryExtensibleEnumerations);
-            IParameterEditor inMemoryParameterEditor = new ParameterEditor(inMemoryParameters,
-                new ConfigurationElementMemoryDao(database));
-
-            loader.Load(topProjectModel);
-
-            var validationResult = inMemoryResourceDefinitions.Validate();
-            validationResult = validationResult.Concat(inMemoryHumanResources.Validate());
-            validationResult = validationResult.Concat(inMemoryParameterEditor.Validate());
-
-            if (validationResult.HasFailures())
+            try
             {
-                Exception e =
-                    new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
-                MessageBox.Show("There was an error. Details: " + e.Message);
-            }
+                var database = new MemoryDb();
+                var inMemoryParameters = new Parameters(new ParameterMemoryDao(database));
+                var inMemoryResourceDefinitions = new ResourceDefinitions(new AreaMemoryDao(database),
+                    new WorkstationMemoryDao(database),
+                    new ProcessMemoryDao(database), new BufferMemoryDao(database),
+                    new WorkstationClassMemoryDao(database),
+                    new ResourceDefinitionMemoryDao<WorkstationGroupEntity>(database), new ActivityMemoryDao(database),
+                    new PlannableActivityMemoryDao(database));
+                var inMemoryHumanResources = new HumanResources(inMemoryResourceDefinitions, null, null,
+                    new OperatorDefinitionMemoryDao(database), new OperatorAlgorithmMemoryDao(database),
+                    inMemoryParameters);
+                var inMemoryExtensibleEnumerations =
+                    new ExtensibleEnumerations(new ExtensibleEnumerationMemoryDao(database));
+                var loader = new TopProjectConfigurationLoader(inMemoryResourceDefinitions, inMemoryHumanResources,
+                    inMemoryParameters, inMemoryExtensibleEnumerations);
+                IParameterEditor inMemoryParameterEditor = new ParameterEditor(inMemoryParameters,
+                    new ConfigurationElementMemoryDao(database));
 
-            //}
-            //catch (Exception e)
-            //{
-            //    MessageBox.Show("There was an error. Details: " + e.Message);
-            //}
+                loader.Load(topProjectModel);
+
+                var validationResult = inMemoryResourceDefinitions.Validate();
+                validationResult = validationResult.Concat(inMemoryHumanResources.Validate());
+                validationResult = validationResult.Concat(inMemoryParameterEditor.Validate());
+
+                if (validationResult.HasFailures())
+                {
+                    Exception e =
+                        new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
+                    MessageBox.Show("There was an error. Details: \n" + e.Message);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("There was an error. Details: \n" + e.Message);
+            }
             ConfigurationEvents.Instance.RaiseStartedLoadingConfiguration();
         }
 
@@ -889,23 +892,21 @@ namespace Your
             }
         }
 
-        private List<string> DirSearch(string sDir)
+        public bool RestartApp()
         {
-            var files = new List<string>();
-            try
+            if (BufferList.Buffers.Count <= 1)
             {
-                files.AddRange(Directory.GetFiles(sDir));
-                foreach (var d in Directory.GetDirectories(sDir))
-                {
-                    files.AddRange(DirSearch(d));
-                }
+                return true;
             }
-            catch (Exception excpt)
+            var dialogResult =
+                MessageBox.Show("You need to restart before loading another file, \n Do you want to restart?",
+                    "Warning!",
+                    MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show(excpt.Message);
+                Application.Restart();
             }
-
-            return files;
+            return false;
         }
     }
 }
