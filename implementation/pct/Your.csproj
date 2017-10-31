@@ -82,10 +82,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="src\LoadXML\xmlFile.cs" />
+    <Compile Include="src\Models\OperatorPresences.cs" />
     <Compile Include="src\Models\Operator.cs" />
+    <Compile Include="src\Models\OperatorPresencesList.cs" />
     <Compile Include="src\Models\OperatorList.cs" />
     <Compile Include="src\Models\OperatorActivity.cs" />
     <Compile Include="src\Models\OperatorActivityList.cs" />
+    <Compile Include="src\OperatorPresencesViewModel\OperatorPresencesViewModel.cs" />
+    <Compile Include="src\OperatorPresencesViewModel\OperatorPresencesView.xaml.cs">
+      <DependentUpon>OperatorPresencesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\OperatorActivitiesViewModel\OperatorsActivitiesView.xaml.cs">
+      <DependentUpon>OperatorsActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\OperatorActivitiesViewModel\OperatorActivitiesViewModel.cs" />
     <Compile Include="src\OperatorViewModel\OperatorsView.xaml.cs">
       <DependentUpon>OperatorsView.xaml</DependentUpon>
     </Compile>
@@ -158,6 +168,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="src\OperatorPresencesViewModel\OperatorPresencesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\OperatorActivitiesViewModel\OperatorsActivitiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="src\OperatorViewModel\OperatorsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

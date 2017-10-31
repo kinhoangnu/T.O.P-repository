@@ -63,6 +63,37 @@ namespace Your
 
         public void DirrectExport()
         {
+            try
+            {
+                var serializer = new XmlSerializer(typeof(TopProjectModel));
+                const int i = -1;
+                ExportBuffer(i);
+                ExportProdArea(i);
+                ExportWorkstationGroup(i);
+                ExportSecondaryActivity(i);
+                ExportProcess(i);
+                ExportWorkstation(i);
+                ExportWorkstationClass(i);
+                ExportOperator(i);
+                ExportOperatorActivity(i);
+                ExportOperatorPresences(i);
+
+                var xmlDocument = new XmlDocument();
+                var savepath = SelectedXmlFile.FileDirectory + "\\" + SelectedXmlFile.Filename;
+                using (var stream = new MemoryStream())
+                {
+                    Load(topConfigurationObject);
+                    serializer.Serialize(stream, topConfigurationObject);
+                    stream.Position = 0;
+                    xmlDocument.Load(stream);
+                    xmlDocument.Save(savepath);
+                    stream.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionMessage(e);
+            }
         }
 
         public void DirrectImport()
@@ -99,6 +130,8 @@ namespace Your
             ImportWorkstationGroup();
             ImportWorkstation();
             ImportOperator();
+            ImportOperatorActivity();
+            ImportOperatorPresences();
         }
 
         /// <summary>
@@ -162,6 +195,8 @@ namespace Your
                 ImportWorkstationGroup();
                 ImportWorkstation();
                 ImportOperator();
+                ImportOperatorActivity();
+                ImportOperatorPresences();
             }
         }
 
@@ -181,6 +216,9 @@ namespace Your
                 ExportProcess(i);
                 ExportWorkstation(i);
                 ExportWorkstationClass(i);
+                ExportOperator(i);
+                ExportOperatorActivity(i);
+                ExportOperatorPresences(i);
 
                 var xmlDocument = new XmlDocument();
                 var saveFileDialog = new SaveFileDialog();
@@ -899,6 +937,104 @@ namespace Your
             }
         }
 
+        public void ExportOperator(int i)
+        {
+            topConfigurationObject.Operators =
+                new FM.Top.TopIntTypes.Operator[OperatorList.Operators.Count];
+            foreach (var o in OperatorList.Operators)
+            {
+                i += 1;
+                topConfigurationObject.Operators[i] =
+                    new FM.Top.TopIntTypes.Operator
+                    {
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = o.Uuid,
+                            Description = o.ODescription,
+                            Name = o.OName
+                        },
+                        UseCustomUpperLimit = o.OUseCustomUpperLimit
+                    };
+            }
+        }
+
+        public void ImportOperatorActivity()
+        {
+            foreach (var operatorActivity in topConfigurationObject.OperatorActivities)
+            {
+                OperatorActivityList.OperatorActivities.Add(new OperatorActivity
+                {
+                    Uuid = operatorActivity.ObjectIdentification.UUID,
+                    Unit = operatorActivity.Unit,
+                    UseCustomBoundaries = operatorActivity.UseCustomBoundaries,
+                    UseCustomFractional = operatorActivity.UseCustomFractional,
+                    UseCustomOffset = operatorActivity.UseCustomOffset,
+                    OperatorRef = OperatorList.GetAOperator(operatorActivity.OperatorRef),
+                    ProcessRef = ProcessList.GetAProcess(operatorActivity.ProcessRef)
+                });
+            }
+        }
+
+        public void ExportOperatorActivity(int i)
+        {
+            topConfigurationObject.OperatorActivities =
+                new FM.Top.TopIntTypes.OperatorActivity[OperatorActivityList.OperatorActivities.Count];
+            foreach (var o in OperatorActivityList.OperatorActivities)
+            {
+                i += 1;
+                topConfigurationObject.OperatorActivities[i] =
+                    new FM.Top.TopIntTypes.OperatorActivity
+                    {
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = o.Uuid
+                        },
+                        OperatorRef = o.OperatorRef.Uuid,
+                        ProcessRef = o.ProcessRef.Uuid,
+                        Unit = o.Unit,
+                        UseCustomFractional = o.UseCustomFractional,
+                        UseCustomBoundaries = o.UseCustomBoundaries,
+                        UseCustomOffset = o.UseCustomOffset
+                    };
+            }
+        }
+
+        public void ImportOperatorPresences()
+        {
+            foreach (var operatorPresences in topConfigurationObject.OperatorPresences)
+            {
+                OperatorPresencesList.OperatorPresences.Add(new OperatorPresences
+                {
+                    Uuid = operatorPresences.ObjectIdentification.UUID,
+                    OperatorRef = OperatorList.GetAOperator(operatorPresences.OperatorRef),
+                    ProcessRef = ProcessList.GetAProcess(operatorPresences.ProcessRef),
+                    WorkstationClassRef =
+                        WorkstationClassList.GetAWorkstationClass(operatorPresences.WorkstationClassRef)
+                });
+            }
+        }
+
+        public void ExportOperatorPresences(int i)
+        {
+            topConfigurationObject.OperatorPresences =
+                new OperatorPresence[OperatorPresencesList.OperatorPresences.Count];
+            foreach (var o in OperatorPresencesList.OperatorPresences)
+            {
+                i += 1;
+                topConfigurationObject.OperatorPresences[i] =
+                    new OperatorPresence
+                    {
+                        ObjectIdentification = new ObjectIdentification
+                        {
+                            UUID = o.Uuid
+                        },
+                        OperatorRef = o.OperatorRef.Uuid,
+                        ProcessRef = o.ProcessRef.Uuid,
+                        WorkstationClassRef = o.WorkstationClassRef.Uuid
+                    };
+            }
+        }
+
         public void ExceptionMessage(Exception e)
         {
             if (e.StackTrace.Contains("Buffer"))
@@ -924,6 +1060,18 @@ namespace Your
             else if (e.StackTrace.Contains("Workstation"))
             {
                 MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: Workstation");
+            }
+            else if (e.StackTrace.Contains("OperatorActivit"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: OperatorActivity");
+            }
+            else if (e.StackTrace.Contains("OperatorPresenc"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: OperatorPresences");
+            }
+            else if (e.StackTrace.Contains("Operator"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: Operator");
             }
             else
             {

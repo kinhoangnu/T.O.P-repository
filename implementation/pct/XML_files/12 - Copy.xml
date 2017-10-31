@@ -282,9 +282,19 @@
     </SecondaryActivity>
     <SecondaryActivity>
       <ObjectIdentification>
-        <UUID>8091ac62-76ad-4b88-b81e-525c83300183</UUID>
-        <Name>3213213</Name>
+        <UUID>79ac6ef8-e86f-4355-a25f-743967a51ef4</UUID>
+        <Name>111</Name>
+        <Description>111</Description>
       </ObjectIdentification>
+      <CommunicationId>111</CommunicationId>
+    </SecondaryActivity>
+    <SecondaryActivity>
+      <ObjectIdentification>
+        <UUID>35ee18af-25e3-48de-97ab-5b4332c91792</UUID>
+        <Name>222</Name>
+        <Description>222</Description>
+      </ObjectIdentification>
+      <CommunicationId>222</CommunicationId>
     </SecondaryActivity>
   </SecondaryActivities>
   <WorkstationClasses xmlns="">

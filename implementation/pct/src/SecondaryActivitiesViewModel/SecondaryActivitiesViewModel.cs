@@ -8,6 +8,7 @@ namespace Your
     internal class SecondaryActivitiesViewModel : ContentViewModel
     {
         public SecondaryActivityList SClist;
+        private SecondaryActivity selectedSecondaryActivity;
         private ObservableCollection<SecondaryActivity> observableSecondaryActivity;
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddCommand { get; set; }
@@ -21,7 +22,11 @@ namespace Your
         /// <summary>
         /// Item that is being selected on the list
         /// </summary>
-        public static SecondaryActivity SelectedSecondaryActivity { get; set; }
+        public SecondaryActivity SelectedSecondaryActivity
+        {
+            get { return selectedSecondaryActivity; }
+            set { ChangeProperty(ref selectedSecondaryActivity, value); }
+        }
 
         public SecondaryActivitiesViewModel()
         {
@@ -67,7 +72,7 @@ namespace Your
         /// Return true if a matched Secondary Activity is found being used in a item of WorkstationClass list
         /// </summary>
         /// <returns></returns>
-        private static WorkstationClass CheckMatchedSecondaryActivity()
+        private WorkstationClass CheckMatchedSecondaryActivity()
         {
             return
                 WorkstationClassesViewModel.ObservableWorkstationClass.FirstOrDefault(

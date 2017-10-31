@@ -49,6 +49,8 @@ namespace Your
             mainWnd.RegisterContent(typeof(WorkstationGroupViewModel));
             mainWnd.RegisterContent(typeof(WorkstationsViewModel));
             mainWnd.RegisterContent(typeof(OperatorsViewModel));
+            mainWnd.RegisterContent(typeof(OperatorActivitiesViewModel));
+            mainWnd.RegisterContent(typeof(OperatorPresencesViewModel));
 
             mainWnd.ActivateContent(typeof(LoadXmlViewModel));
             mainWnd.RegisterContent(typeof(WarningsViewModel));

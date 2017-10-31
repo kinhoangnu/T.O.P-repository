@@ -55,7 +55,6 @@ namespace Your
 
         public SecondaryActivity()
         {
-            IsSelected = false;
             Uuid = Guid.NewGuid().ToString();
         }
     }
