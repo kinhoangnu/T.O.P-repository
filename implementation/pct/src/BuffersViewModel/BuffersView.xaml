@@ -24,6 +24,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding BName}" />
                 <DataGridTextColumn Header="Description" Binding="{Binding BDescription}" Width="*" />
+                <DataGridTextColumn Header="Communication ID" Width="*" Binding="{Binding BComId}" />
                 <DataGridTextColumn Header="Unit" Binding="{Binding BUnit}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>

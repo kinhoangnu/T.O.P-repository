@@ -280,6 +280,12 @@
       </ObjectIdentification>
       <CommunicationId>MAINTENANCE_MODULE</CommunicationId>
     </SecondaryActivity>
+    <SecondaryActivity>
+      <ObjectIdentification>
+        <UUID>8091ac62-76ad-4b88-b81e-525c83300183</UUID>
+        <Name>3213213</Name>
+      </ObjectIdentification>
+    </SecondaryActivity>
   </SecondaryActivities>
   <WorkstationClasses xmlns="">
     <WorkstationClass>
@@ -297,12 +303,6 @@
         </WCSecondaryActivity>
         <WCSecondaryActivity>
           <ObjectRef>b898b68d-e6ce-4698-9783-8d963845bf54</ObjectRef>
-        </WCSecondaryActivity>
-        <WCSecondaryActivity>
-          <ObjectRef>1c3b0dcb-dc80-4f02-b893-07ab5e0c4ecc</ObjectRef>
-        </WCSecondaryActivity>
-        <WCSecondaryActivity>
-          <ObjectRef>5ed9a099-f8c7-4730-bd40-51c912401180</ObjectRef>
         </WCSecondaryActivity>
       </SecondaryActivities>
     </WorkstationClass>

@@ -6,13 +6,6 @@ namespace Your
     public class Buffer : ContentViewModel
     {
         private string bName;
-        private string isValid;
-
-        public string IsValid
-        {
-            get { return isValid; }
-            set { ChangeProperty(ref isValid, value); }
-        }
 
         public bool IsSelected { get; set; }
 

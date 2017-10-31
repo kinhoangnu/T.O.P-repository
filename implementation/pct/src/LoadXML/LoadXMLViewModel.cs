@@ -109,7 +109,7 @@ namespace Your
             FileStrings = new List<xmlFile>();
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var path2 = path.Replace("\\bin\\Debug", "");
-            var di = new DirectoryInfo(path2 + "\\Resources\\XML_files");
+            var di = new DirectoryInfo(path2 + "\\XML_files");
             Files = di.GetFiles();
             foreach (var f in Files)
             {
@@ -170,32 +170,39 @@ namespace Your
         /// </summary>
         public void Export()
         {
-            var serializer = new XmlSerializer(typeof(TopProjectModel));
-            var i = -1;
-            ExportBuffer(i);
-            ExportProdArea(i);
-            ExportWorkstationGroup(i);
-            ExportSecondaryActivity(i);
-            ExportProcess(i);
-            ExportWorkstation(i);
-            ExportWorkstationClass(i);
-
-            var xmlDocument = new XmlDocument();
-            var saveFileDialog = new SaveFileDialog();
-
-            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            try
             {
-                return;
+                var serializer = new XmlSerializer(typeof(TopProjectModel));
+                const int i = -1;
+                ExportBuffer(i);
+                ExportProdArea(i);
+                ExportWorkstationGroup(i);
+                ExportSecondaryActivity(i);
+                ExportProcess(i);
+                ExportWorkstation(i);
+                ExportWorkstationClass(i);
+
+                var xmlDocument = new XmlDocument();
+                var saveFileDialog = new SaveFileDialog();
+
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                var savepath = saveFileDialog.FileName;
+                using (var stream = new MemoryStream())
+                {
+                    Load(topConfigurationObject);
+                    serializer.Serialize(stream, topConfigurationObject);
+                    stream.Position = 0;
+                    xmlDocument.Load(stream);
+                    xmlDocument.Save(savepath);
+                    stream.Close();
+                }
             }
-            var savepath = saveFileDialog.FileName;
-            using (var stream = new MemoryStream())
+            catch (Exception e)
             {
-                Load(topConfigurationObject);
-                serializer.Serialize(stream, topConfigurationObject);
-                stream.Position = 0;
-                xmlDocument.Load(stream);
-                xmlDocument.Save(savepath);
-                stream.Close();
+                ExceptionMessage(e);
             }
         }
 
@@ -240,12 +247,12 @@ namespace Your
                 {
                     Exception e =
                         new ValidationException(validationResult.Results.SelectMany(result => result.Errors).ToArray());
-                    MessageBox.Show("There was an error. Details: \n" + e.Message);
+                    MessageBox.Show("There was a \"Validation\" error: \n" + e.Message);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("There was an error. Details: \n" + e.Message);
+                ExceptionMessage(e);
             }
             ConfigurationEvents.Instance.RaiseStartedLoadingConfiguration();
         }
@@ -892,9 +899,41 @@ namespace Your
             }
         }
 
+        public void ExceptionMessage(Exception e)
+        {
+            if (e.StackTrace.Contains("Buffer"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: Buffer");
+            }
+            else if (e.StackTrace.Contains("productionAreas)"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: ProductionArea");
+            }
+            else if (e.StackTrace.Contains("Process"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: Process");
+            }
+            else if (e.StackTrace.Contains("WorkstationClass"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: WorkstationClass");
+            }
+            else if (e.StackTrace.Contains("WorkstationGroup"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: WorkstationGroup");
+            }
+            else if (e.StackTrace.Contains("Workstation"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: Workstation");
+            }
+            else
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
         public bool RestartApp()
         {
-            if (BufferList.Buffers.Count <= 1)
+            if (BufferList.Buffers.Count < 1)
             {
                 return true;
             }
@@ -905,6 +944,7 @@ namespace Your
             if (dialogResult == DialogResult.Yes)
             {
                 Application.Restart();
+                Environment.Exit(0);
             }
             return false;
         }
