@@ -22,10 +22,12 @@
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
                 </Style>
-                <local:EmptyStringConverter x:Key="EmptyStringConverter"/>
+                <local:EmptyStringConverter x:Key="EmptyStringConverter" />
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding WcName, Converter={StaticResource EmptyStringConverter}}" Width="*" />
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding WcName, Converter={StaticResource EmptyStringConverter}}"
+                                    Width="*" />
                 <DataGridTextColumn Header="Type" Binding="{Binding WcType}" Width="*" />
                 <DataGridTemplateColumn Header="Handling type">
                     <DataGridTemplateColumn.CellTemplate>
@@ -41,7 +43,8 @@
                         <DataTemplate>
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
                                       ItemsSource="{Binding Path=ObservableProcess}"
-                                      Text="{Binding Path=ProcessRef.PcName}" DisplayMemberPath="PcName" />
+                                      Text="{Binding Path=ProcessRef.PcName}" DisplayMemberPath="PcName"
+                                      SelectedItem="{Binding ProcessRef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

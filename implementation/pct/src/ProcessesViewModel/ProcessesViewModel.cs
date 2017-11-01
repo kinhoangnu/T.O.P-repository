@@ -34,6 +34,10 @@ namespace Your
                 {
                     return;
                 }
+                if (SelectedProcess.ObservableProdArea == null)
+                {
+                    SelectedProcess.ObservableProdArea = ProdAreaList.ProdAreas;
+                }
                 if (SelectedProcess.ObservableOutBuffer == null)
                 {
                     SelectedProcess.ObservableOutBuffer = BufferList.Buffers;

@@ -33,9 +33,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
-                                      ItemsSource="{Binding Path=ObservableProdArea,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding Path=ObservableProdArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Text="{Binding Path=ProdRef.PName}"
-                                      DisplayMemberPath="PName" />
+                                      DisplayMemberPath="PName"
+                                      SelectedItem="{Binding ProdRef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -44,8 +45,9 @@
                         <DataTemplate>
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
                                       ItemsSource="{Binding Path=ObservableBuffer}"
-                                      Text="{Binding Path=InbufferRef.BName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      DisplayMemberPath="BName" />
+                                      Text="{Binding Path=InbufferRef.BName}"
+                                      DisplayMemberPath="BName"
+                                      SelectedItem="{Binding InbufferRef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
