@@ -77,10 +77,7 @@ namespace Your
         /// <returns></returns>
         private Process CheckMatchedBuffer()
         {
-            return ProcessList.Processes != null
-                ? ProcessesViewModel.ObservableProcess.FirstOrDefault(
-                    p => p.InbufferRef.BName == SelectedBuffer.BName || p.OutbufferRef.BName == SelectedBuffer.BName)
-                : null;
+            return ProcessList.Processes.FirstOrDefault(process => process.InbufferRef.BName == SelectedBuffer.BName);
         }
     }
 }

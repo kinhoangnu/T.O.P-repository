@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Your.ProcessesView"
+             xmlns:local="clr-namespace:Your"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -20,16 +21,19 @@
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
                 </Style>
+                <local:EmptyStringConverter x:Key="EmptyStringConverter" />
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding PcName}" Width="*" />
+                <DataGridTextColumn Header="Name"
+                                    Binding="{Binding PcName, Converter={StaticResource EmptyStringConverter}}"
+                                    Width="*" />
                 <DataGridTextColumn Header="Description" Binding="{Binding PcDescription}" Width="*" />
                 <DataGridTextColumn Header="Communication ID" Binding="{Binding PcComId}" Width="*" />
                 <DataGridTemplateColumn Header="Production Area Reference">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
-                                      ItemsSource="{Binding Path=ObservableProdArea,UpdateSourceTrigger=LostFocus}"
+                                      ItemsSource="{Binding Path=ObservableProdArea,UpdateSourceTrigger=PropertyChanged}"
                                       Text="{Binding Path=ProdRef.PName}"
                                       DisplayMemberPath="PName" />
                         </DataTemplate>
@@ -40,7 +44,7 @@
                         <DataTemplate>
                             <ComboBox Width="200" HorizontalAlignment="Right" Margin="8,0,0,0"
                                       ItemsSource="{Binding Path=ObservableBuffer}"
-                                      Text="{Binding Path=InbufferRef.BName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                      Text="{Binding Path=InbufferRef.BName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       DisplayMemberPath="BName" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

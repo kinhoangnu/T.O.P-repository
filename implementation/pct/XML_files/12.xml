@@ -280,12 +280,6 @@
       </ObjectIdentification>
       <CommunicationId>MAINTENANCE_MODULE</CommunicationId>
     </SecondaryActivity>
-    <SecondaryActivity>
-      <ObjectIdentification>
-        <UUID>8091ac62-76ad-4b88-b81e-525c83300183</UUID>
-        <Name>3213213</Name>
-      </ObjectIdentification>
-    </SecondaryActivity>
   </SecondaryActivities>
   <WorkstationClasses xmlns="">
     <WorkstationClass>

@@ -246,6 +246,22 @@
       </OutBuffers>
       <ExcludeFromKPIs>false</ExcludeFromKPIs>
     </Process>
+    <Process>
+      <ObjectIdentification>
+        <UUID>e0d96bb0-ab33-4cce-870c-64d8c2ccc948</UUID>
+        <Name>ewqe</Name>
+        <Description>ewqewq</Description>
+      </ObjectIdentification>
+      <CommunicationId>ewqeq</CommunicationId>
+      <ProductionAreaRef>defdacc8-0151-4f36-a73b-68b7dfe004c1</ProductionAreaRef>
+      <IsReplenishment>false</IsReplenishment>
+      <InBuffer>7f696971-15d5-49d7-9169-ac19591f3a57</InBuffer>
+      <OutBuffers>
+        <ObjectRef>cd650d0e-631b-4607-803d-fe62d4ca693c</ObjectRef>
+        <ObjectRef>dfaf47c4-1a1c-4f45-8365-7fc4ed4e6a37</ObjectRef>
+      </OutBuffers>
+      <ExcludeFromKPIs>false</ExcludeFromKPIs>
+    </Process>
   </Processes>
   <SecondaryActivities xmlns="">
     <SecondaryActivity>
@@ -279,22 +295,6 @@
         <Description>Workstation + aisle maintenance</Description>
       </ObjectIdentification>
       <CommunicationId>MAINTENANCE_MODULE</CommunicationId>
-    </SecondaryActivity>
-    <SecondaryActivity>
-      <ObjectIdentification>
-        <UUID>79ac6ef8-e86f-4355-a25f-743967a51ef4</UUID>
-        <Name>111</Name>
-        <Description>111</Description>
-      </ObjectIdentification>
-      <CommunicationId>111</CommunicationId>
-    </SecondaryActivity>
-    <SecondaryActivity>
-      <ObjectIdentification>
-        <UUID>35ee18af-25e3-48de-97ab-5b4332c91792</UUID>
-        <Name>222</Name>
-        <Description>222</Description>
-      </ObjectIdentification>
-      <CommunicationId>222</CommunicationId>
     </SecondaryActivity>
   </SecondaryActivities>
   <WorkstationClasses xmlns="">

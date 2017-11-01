@@ -5,19 +5,13 @@ namespace Your
 {
     public class Buffer : ContentViewModel
     {
-        private string bName;
-
         public bool IsSelected { get; set; }
 
         public string Uuid { get; set; }
 
         public string BDescription { get; set; }
 
-        public string BName
-        {
-            get { return bName; }
-            set { ChangeProperty(ref bName, value); }
-        }
+        public string BName { get; set; }
 
         public string BComId { get; set; }
 

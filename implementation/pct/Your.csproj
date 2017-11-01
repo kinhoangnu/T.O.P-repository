@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\EmptyStringConverter.cs" />
     <Compile Include="src\LoadXML\xmlFile.cs" />
     <Compile Include="src\Models\OperatorPresences.cs" />
     <Compile Include="src\Models\Operator.cs" />

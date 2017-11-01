@@ -29,10 +29,7 @@ namespace Your
             set
             {
                 ChangeProperty(ref selectedProcess, value);
-                if (SelectedProcess == null)
-                {
-                    SelectedProcess = new Process();
-                }
+
                 if (SelectedProcess == null)
                 {
                     return;

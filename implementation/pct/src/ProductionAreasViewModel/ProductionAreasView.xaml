@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Your.ProductionAreasView"
+             xmlns:local="clr-namespace:Your"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -20,9 +21,10 @@
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Visible" />
                 </Style>
+                <local:EmptyStringConverter x:Key="EmptyStringConverter"/>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding PName}" Width="*" />
+                <DataGridTextColumn Header="Name" Binding="{Binding PName, Converter={StaticResource EmptyStringConverter}}" Width="*" />
                 <DataGridTextColumn Header="Description" Binding="{Binding PDescription}" Width="*" />
                 <DataGridTextColumn Header="Communication ID" Binding="{Binding PComId}" Width="*" />
                 <DataGridTemplateColumn Header="Production Type">

@@ -94,7 +94,7 @@ namespace Your
         {
             foreach (var p in ProcessesViewModel.ObservableProcess)
             {
-                if (p.ProdRef.PName == SelectedProdArea.PName)
+                if (p.ProdRef.Uuid == SelectedProdArea.Uuid)
                 {
                     return p;
                 }

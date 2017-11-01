@@ -176,6 +176,7 @@ namespace Your
                 };
                 setting.ValidationEventHandler += validationHandler;
                 var openfiledialog = new OpenFileDialog();
+                openfiledialog.Filter = "Xml (*.xml)|*.xml";
                 if (openfiledialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
@@ -222,19 +223,22 @@ namespace Your
 
                 var xmlDocument = new XmlDocument();
                 var saveFileDialog = new SaveFileDialog();
-
+                saveFileDialog.Filter = "Xml (*.xml)|*.xml";
+                saveFileDialog.DefaultExt = "xml";
+                saveFileDialog.AddExtension = true;
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
-                var savepath = saveFileDialog.FileName;
+
                 using (var stream = new MemoryStream())
                 {
                     Load(topConfigurationObject);
                     serializer.Serialize(stream, topConfigurationObject);
                     stream.Position = 0;
                     xmlDocument.Load(stream);
-                    xmlDocument.Save(savepath);
+                    xmlDocument.Save(
+                        saveFileDialog.FileName);
                     stream.Close();
                 }
             }
@@ -1056,6 +1060,10 @@ namespace Your
             else if (e.StackTrace.Contains("WorkstationGroup"))
             {
                 MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: WorkstationGroup");
+            }
+            else if (e.StackTrace.Contains("SecondaryActivit"))
+            {
+                MessageBox.Show("There was a \"XSD\" error: \n" + e.Message + "\nClass: SecondaryActivity");
             }
             else if (e.StackTrace.Contains("Workstation"))
             {

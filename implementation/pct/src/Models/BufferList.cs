@@ -18,6 +18,18 @@ namespace Your
             return Buffers;
         }
 
+        public static Buffer ReturnaBuffer(string s)
+        {
+            foreach (var b in Buffers)
+            {
+                if (b.BName == s)
+                {
+                    return b;
+                }
+            }
+            return null;
+        }
+
         public static Buffer GetABuffer(string s)
         {
             //generateBuffers();

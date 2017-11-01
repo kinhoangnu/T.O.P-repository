@@ -23,7 +23,7 @@ namespace Your
             return null;
         }
 
-        public ProdArea ReturnAProdArea(string s)
+        public static ProdArea ReturnAProdArea(string s)
         {
             foreach (var p in ProdAreas)
             {
